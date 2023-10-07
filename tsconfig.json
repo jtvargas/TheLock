@@ -26,6 +26,11 @@
 
       "@type": ["src/types/index"],
       "@type/*": ["src/types/*"],
+
+      "@constants": ["src/constants"],
+      
+      "@hooks": ["src/hooks/index"],
+      "@hooks/*": ["src/hooks/*"],
     }
   }
 }

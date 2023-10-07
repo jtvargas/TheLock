@@ -1,3 +1,27 @@
-import { Text } from 'react-native';
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import { Text as TextRN } from 'react-native';
+import { TextProps } from '@type/typography';
+import { useStyles } from '@core/Theme';
+
+const Text = (props: TextProps) => {
+  const { type = 'body', weight = 'regular', style, children } = props;
+  const { theme } = useStyles();
+
+  return (
+    <TextRN
+      {...props}
+      style={[
+        {
+          ...theme.textVariants[type],
+          ...theme.textVariants[weight],
+        },
+        style,
+      ]}
+    >
+      {children}
+    </TextRN>
+  );
+};
 
 export default Text;

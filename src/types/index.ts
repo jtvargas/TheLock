@@ -11,6 +11,8 @@ import {
   ScreenKey,
 } from './navigation';
 
+import Typography from './typography';
+
 export {
   RootStackParamList,
   NativeStackScreenProps,
@@ -22,4 +24,5 @@ export {
   SettingsScreenProps,
   AboutScreenProps,
   ScreenKey,
+  Typography,
 };
