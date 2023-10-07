@@ -1,4 +1,3 @@
-import { StyleSheet, View } from 'react-native';
-import { Text } from './core';
+import { Text, Icon } from './core';
 
-export { Text, View, StyleSheet };
+export { Text, Icon };

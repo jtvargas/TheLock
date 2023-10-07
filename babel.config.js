@@ -15,6 +15,8 @@ module.exports = function (api) {
             '@redux': './src/redux',
             '@utils': './src/utils',
             '@type': './src/types',
+            '@constants': './src/constants',
+            '@hooks': './src/hooks',
           },
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
