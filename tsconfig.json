@@ -15,14 +15,17 @@
       "@containers": ["src/containers/index"],
       "@containers/*": ["src/containers/*"],
 
+      "@screens": ["src/screens/index"],
+      "@screens/*": ["src/screens/*"],
+
       "@redux": ["src/redux/index"],
       "@redux/*": ["src/redux/*"],
 
       "@utils": ["src/utils/index"],
       "@utils/*": ["src/utils/*"],
 
-      "@types": ["src/types/index"],
-      "@types/*": ["src/types/*"],
+      "@type": ["src/types/index"],
+      "@type/*": ["src/types/*"],
     }
   }
 }
