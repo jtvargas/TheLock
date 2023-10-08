@@ -1,3 +1,4 @@
-import { Text, Icon } from './core';
+import { Text, Icon, Divider } from './core';
+import CardAction from './CardAction';
 
-export { Text, Icon };
+export { Text, Icon, Divider, CardAction };
