@@ -1,6 +1,8 @@
 import React from 'react';
 import { ActivityIndicator, StatusBar } from 'react-native';
 import { UnistylesTheme } from 'react-native-unistyles';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { Theme } from '@core';
 
 // Navigation
@@ -15,9 +17,11 @@ export default function App() {
   }
 
   return (
-    <UnistylesTheme theme={Theme}>
-      <NavigationContainer />
-      <StatusBar barStyle="light-content" />
-    </UnistylesTheme>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <UnistylesTheme theme={Theme}>
+        <NavigationContainer />
+        <StatusBar barStyle="light-content" />
+      </UnistylesTheme>
+    </GestureHandlerRootView>
   );
 }

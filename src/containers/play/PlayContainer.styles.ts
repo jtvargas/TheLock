@@ -5,7 +5,7 @@ const styles = createStyleSheet(theme => ({
     flex: 1,
     backgroundColor: theme.colors.mainBackground,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
 }));
 

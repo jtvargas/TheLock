@@ -115,6 +115,7 @@ const HomeContainer = (props: HomeContainerProps) => {
       <Text type="title" weight="bold">
         The Lock.
       </Text>
+      <Divider spacing="xs" />
       <Divider spacing="sm" />
       {renderTopActions()}
       <Divider spacing="xs" />
