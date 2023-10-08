@@ -22,6 +22,29 @@ const theme = {
     circleInput: {
       color: palette.slateGray,
     },
+    icon: {
+      play: {
+        color: palette.teal,
+      },
+      practice: {
+        color: palette.pastelYellow,
+      },
+      difficulty: {
+        color: palette.lightBlue,
+      },
+      about: {
+        color: palette.coral,
+      },
+      personalize: {
+        color: palette.lavender,
+      },
+      stats: {
+        color: palette.pastelPink,
+      },
+      settings: {
+        color: palette.white,
+      },
+    },
   },
   spacing: {
     xs: scale(4),

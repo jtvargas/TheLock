@@ -12,11 +12,12 @@ const Text = (props: TextProps) => {
     <TextRN
       {...props}
       style={[
+        style,
         {
           ...theme.textVariants[type],
           ...theme.textVariants[weight],
+          color: theme.colors.text,
         },
-        style,
       ]}
     >
       {children}

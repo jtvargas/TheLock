@@ -21,7 +21,11 @@ function NavigationContainer() {
   return (
     <NavigationContainerRNN>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="Play" component={PlayScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Personalize" component={PersonalizeScreen} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StatusBar } from 'react-native';
 import { UnistylesTheme } from 'react-native-unistyles';
 import { Theme } from '@core';
 
@@ -17,6 +17,7 @@ export default function App() {
   return (
     <UnistylesTheme theme={Theme}>
       <NavigationContainer />
+      <StatusBar barStyle="light-content" />
     </UnistylesTheme>
   );
 }
