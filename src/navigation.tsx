@@ -12,21 +12,35 @@ import {
   DifficultyScreen,
   AboutScreen,
 } from '@screens';
+import { useStyles } from '@core/Theme';
 
 import { RootStackParamList } from '@type';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function NavigationContainer() {
+  const { theme } = useStyles();
+
   return (
     <NavigationContainerRNN>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: '',
+          headerTintColor: theme.colors.onMainBackground,
+        }}
+      >
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Play" component={PlayScreen} />
+        <Stack.Screen
+          name="Play"
+          component={PlayScreen}
+          options={{ headerBackTitleVisible: false }}
+        />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Personalize" component={PersonalizeScreen} />
         <Stack.Screen name="Stats" component={StatsScreen} />

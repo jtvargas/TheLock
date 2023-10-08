@@ -5,7 +5,13 @@ import { TextProps } from '@type/typography';
 import { useStyles } from '@core/Theme';
 
 const Text = (props: TextProps) => {
-  const { type = 'body', weight = 'regular', style, children } = props;
+  const {
+    type = 'body',
+    weight = 'regular',
+    style,
+    children,
+    isOverlay,
+  } = props;
   const { theme } = useStyles();
 
   return (
@@ -16,7 +22,7 @@ const Text = (props: TextProps) => {
         {
           ...theme.textVariants[type],
           ...theme.textVariants[weight],
-          color: theme.colors.text,
+          color: isOverlay ? theme.colors.textOverlay : theme.colors.text,
         },
       ]}
     >

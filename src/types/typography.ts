@@ -17,7 +17,8 @@ enum Weight {
 export interface TextProps extends NativeTextProps {
   type: keyof typeof Type;
   weight: keyof typeof Weight;
-  children: string;
+  children?: string | number | string[];
+  isOverlay?: boolean;
 }
 
 export default { Weight, Type };
