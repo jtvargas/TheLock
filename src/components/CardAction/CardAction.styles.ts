@@ -9,15 +9,15 @@ const styles = createStyleSheet(theme => ({
     borderWidth: 2,
     borderColor: theme.colors.border,
     padding: theme.spacing.sm,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: -2,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 10,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: -2,
+    // },
+    // shadowOpacity: 0.34,
+    // shadowRadius: 10,
 
-    elevation: 10,
+    // elevation: 10,
   },
   large: {
     width: scale(BASE_WIDTH),
