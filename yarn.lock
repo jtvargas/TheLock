@@ -2031,6 +2031,11 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
+"@sucho/react-native-typewriter@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@sucho/react-native-typewriter/-/react-native-typewriter-1.0.0.tgz#0d2678a311c4a5d220f2d306a9fefa5aceb10bf3"
+  integrity sha512-+GcxPd0GpGXIXExe5Got8OuRjPdwDmAaayFXvDtnmJ8enFmzijujKSe1IGx8ZNf3MZs+hhz5Xx7tvx4QhMhBaA==
+
 "@types/hammerjs@^2.0.36":
   version "2.0.42"
   resolved "https://registry.npmjs.org/@types/hammerjs/-/hammerjs-2.0.42.tgz"

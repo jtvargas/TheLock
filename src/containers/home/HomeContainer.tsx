@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ScreenKey } from '@type';
 import { useStyles } from '@core/Theme';
-import { Divider, CardAction, Text } from '@components';
+import { Divider, CardAction, Typewritter } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 
@@ -111,16 +112,31 @@ const HomeContainer = (props: HomeContainerProps) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text type="title" weight="bold">
-        The Lock.
-      </Text>
+    <SafeAreaView style={styles.container}>
+      {/* <Text type="title" weight="bold">
+       
+      </Text> */}
+      {/* <Typewritter
+        text="The Lock."
+        duration={100}
+        loop
+        style={{ fontSize: 18 }}
+        onComplete={() => console.log('One cycle finished!')}
+      /> */}
+      <Typewritter
+        textArray={['The Lock.']}
+        // loop
+        speed={200}
+        delay={500}
+        textStyle={styles.typeWriterText}
+        cursorStyle={styles.typeWriterCursorText}
+      />
       <Divider spacing="xs" />
       <Divider spacing="sm" />
       {renderTopActions()}
       <Divider spacing="xs" />
       {renderBottomActions()}
-    </View>
+    </SafeAreaView>
   );
 };
 
