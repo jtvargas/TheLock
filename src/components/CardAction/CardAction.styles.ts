@@ -12,12 +12,12 @@ const styles = createStyleSheet(theme => ({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: -2,
+      height: 3,
     },
-    shadowOpacity: 0.34,
-    shadowRadius: 10,
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
 
-    elevation: 10,
+    elevation: 6,
   },
   large: {
     width: scale(BASE_WIDTH),

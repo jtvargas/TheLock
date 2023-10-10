@@ -1,16 +1,113 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Text, CircularSliderInput } from '@components';
+import {
+  Text,
+  CircularSliderInput,
+  FocusTextGrid,
+  Typewritter,
+} from '@components';
 
 import { useStyles } from '@core/Theme';
 import styleSheet from './PlayContainer.styles';
 
-const PlayContainer = () => {
+type PlayContainerProps = {
+  onCircleValueChange: (value: number) => void;
+  onSelectValue: (value: number) => void;
+  circleInputColors: {
+    circleColor: string;
+    selectCTAColor: string;
+    selectCTAStrokeColor: string;
+    dragCTAColor: string;
+    dragCTAStrokeColor: string;
+    circleNumberIndicatorColor: string;
+    circleNumberIndicatorStrokeColor: string;
+  };
+  circleValue: number | null;
+  selectedTextValue: string;
+  expectedTextValue: string;
+  shakeCircle: boolean;
+  helpVibrate: boolean;
+  withNumbersIndicator: boolean;
+};
+
+const PlayContainer: React.FC<PlayContainerProps> = props => {
+  const {
+    circleInputColors,
+    selectedTextValue = '',
+    expectedTextValue = '000',
+    circleValue = null,
+    shakeCircle = false,
+    helpVibrate = false,
+    withNumbersIndicator = false,
+    onSelectValue,
+    onCircleValueChange,
+  } = props;
   const { styles } = useStyles(styleSheet);
-  const [value, setValue] = useState(null);
-  const [selectedValue, setSelectedValue] = useState('');
+  const vibrateAnim = useRef(new Animated.Value(0)).current;
+  const vibrateCircleAnim = useRef(new Animated.Value(0)).current;
+
+  const startVibratingCircle = () => {
+    Animated.sequence([
+      Animated.timing(vibrateCircleAnim, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(vibrateCircleAnim, {
+        toValue: -10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(vibrateCircleAnim, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(vibrateCircleAnim, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+  const startVibrating = () => {
+    Animated.sequence([
+      Animated.timing(vibrateAnim, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(vibrateAnim, {
+        toValue: -10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(vibrateAnim, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(vibrateAnim, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  useEffect(() => {
+    if (shakeCircle && circleValue) {
+      startVibratingCircle();
+    }
+  }, [shakeCircle, circleValue]);
+
+  useEffect(() => {
+    if (helpVibrate) {
+      startVibrating();
+    }
+  }, [helpVibrate]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,34 +121,71 @@ const PlayContainer = () => {
         <Text type="title" weight="bold">
           The Lock.
         </Text>
-        <Text type="subTitle" weight="bold">
-          Selected: {selectedValue}
-        </Text>
       </View>
+      <FocusTextGrid
+        textValue={expectedTextValue}
+        currentIndexFocus={selectedTextValue.length || 0}
+        currentFocusValue={selectedTextValue}
+      />
       <View
         style={{
-          flex: 2,
+          flex: 3,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <CircularSliderInput
-          onValueChange={v => setValue(v)}
-          onSelectValue={v => setSelectedValue(prev => `${prev},${v}`)}
-          value={value}
-          circleColor="#636E72"
-          selectColor="#636E72"
-          dragColor="#979D9F"
-          selectStrokeColor="#979D9F"
-          dragStrokeColor="#979D9F"
-          indicatorColor="#636E72"
-          indicatorStrokeColor="#979D9F"
-          withoutNumberIndicator
-        />
+        <Animated.View
+          style={[
+            {
+              transform: [{ translateX: vibrateCircleAnim }],
+            },
+          ]}
+        >
+          <CircularSliderInput
+            onValueChange={onCircleValueChange}
+            onSelectValue={onSelectValue}
+            value={circleValue}
+            circleColor={circleInputColors.circleColor}
+            selectColor={circleInputColors.selectCTAColor}
+            selectStrokeColor={circleInputColors.selectCTAStrokeColor}
+            dragColor={circleInputColors.dragCTAColor}
+            dragStrokeColor={circleInputColors.dragCTAStrokeColor}
+            indicatorColor={circleInputColors.circleNumberIndicatorColor}
+            indicatorStrokeColor={
+              circleInputColors.circleNumberIndicatorStrokeColor
+            }
+            withoutNumberIndicator={!withNumbersIndicator}
+          />
+        </Animated.View>
       </View>
-      <Text type="callout" weight="bold" isOverlay>
-        Tip: Enable haptic feedback
-      </Text>
+
+      <Animated.View
+        style={[
+          {
+            transform: [{ translateY: vibrateAnim }],
+          },
+          styles.keyHelp,
+        ]}
+      >
+        <Text
+          type="callout"
+          weight="bold"
+          isOverlay
+          onLongPress={() => alert('it is what it is')}
+        >
+          🔑
+        </Text>
+      </Animated.View>
+      <Typewritter
+        textArray={['Tip: Enable haptic feedback']}
+        isOverlayText
+        type="callout"
+        weight="bold"
+        speed={200}
+        delay={500}
+        textStyle={styles.typeWriterText}
+        cursorStyle={styles.typeWriterCursorText}
+      />
     </SafeAreaView>
   );
 };

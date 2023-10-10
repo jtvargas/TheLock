@@ -41,11 +41,20 @@ function NavigationContainer() {
           component={PlayScreen}
           options={{ headerBackTitleVisible: false }}
         />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+
         <Stack.Screen name="Personalize" component={PersonalizeScreen} />
         <Stack.Screen name="Stats" component={StatsScreen} />
         <Stack.Screen name="Difficulty" component={DifficultyScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ headerShown: false, presentation: 'modal' }}
+        />
+        <Stack.Screen
+          name="About"
+          component={AboutScreen}
+          options={{ headerShown: false, presentation: 'modal' }}
+        />
       </Stack.Navigator>
     </NavigationContainerRNN>
   );

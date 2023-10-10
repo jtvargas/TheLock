@@ -1,0 +1,60 @@
+import React, { useEffect, useRef } from 'react';
+import { View, Animated } from 'react-native';
+import isNil from 'lodash/isNil';
+
+import { Text } from '@components/core';
+import { useStyles } from '@core/Theme';
+import styleSheet from './FocusText.styles';
+
+type FocusText = {
+  value: string | null;
+  isFocus: boolean;
+};
+
+const FocusText = (props: FocusText) => {
+  const { isFocus = true, value } = props;
+  const { styles } = useStyles(styleSheet);
+
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    if (isFocus) {
+      const blink = Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]);
+
+      const loopAnimation = Animated.loop(blink);
+      loopAnimation.start();
+
+      return () => {
+        loopAnimation.stop();
+      };
+    }
+    return () => null;
+  }, [isFocus, value]);
+
+  return (
+    <View style={styles.container}>
+      {isFocus && isNil(value) ? (
+        <Animated.View style={[styles.bar, { opacity: fadeAnim }]} />
+      ) : (
+        <View style={styles.textContainer}>
+          <Text type="largeTitle" weight="bold">
+            {value}
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+};
+
+export default FocusText;
