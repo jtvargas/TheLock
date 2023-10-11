@@ -36,6 +36,7 @@
     ],
     "no-use-before-define": "off",
     "no-alert": "off",
+    "no-param-reassign": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/require-default-props": "off",
     "react/function-component-definition": "off",

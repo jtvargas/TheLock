@@ -1,8 +1,8 @@
 // Defines the difficulty levels for the play.
 export enum PlayDifficulty {
-  NOVICE = 'NOVICE',
-  ADVANCED = 'ADVANCED',
-  EXPERT = 'EXPERT',
+  NOVICE = 'NOVICE', // 3 Numbers
+  ADVANCED = 'ADVANCED', // 4 Numbers
+  EXPERT = 'EXPERT', // 6 Numbers
 }
 
 // Represents the state of play.
@@ -26,17 +26,17 @@ export interface TimeBreakdown {
 
 // Contains metadata for a scene.
 export interface MetaScene {
-  playMode: GameMode;
   answer: string;
+  playDate?: Date;
+  timeSpentPlaying?: TimeBreakdown;
 }
 
 // Represents the configuration and state of a play scene.
 export type PlayScene = {
   difficulty: PlayDifficulty;
   playingState: PlayingState;
-  playDate: Date;
-  timeSpentPlaying: TimeBreakdown;
-  meta: MetaScene;
+  playMode: GameMode;
+  meta: Partial<MetaScene>;
 };
 
 // Contains color definitions for the locker picker.
@@ -50,17 +50,28 @@ export type LockerPickerColors = {
   circleNumberIndicatorStrokeColor: string;
 };
 
+export enum LockerPickerConfigKey {
+  NUMBER_INDICATOR = 'NUMBER_INDICATOR',
+  SHAKE_ANIMATION = 'SHAKE_ANIMATION',
+  HAPTIC_FEEDBACK = 'HAPTIC_FEEDBACK',
+}
+
+export type LockerPickerConfig = Record<LockerPickerConfigKey, boolean>;
+
+export enum SceneConfigKey {
+  HELP_KEY = 'HELP_KEY',
+  TIP_MESSAGE = 'TIP_MESSAGE',
+}
+export type SceneConfigCustom = Record<SceneConfigKey, boolean>;
+
 // Defines the configuration settings for the game scene.
 export type SceneConfig = {
   lockerPicker: {
     colors: LockerPickerColors;
     // Toggle to enable or disable specific boolean options.
-    withNumberIndicator: boolean;
-    withShake: boolean;
-    withHapticFeedback: boolean;
+    config: LockerPickerConfig;
   };
-  withHelpKey: boolean; // Toggle for enabling the help key.
-  withTipMessage: boolean; // Toggle for displaying tip messages.
+  config: SceneConfigCustom; // Toggle for displaying tip messages or Toggle for enabling the help key.
 };
 
 // Represents the entire game state, including play scenes, configurations, and history.
