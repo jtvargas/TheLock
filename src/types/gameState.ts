@@ -9,6 +9,8 @@ export enum PlayDifficulty {
 export enum PlayingState {
   PLAYING = 'PLAYING',
   IDLE = 'IDLE',
+  WIN = 'WIN',
+  LOSE = 'LOSE',
 }
 
 // Specifies the game mode.
@@ -17,26 +19,21 @@ export enum GameMode {
   COMPETITIVE = 'COMPETITIVE',
 }
 
-// Breakdown of time spent in the format of hours, minutes, and seconds.
-export interface TimeBreakdown {
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
-
 // Contains metadata for a scene.
 export interface MetaScene {
   answer: string;
-  playDate?: Date;
-  timeSpentPlaying?: TimeBreakdown;
+  startPlayTime: number;
+  endPlayTime: number;
+  timeLapsed?: string;
+  attemps: number;
 }
 
 // Represents the configuration and state of a play scene.
 export type PlayScene = {
   difficulty: PlayDifficulty;
   playingState: PlayingState;
-  playMode: GameMode;
-  meta: Partial<MetaScene>;
+  gameMode?: GameMode;
+  meta: MetaScene;
 };
 
 // Contains color definitions for the locker picker.

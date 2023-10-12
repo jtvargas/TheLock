@@ -7,6 +7,7 @@ const BASE_HEIGHT = 284;
 const styles = createStyleSheet(theme => ({
   container: {
     borderWidth: 2,
+    backgroundColor: theme.colors.cardPrimaryBackground,
     borderColor: theme.colors.border,
     padding: theme.spacing.sm,
     shadowColor: '#000',

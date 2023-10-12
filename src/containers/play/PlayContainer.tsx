@@ -98,7 +98,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
   };
 
   useEffect(() => {
-    if (shakeCircle && circleValue) {
+    if (shakeCircle) {
       startVibratingCircle();
     }
   }, [shakeCircle, circleValue]);

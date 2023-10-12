@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '@redux';
 
 import {
   GameMode,
@@ -15,6 +14,7 @@ import {
   PlayScene,
   SceneConfigKey,
 } from '@src/types/gameState';
+import { DateUtils } from '@utils';
 import { initialGameState } from './Constants';
 
 export const gameSlice = createSlice({
@@ -22,15 +22,38 @@ export const gameSlice = createSlice({
   initialState: initialGameState,
   reducers: {
     // PlayScene Reducers
-    startPlaying: (state, action: PayloadAction<{ gameMode: GameMode }>) => {
+    changePlayingState: (
+      state,
+      action: PayloadAction<{ playingState: PlayingState }>,
+    ) => {
+      state.playScene.playingState = action.payload.playingState;
+    },
+    startPlaying: state => {
       state.playScene.playingState = PlayingState.PLAYING;
-      state.playScene.playMode = action.payload.gameMode;
+      state.playScene.meta.startPlayTime = DateUtils.getDateInDayJs().unix();
+    },
+    stopPlaying: state => {
+      state.playScene.playingState = PlayingState.IDLE;
+      state.playScene.meta = initialGameState.playScene.meta;
+    },
+    attempWin: state => {
+      state.playScene.playingState = PlayingState.LOSE;
+      state.playScene.meta.attemps += 1;
     },
     finishPlaying: (state, action: PayloadAction<{ metaScene: MetaScene }>) => {
+      const { startPlayTime } = state.playScene.meta;
+      const endPlayTime = DateUtils.getDateInDayJs().unix();
       const newPlayHistoryItem: PlayScene = {
         ...state.playScene,
-        meta: action.payload.metaScene,
+        playingState: PlayingState.WIN,
+        meta: {
+          ...state.playScene.meta,
+          ...action.payload.metaScene,
+          endPlayTime,
+          timeLapsed: DateUtils.getTimeLapsed(startPlayTime, endPlayTime),
+        },
       };
+      state.playScene = newPlayHistoryItem;
       state.playHistory.push(newPlayHistoryItem);
     },
     changeSceneDifficulty: (
@@ -38,6 +61,10 @@ export const gameSlice = createSlice({
       action: PayloadAction<{ difficulty: PlayDifficulty }>,
     ) => {
       state.playScene.difficulty = action.payload.difficulty;
+    },
+    changeGameMode: (state, action: PayloadAction<{ gameMode: GameMode }>) => {
+      // console.log({ changeGameMode: action.payload.gameMode });
+      state.playScene.gameMode = action.payload.gameMode;
     },
     // SceneConfig Reducers
     changeLockerPickerThemeColors: (
@@ -67,9 +94,9 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { startPlaying } = gameSlice.actions;
+export const GAME_STATE_ACTIONS = gameSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value;
+// export const selectCount = (state: RootState) => state.counter.value;
 
 export default gameSlice.reducer;

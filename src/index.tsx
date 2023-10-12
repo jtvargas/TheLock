@@ -2,8 +2,11 @@ import React from 'react';
 import { ActivityIndicator, StatusBar } from 'react-native';
 import { UnistylesTheme } from 'react-native-unistyles';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { Theme } from '@core';
+import { store, persistor } from '@redux';
 
 // Navigation
 import useCachedResources from '@hooks/useCachedResources';
@@ -17,11 +20,15 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <UnistylesTheme theme={Theme}>
-        <NavigationContainer />
-        <StatusBar barStyle="light-content" />
-      </UnistylesTheme>
-    </GestureHandlerRootView>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <UnistylesTheme theme={Theme}>
+            <NavigationContainer />
+            <StatusBar barStyle="light-content" />
+          </UnistylesTheme>
+        </GestureHandlerRootView>
+      </PersistGate>
+    </Provider>
   );
 }

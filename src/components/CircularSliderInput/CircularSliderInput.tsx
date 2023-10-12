@@ -8,6 +8,7 @@ import isNil from 'lodash/isNil';
 
 import { Colors } from '@utils';
 import TextC from '@components/core/Text';
+import { useStyles } from '@src/core/Theme';
 import { DIMENSION_WIDTH, DIMENSION_HEIGHT } from './Constants';
 
 const STARTING_ANGLE_POINT = 90;
@@ -88,6 +89,7 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
   const RADIUS = baseWidth * scale(0.2);
   const smallestSide = scale(Math.min(RADIUS * 3, RADIUS * 3));
   const [isPressed, setIsPressed] = useState(false);
+  const { theme } = useStyles();
 
   const [dimensions] = useState({
     cx: baseWidth / 2,
@@ -128,10 +130,6 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
     // Adjust the value to the nearest snap point
     let newValue = cartesianToPolar(x, y);
     newValue = snapToNearestValue(newValue);
-    // await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    // if (newValue === 216) {
-    //   await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    // }
     onValueChange(newValue);
   };
 
@@ -158,9 +156,31 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
     });
   };
 
+  const renderSnapPoints = () => {
+    const numbers = Array.from({ length: 10 }, (_, index) => index); // [0, 1, 2, ... 9]
+    return numbers.map(num => {
+      const coords = polarToCartesian(num * 36, r / 2);
+      return (
+        <Circle
+          key={num}
+          cx={coords.x - scale(0)}
+          cy={coords.y - scale(0)}
+          r={2}
+          stroke={dragStrokeColor}
+          strokeOpacity={0.3}
+          strokeWidth={10}
+          fill={circleColor}
+          opacity={0.4}
+        />
+      );
+    });
+  };
+
   return (
     <PanGestureHandler onGestureEvent={handleGesture}>
       <Svg width={baseWidth} height={baseHeight}>
+        {renderSnapPoints()}
+
         <Circle
           cx={cx}
           cy={cy}
@@ -174,10 +194,18 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
         <Circle
           cx={cx}
           cy={cy}
-          r={r / 2}
+          r={r / 1.5}
           stroke={Colors.hexToRGBA(dragStrokeColor, 0.6)}
           strokeWidth={2}
-          fill="none"
+          fill={Colors.hexToRGBA(theme.colors.mainBackground, 0.3)}
+        />
+        <Circle
+          cx={cx}
+          cy={cy}
+          r={r / 2.8}
+          stroke={Colors.hexToRGBA(dragStrokeColor, 0.6)}
+          strokeWidth={2}
+          fill={Colors.hexToRGBA(theme.colors.mainBackground, 0.6)}
         />
 
         <G x={endCoord.x - 7.5} y={endCoord.y - 7.5}>
@@ -208,6 +236,7 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
             strokeOpacity={0.8}
             strokeWidth={4}
           />
+
           <ForeignObject key="drag" x={-11} y={-4}>
             <TextC type="callout" weight="bold">
               {dragText}
@@ -215,6 +244,7 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
           </ForeignObject>
         </G>
         {!withoutNumberIndicator && renderNumbers()}
+
         <G>
           <Circle
             cx={cx}

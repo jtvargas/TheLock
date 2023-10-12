@@ -1,11 +1,17 @@
-import { GameMode, GameState, PlayDifficulty, PlayingState } from '@type';
+import { GameState, PlayDifficulty, PlayingState } from '@type';
 
 const initialGameState: GameState = {
   playScene: {
     difficulty: PlayDifficulty.NOVICE,
     playingState: PlayingState.IDLE,
-    playMode: GameMode.SANDBOX,
-    meta: {},
+    gameMode: undefined,
+    meta: {
+      startPlayTime: 0,
+      answer: '',
+      endPlayTime: 0,
+      attemps: 0,
+      timeLapsed: '',
+    },
   },
   sceneConfig: {
     lockerPicker: {
