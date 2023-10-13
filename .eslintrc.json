@@ -36,6 +36,7 @@
     ],
     "no-use-before-define": "off",
     "no-alert": "off",
+    "react/jsx-props-no-spreading": "off",
     "no-param-reassign": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/require-default-props": "off",
