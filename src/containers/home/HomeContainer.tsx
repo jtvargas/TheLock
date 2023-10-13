@@ -6,7 +6,7 @@ import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
 import { useStyles } from '@core/Theme';
-import { Divider, CardAction, Typewritter, CircleToggle } from '@components';
+import { Divider, CardAction, Typewritter } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 
@@ -130,7 +130,6 @@ const HomeContainer = (props: HomeContainerProps) => {
         // loop
         speed={200}
         delay={500}
-        textStyle={styles.typeWriterText}
         cursorStyle={styles.typeWriterCursorText}
       />
       <Divider spacing="xs" />

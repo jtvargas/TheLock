@@ -1,16 +1,176 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 import { useStyles } from '@core/Theme';
+import { Text, Typewritter } from '@components';
+
 import styleSheet from './AboutContainer.styles';
 
 const AboutContainer = () => {
-  const { styles } = useStyles(styleSheet);
+  const { styles, theme } = useStyles(styleSheet);
 
   return (
-    <View style={styles.container}>
-      <Text>About Container</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <Typewritter
+          textArray={['The Lock.']}
+          // loop
+          speed={200}
+          delay={500}
+          cursorStyle={styles.typeWriterCursorText}
+          textStyle={styles.title}
+        />
+        <Text style={styles.title} type="callout" weight="medium" isOverlay>
+          A game to guess numbers with a spinner. Enjoy haptic feedback and
+          visuals as hints. Share your average guess time across difficulties.
+        </Text>
+
+        <View style={styles.feature}>
+          <MaterialCommunityIcons
+            name="palette"
+            size={24}
+            color={theme.colors.onMainBackground}
+          />
+          <Text
+            style={styles.featureText}
+            type="body"
+            weight="medium"
+            isOverlay
+          >
+            <Text weight="bold" type="body" isOverlay>
+              Tailored Experience:{' '}
+            </Text>
+            Alter colors and hints for your liking.
+          </Text>
+        </View>
+
+        <View style={styles.feature}>
+          <MaterialCommunityIcons
+            name="vibrate"
+            size={24}
+            color={theme.colors.onMainBackground}
+          />
+          <Text style={styles.featureText} isOverlay>
+            <Text weight="bold" type="body" isOverlay>
+              Haptic Feedback:{' '}
+            </Text>
+            Feel every hint.
+          </Text>
+        </View>
+
+        <View style={styles.feature}>
+          <MaterialCommunityIcons
+            name="history"
+            size={24}
+            color={theme.colors.onMainBackground}
+          />
+          <Text style={styles.featureText} isOverlay>
+            <Text weight="bold" type="body" isOverlay>
+              Progress Tracking:{' '}
+            </Text>
+            Revisit your previous scores and see how you've evolved over time.
+          </Text>
+        </View>
+        <View style={styles.feature}>
+          <MaterialCommunityIcons
+            name="format-color-fill"
+            size={24}
+            color={theme.colors.onMainBackground}
+          />
+          <Text style={styles.featureText} isOverlay>
+            <Text weight="bold" type="body" isOverlay>
+              Design:{' '}
+            </Text>
+            Minimalistic and intuitive.
+          </Text>
+        </View>
+        <View style={styles.feature}>
+          <MaterialCommunityIcons
+            name="close-box-multiple-outline"
+            size={24}
+            color={theme.colors.onMainBackground}
+          />
+          <Text style={styles.featureText} isOverlay>
+            <Text weight="bold" type="body" isOverlay>
+              Ad-free Experience:{' '}
+            </Text>
+            Play uninterrupted without any ads.
+          </Text>
+        </View>
+
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderBottomWidth: 2,
+              borderColor: 'orange',
+            }}
+          >
+            <FontAwesome5 name="coffee" size={21} color="orange" />
+            <Text
+              weight="bold"
+              type="callout"
+              isOverlay
+              style={{ marginLeft: 4, color: 'orange' }}
+            >
+              Buy me a coffe
+            </Text>
+          </TouchableOpacity>
+          <Text
+            weight="bold"
+            type="callout"
+            isOverlay
+            style={{ marginHorizontal: 4 }}
+          >
+            |
+          </Text>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderBottomWidth: 2,
+              borderColor: theme.colors.onMainBackground,
+            }}
+          >
+            <Text
+              weight="bold"
+              type="callout"
+              isOverlay
+              style={{ marginLeft: 4, color: theme.colors.onMainBackground }}
+            >
+              Acknowledgements
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View
+        style={{
+          alignSelf: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <MaterialCommunityIcons
+          name="gesture-swipe-down"
+          size={28}
+          color={theme.colors.onMainBackground}
+        />
+        <Typewritter
+          textArray={['Swipe down to close']}
+          isOverlayText
+          type="callout"
+          weight="bold"
+          speed={100}
+          delay={500}
+          withLeftCursor
+          preText="Tip: "
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

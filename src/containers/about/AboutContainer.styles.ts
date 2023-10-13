@@ -6,6 +6,25 @@ const styles = createStyleSheet(theme => ({
     backgroundColor: theme.colors.mainBackground,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: theme.spacing.sm,
+  },
+  title: {
+    fontWeight: 'bold',
+    // color: '#fff',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  feature: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 15,
+  },
+  featureText: {
+    marginLeft: 10,
+    // color: '#fff',
+    flex: 1,
+    flexShrink: 1, // ensures text doesn't overflow
   },
 }));
 
