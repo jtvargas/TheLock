@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, ScrollView, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -110,6 +110,7 @@ const DifficultyContainer = (props: DifficultyContainerProps) => {
             <View
               key={difficultyValue}
               style={[styles.circleContainer]}
+              // eslint-disable-next-line no-return-assign
               ref={ref => (circleRefs.current[difficultyValue] = ref)}
             >
               <CircleToggle
@@ -140,6 +141,8 @@ const DifficultyContainer = (props: DifficultyContainerProps) => {
           weight="bold"
           speed={100}
           delay={500}
+          withLeftCursor
+          preText="Tip: "
         />
       </View>
     </SafeAreaView>

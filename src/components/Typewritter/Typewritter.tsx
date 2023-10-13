@@ -12,6 +12,8 @@ type TypewriterProps = {
   delay?: number;
   textStyle?: TextStyle;
   cursorStyle?: TextStyle;
+  preText?: string;
+  withLeftCursor?: boolean;
 } & Pick<TextProps, 'type' | 'weight'>;
 
 const DEFAULT_SPEED = 300;
@@ -21,10 +23,6 @@ const WHITE = '#ffffff';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-  },
-  text: {
-    color: WHITE,
-    fontSize: 18,
   },
   cursor: {
     color: WHITE,
@@ -42,8 +40,10 @@ const Typewriter: React.FC<TypewriterProps> = ({
   isOverlayText,
   type,
   weight,
+  preText,
+  withLeftCursor = false,
 }) => {
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState(preText ?? '');
   const intervalRef = useRef(null);
   const textArrayIndex = useRef(0);
   const charIndex = useRef(0);
@@ -109,8 +109,20 @@ const Typewriter: React.FC<TypewriterProps> = ({
 
   return (
     <View style={styles.container}>
+      {withLeftCursor ? (
+        <Animated.View style={{ opacity: opacityValue }}>
+          <Text
+            style={cursorStyle}
+            type={type || 'title'}
+            weight={weight || 'bold'}
+            isOverlay={isOverlayText}
+          >
+            •
+          </Text>
+        </Animated.View>
+      ) : null}
       <Text
-        style={textStyle || styles.text}
+        style={textStyle}
         type={type || 'title'}
         weight={weight || 'bold'}
         isOverlay={isOverlayText}
@@ -119,12 +131,12 @@ const Typewriter: React.FC<TypewriterProps> = ({
       </Text>
       <Animated.View style={{ opacity: opacityValue }}>
         <Text
-          style={cursorStyle || styles.cursor}
+          style={cursorStyle}
           type={type || 'title'}
           weight={weight || 'bold'}
           isOverlay={isOverlayText}
         >
-          ▎
+          •
         </Text>
       </Animated.View>
     </View>

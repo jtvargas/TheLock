@@ -18,12 +18,12 @@ const Text = (props: TextProps) => {
     <TextRN
       {...props}
       style={[
-        style,
         {
           ...theme.textVariants[type],
           ...theme.textVariants[weight],
           color: isOverlay ? theme.colors.textOverlay : theme.colors.text,
         },
+        style,
       ]}
     >
       {children}

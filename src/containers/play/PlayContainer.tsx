@@ -180,12 +180,14 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         </Text>
       </Animated.View>
       <Typewritter
-        textArray={['Tip: Enable haptic feedback']}
+        textArray={['Enable haptic feedback']}
         isOverlayText
         type="callout"
         weight="bold"
         speed={150}
         delay={500}
+        withLeftCursor
+        preText="Tip: "
       />
     </SafeAreaView>
   );

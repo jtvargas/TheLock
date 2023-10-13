@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, T } from 'react-native';
+import { View } from 'react-native';
 
 import { Text } from '@components/core';
 import { useStyles } from '@src/core/Theme';

@@ -16,7 +16,6 @@
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "@reduxjs/toolkit": "^1.9.7",
-    "@shopify/restyle": "^2.4.2",
     "@sucho/react-native-typewriter": "^1.0.0",
     "dayjs": "^1.11.10",
     "expo": "~49.0.13",
