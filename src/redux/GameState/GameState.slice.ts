@@ -63,7 +63,6 @@ export const gameSlice = createSlice({
       state.playScene.difficulty = action.payload.difficulty;
     },
     changeGameMode: (state, action: PayloadAction<{ gameMode: GameMode }>) => {
-      // console.log({ changeGameMode: action.payload.gameMode });
       state.playScene.gameMode = action.payload.gameMode;
     },
     // SceneConfig Reducers

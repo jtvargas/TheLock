@@ -2,10 +2,15 @@ import { createStyleSheet } from '@core/Theme';
 
 const styles = createStyleSheet(theme => ({
   container: {
-    flex: 1,
     backgroundColor: theme.colors.mainBackground,
+  },
+  contentContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  circleContainer: {
+    margin: theme.spacing.md,
   },
 }));
 

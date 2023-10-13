@@ -27,7 +27,6 @@ function NavigationContainer() {
         screenOptions={{
           headerShown: true,
           headerTransparent: true,
-          headerTitle: '',
           headerTintColor: theme.colors.onMainBackground,
         }}
       >
@@ -39,22 +38,37 @@ function NavigationContainer() {
         <Stack.Screen
           name="Play"
           component={PlayScreen}
-          options={{ headerBackTitleVisible: false }}
+          options={{ headerBackTitleVisible: false, title: '' }}
         />
 
         <Stack.Screen name="Personalize" component={PersonalizeScreen} />
         <Stack.Screen name="Stats" component={StatsScreen} />
-        <Stack.Screen name="Difficulty" component={DifficultyScreen} />
-        <Stack.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{ headerShown: false, presentation: 'modal' }}
-        />
-        <Stack.Screen
-          name="About"
-          component={AboutScreen}
-          options={{ headerShown: false, presentation: 'modal' }}
-        />
+        <Stack.Group
+          screenOptions={{
+            headerShown: true,
+            presentation: 'modal',
+          }}
+        >
+          <Stack.Screen
+            name="Difficulty"
+            component={DifficultyScreen}
+            options={{
+              headerShown: true,
+              presentation: 'modal',
+              title: 'Choose your difficulty',
+            }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{ headerShown: true, presentation: 'modal' }}
+          />
+          <Stack.Screen
+            name="About"
+            component={AboutScreen}
+            options={{ headerShown: true, presentation: 'modal' }}
+          />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainerRNN>
   );

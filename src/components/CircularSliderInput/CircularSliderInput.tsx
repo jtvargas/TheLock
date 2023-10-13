@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Animated } from 'react-native';
+
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import Svg, { Circle, G, ForeignObject } from 'react-native-svg';
@@ -12,6 +14,8 @@ import { useStyles } from '@src/core/Theme';
 import { DIMENSION_WIDTH, DIMENSION_HEIGHT } from './Constants';
 
 const STARTING_ANGLE_POINT = 90;
+
+const AnimatedG = Animated.createAnimatedComponent(G);
 
 const convertDegreesToRadians = (angle: number) => {
   return ((angle - STARTING_ANGLE_POINT) * Math.PI) / 180.0;
@@ -53,6 +57,7 @@ const degreeToNumber = (degree: number) => {
 type CircularSliderInputProps = {
   value: number;
   onSelectValue: (value: number) => void;
+  shakeDrag: boolean;
   indicatorColor: string;
   indicatorStrokeColor: string;
   dragColor: string;
@@ -83,6 +88,7 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
     onValueChange,
     withoutNumberIndicator = false,
     circleColor,
+    shakeDrag,
   } = props;
   const baseWidth = scale(width || DIMENSION_WIDTH);
   const baseHeight = scale(height || DIMENSION_HEIGHT);
@@ -90,6 +96,38 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
   const smallestSide = scale(Math.min(RADIUS * 3, RADIUS * 3));
   const [isPressed, setIsPressed] = useState(false);
   const { theme } = useStyles();
+
+  const shakeAnimation = new Animated.Value(0);
+  const startShake = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  useEffect(() => {
+    if (shakeDrag) {
+      startShake();
+    }
+  }, [value, shakeDrag]);
 
   const [dimensions] = useState({
     cx: baseWidth / 2,
@@ -226,7 +264,12 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
             </ForeignObject>
           )}
         </G>
-        <G x={dragCircleEndCoord.x - 7.5} y={dragCircleEndCoord.y - 7.5}>
+        {/* Add animation in this SVG group */}
+        <AnimatedG
+          x={dragCircleEndCoord.x - 7.5}
+          y={dragCircleEndCoord.y - 7.5}
+          style={{ transform: [{ translateX: shakeAnimation }] }}
+        >
           <Circle
             cx={7.5}
             cy={7.5}
@@ -242,7 +285,7 @@ const CircularSliderInput = (props: CircularSliderInputProps) => {
               {dragText}
             </TextC>
           </ForeignObject>
-        </G>
+        </AnimatedG>
         {!withoutNumberIndicator && renderNumbers()}
 
         <G>

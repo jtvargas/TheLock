@@ -29,6 +29,7 @@ const initialGameState: GameState = {
         HAPTIC_FEEDBACK: true,
         SHAKE_ANIMATION: false,
         NUMBER_INDICATOR: false,
+        SHAKE_DRAG: false,
       },
     },
     config: {

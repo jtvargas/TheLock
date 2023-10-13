@@ -51,6 +51,7 @@ export enum LockerPickerConfigKey {
   NUMBER_INDICATOR = 'NUMBER_INDICATOR',
   SHAKE_ANIMATION = 'SHAKE_ANIMATION',
   HAPTIC_FEEDBACK = 'HAPTIC_FEEDBACK',
+  SHAKE_DRAG = 'SHAKE_DRAG', // for easy indication
 }
 
 export type LockerPickerConfig = Record<LockerPickerConfigKey, boolean>;

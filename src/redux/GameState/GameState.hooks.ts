@@ -1,5 +1,10 @@
-import { useAppDispatch, GAME_STATE_ACTIONS } from '@redux';
-import { GameMode, PlayingState } from '@type';
+import {
+  useAppDispatch,
+  useAppSelector,
+  GAME_STATE_ACTIONS,
+  GAME_STATE_SELECTORS,
+} from '@redux';
+import { GameMode, PlayDifficulty, PlayingState } from '@type';
 
 interface GameStateHook {
   start: () => void;
@@ -8,10 +13,13 @@ interface GameStateHook {
   finish: (answer: string) => void;
   setGameMode: (gameMode: GameMode) => void;
   changePlayingState: (playingState: PlayingState) => void;
+  changeDifficulty: (difficulty: PlayDifficulty) => void;
+  playDifficulty: PlayDifficulty;
 }
 
 export const useGameState = (): GameStateHook => {
   const dispatch = useAppDispatch();
+  const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
 
   const start = () => {
     dispatch(GAME_STATE_ACTIONS.startPlaying());
@@ -33,6 +41,9 @@ export const useGameState = (): GameStateHook => {
   const changePlayingState = (playingState: PlayingState) => {
     dispatch(GAME_STATE_ACTIONS.changePlayingState({ playingState }));
   };
+  const changeDifficulty = (difficulty: PlayDifficulty) => {
+    dispatch(GAME_STATE_ACTIONS.changeSceneDifficulty({ difficulty }));
+  };
 
   return {
     start,
@@ -41,5 +52,7 @@ export const useGameState = (): GameStateHook => {
     setGameMode,
     attempWin,
     changePlayingState,
+    changeDifficulty,
+    playDifficulty,
   };
 };

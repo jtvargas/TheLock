@@ -6,7 +6,7 @@ import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
 import { useStyles } from '@core/Theme';
-import { Divider, CardAction, Typewritter } from '@components';
+import { Divider, CardAction, Typewritter, CircleToggle } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 
@@ -72,7 +72,7 @@ const HomeContainer = (props: HomeContainerProps) => {
         <View style={{ flexDirection: 'column' }}>
           <CardAction
             title="STATS"
-            subtitle="See your stats and share with friends"
+            subtitle="See your stats"
             icon={{
               name: 'stats',
               color: theme.components.icon.stats.color,
@@ -115,7 +115,7 @@ const HomeContainer = (props: HomeContainerProps) => {
                 color: theme.components.icon.settings.color,
               }}
               variant="xsmall"
-              onPress={() => onCardPress(HomeOption.PERSONALIZE)}
+              onPress={() => onCardPress(HomeOption.SETTINGS)}
             />
           </View>
         </View>
@@ -125,16 +125,6 @@ const HomeContainer = (props: HomeContainerProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Text type="title" weight="bold">
-       
-      </Text> */}
-      {/* <Typewritter
-        text="The Lock."
-        duration={100}
-        loop
-        style={{ fontSize: 18 }}
-        onComplete={() => console.log('One cycle finished!')}
-      /> */}
       <Typewritter
         textArray={['The Lock.']}
         // loop

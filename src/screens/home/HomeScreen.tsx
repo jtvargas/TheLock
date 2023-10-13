@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Haptics from 'expo-haptics';
 
 import { GameMode, HomeScreenProps } from '@type';
 import HomeContainer, { HomeOption } from '@containers/home';
@@ -10,7 +11,8 @@ const HomeScreen: React.FC<HomeScreenProps> = props => {
 
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
 
-  const handleCardPress = (option: HomeOption) => {
+  const handleCardPress = async (option: HomeOption) => {
+    await Haptics.selectionAsync();
     switch (option) {
       case HomeOption.PLAY:
         navigation.navigate('Play', { gameMode: GameMode.COMPETITIVE });
@@ -35,8 +37,6 @@ const HomeScreen: React.FC<HomeScreenProps> = props => {
         navigation.navigate('Settings');
         break;
     }
-
-    // navigation.navigate(screenKey, screenParams);
   };
 
   return (

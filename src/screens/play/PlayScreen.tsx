@@ -6,6 +6,7 @@ import PlayContainer from '@containers/play';
 import { useAppSelector } from '@redux';
 import { GAME_STATE_SELECTORS, useGameState } from '@redux/GameState';
 import { LockerPickerConfigKey, PlayingState } from '@src/types/gameState';
+import { BOXES_BASED_ON_DIFFICULTY } from './Constants';
 
 type GameState = { stillPlaying: boolean; win: boolean | undefined };
 
@@ -55,6 +56,8 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const [selectedTextValue, setSelectedTextValue] = useState('');
   const [helpInsight, setHelpInsight] = useState(false);
   const [circleValue, setCircleValue] = useState<number | null>(null);
+  const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
+
   const playScene = useAppSelector(GAME_STATE_SELECTORS.getPlayScene);
   const winAttemps = useAppSelector(GAME_STATE_SELECTORS.getWinAttemps);
   const playingState = useAppSelector(GAME_STATE_SELECTORS.getPlayingState);
@@ -67,13 +70,12 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const isPlaying = playingState === PlayingState.PLAYING;
   const isAttemptedToWin = playingState === PlayingState.LOSE;
   const isIdle = playingState === PlayingState.IDLE;
-  // const isPlayWin = playingState === PlayingState.WIN;
 
   const numb = useMemo(() => {
-    return generateRandomNumberString(3);
+    return generateRandomNumberString(
+      BOXES_BASED_ON_DIFFICULTY[playDifficulty],
+    );
   }, []);
-
-  // gameOver(selectedTextValue, numb, handleAttempWin, handleWin);
 
   useEffect(() => {
     setGameMode(gameMode);
@@ -88,9 +90,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     }
   }, [winAttemps]);
 
-  useEffect(() => {
-    // console.log(JSON.stringify({ RESULTS: playScene }, null, 2));
-  }, [playScene]);
+  // useEffect(() => {}, [playScene]);
 
   useEffect(() => {
     const handleAttempWin = () => {
@@ -150,6 +150,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
         isAttemptedToWin ||
         lockerPickerConfig[LockerPickerConfigKey.SHAKE_ANIMATION]
       }
+      shakeDrag={lockerPickerConfig[LockerPickerConfigKey.SHAKE_DRAG]}
       helpVibrate={
         helpInsight && lockerPickerConfig[LockerPickerConfigKey.HAPTIC_FEEDBACK]
       }
