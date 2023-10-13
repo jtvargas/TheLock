@@ -1,3 +1,4 @@
 import Colors from './Colors';
+import DateUtils from './date';
 
-export { Colors };
+export { Colors, DateUtils };

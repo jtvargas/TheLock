@@ -3,7 +3,6 @@ import { Typography } from '@type';
 const TEXT_TYPOGRAPHY = {
   [Typography.Type.caption]: Typography.Type.caption,
   [Typography.Type.callout]: Typography.Type.callout,
-  [Typography.Type.subtitle]: Typography.Type.subtitle,
   [Typography.Type.title]: Typography.Type.title,
   [Typography.Type.largeTitle]: Typography.Type.largeTitle,
   [Typography.Weight.regular]: Typography.Weight.regular,

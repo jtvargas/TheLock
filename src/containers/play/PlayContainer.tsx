@@ -28,6 +28,7 @@ type PlayContainerProps = {
   selectedTextValue: string;
   expectedTextValue: string;
   shakeCircle: boolean;
+  shakeDrag: boolean;
   helpVibrate: boolean;
   withNumbersIndicator: boolean;
 };
@@ -40,6 +41,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     circleValue = null,
     shakeCircle = false,
     helpVibrate = false,
+    shakeDrag = false,
     withNumbersIndicator = false,
     onSelectValue,
     onCircleValueChange,
@@ -98,7 +100,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
   };
 
   useEffect(() => {
-    if (shakeCircle && circleValue) {
+    if (shakeCircle) {
       startVibratingCircle();
     }
   }, [shakeCircle, circleValue]);
@@ -145,6 +147,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
             onValueChange={onCircleValueChange}
             onSelectValue={onSelectValue}
             value={circleValue}
+            shakeDrag={shakeDrag}
             circleColor={circleInputColors.circleColor}
             selectColor={circleInputColors.selectCTAColor}
             selectStrokeColor={circleInputColors.selectCTAStrokeColor}
@@ -181,10 +184,8 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         isOverlayText
         type="callout"
         weight="bold"
-        speed={200}
+        speed={150}
         delay={500}
-        textStyle={styles.typeWriterText}
-        cursorStyle={styles.typeWriterCursorText}
       />
     </SafeAreaView>
   );

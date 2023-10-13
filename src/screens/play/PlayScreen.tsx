@@ -1,49 +1,124 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import * as Haptics from 'expo-haptics';
 
 import { PlayScreenProps } from '@type';
 import PlayContainer from '@containers/play';
+import { useAppSelector } from '@redux';
+import { GAME_STATE_SELECTORS, useGameState } from '@redux/GameState';
+import { LockerPickerConfigKey, PlayingState } from '@src/types/gameState';
+import { BOXES_BASED_ON_DIFFICULTY } from './Constants';
 
 type GameState = { stillPlaying: boolean; win: boolean | undefined };
 
 const gameOver = (
   currentValue: string,
   expectedValue: string,
-  onFinishPlaying: () => void,
+  onWinAttemp: () => void,
+  onWin: () => void,
 ): GameState => {
   if (currentValue.length === expectedValue.length) {
-    onFinishPlaying();
     if (currentValue === expectedValue) {
+      onWin();
       return { stillPlaying: false, win: true };
     }
 
+    onWinAttemp();
     return { stillPlaying: false, win: false };
   }
   return { stillPlaying: true, win: undefined };
 };
 
-const PlayScreen: React.FC<PlayScreenProps> = () => {
-  const EXPECTED_TEXT = '123';
+function generateRandomNumberString(N: number): string {
+  const generateRandomDigit = () => Math.floor(Math.random() * 10);
+
+  let str = '';
+
+  while (str.length < N) {
+    const digit = generateRandomDigit();
+    if (
+      str.length === 0 ||
+      Math.abs(Number(str[str.length - 1]) - digit) !== 1
+    ) {
+      str += digit;
+    }
+  }
+
+  return str;
+}
+
+const PlayScreen: React.FC<PlayScreenProps> = props => {
+  const { route } = props;
+  const {
+    params: { gameMode },
+  } = route;
+  const { start, stop, finish, setGameMode, attempWin, changePlayingState } =
+    useGameState();
   const [selectedTextValue, setSelectedTextValue] = useState('');
   const [helpInsight, setHelpInsight] = useState(false);
   const [circleValue, setCircleValue] = useState<number | null>(null);
+  const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
+
+  const playScene = useAppSelector(GAME_STATE_SELECTORS.getPlayScene);
+  const winAttemps = useAppSelector(GAME_STATE_SELECTORS.getWinAttemps);
+  const playingState = useAppSelector(GAME_STATE_SELECTORS.getPlayingState);
+  const lockerPickerColors = useAppSelector(
+    GAME_STATE_SELECTORS.getSceneLockerPickerColors,
+  );
+  const lockerPickerConfig = useAppSelector(
+    GAME_STATE_SELECTORS.getLockerPickerConfig,
+  );
+  const isPlaying = playingState === PlayingState.PLAYING;
+  const isAttemptedToWin = playingState === PlayingState.LOSE;
+  const isIdle = playingState === PlayingState.IDLE;
+
+  const numb = useMemo(() => {
+    return generateRandomNumberString(
+      BOXES_BASED_ON_DIFFICULTY[playDifficulty],
+    );
+  }, []);
 
   useEffect(() => {
-    const gameState = gameOver(selectedTextValue, EXPECTED_TEXT, () =>
-      setSelectedTextValue(''),
-    );
+    setGameMode(gameMode);
+    return () => {
+      stop();
+    };
+  }, []);
 
-    if (gameState.win) {
-      alert('Correct!');
-    } else if (gameState.win === false) {
-      alert('Inforrect!');
+  useEffect(() => {
+    if (winAttemps > 0) {
+      setSelectedTextValue('');
     }
-  }, [selectedTextValue]);
+  }, [winAttemps]);
+
+  // useEffect(() => {}, [playScene]);
+
+  useEffect(() => {
+    const handleAttempWin = () => {
+      attempWin();
+    };
+
+    const handleWin = () => {
+      finish(selectedTextValue);
+      alert('CORRECT');
+      // navigation.goBack(); TODO: create modal to indicate win results and share stuff
+    };
+    if (isPlaying) {
+      gameOver(selectedTextValue, numb, handleAttempWin, handleWin);
+    }
+  }, [selectedTextValue, numb, isPlaying]);
 
   // Handler for when circle value changes
   const handleCircleValueChange = useCallback(
     async (degreeValue: number) => {
-      if (`${degreeValue / 36}` === EXPECTED_TEXT[selectedTextValue.length]) {
+      if (winAttemps === 0 && isIdle) {
+        start();
+      }
+
+      if (!isPlaying) {
+        changePlayingState(PlayingState.PLAYING);
+      }
+
+      if (`${degreeValue / 36}` === numb[selectedTextValue.length]) {
         setHelpInsight(true);
         await Haptics.notificationAsync(
           Haptics.NotificationFeedbackType.Success,
@@ -52,33 +127,40 @@ const PlayScreen: React.FC<PlayScreenProps> = () => {
       setHelpInsight(false);
       setCircleValue(degreeValue);
     },
-    [selectedTextValue],
+    [selectedTextValue, isPlaying],
   );
 
   // Handler for when a value is selected
-  const handleSelectValue = useCallback((valueSelected: number) => {
-    setSelectedTextValue(prev => prev + valueSelected);
-    setCircleValue(null);
-  }, []);
+  const handleSelectValue = useCallback(
+    (valueSelected: number) => {
+      if (isPlaying) {
+        setSelectedTextValue(prev => prev + valueSelected);
+        setCircleValue(null);
+      }
+    },
+    [isPlaying],
+  );
 
   return (
     <PlayContainer
-      withNumbersIndicator={false}
-      shakeCircle={false}
-      helpVibrate={helpInsight}
+      withNumbersIndicator={
+        lockerPickerConfig[LockerPickerConfigKey.NUMBER_INDICATOR]
+      }
+      shakeCircle={
+        isAttemptedToWin ||
+        lockerPickerConfig[LockerPickerConfigKey.SHAKE_ANIMATION]
+      }
+      shakeDrag={lockerPickerConfig[LockerPickerConfigKey.SHAKE_DRAG]}
+      helpVibrate={
+        helpInsight && lockerPickerConfig[LockerPickerConfigKey.HAPTIC_FEEDBACK]
+      }
       onCircleValueChange={handleCircleValueChange}
       onSelectValue={handleSelectValue}
       circleValue={circleValue}
       selectedTextValue={selectedTextValue}
-      expectedTextValue={EXPECTED_TEXT}
+      expectedTextValue={numb}
       circleInputColors={{
-        circleColor: '#636E72',
-        selectCTAColor: '#636E72',
-        selectCTAStrokeColor: '#979D9F',
-        dragCTAColor: '#979D9F',
-        dragCTAStrokeColor: '#979D9F',
-        circleNumberIndicatorColor: '#636E72',
-        circleNumberIndicatorStrokeColor: '#979D9F',
+        ...lockerPickerColors,
       }}
     />
   );

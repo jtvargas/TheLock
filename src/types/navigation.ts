@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { GameMode } from './gameState';
 
 type RootStackParamList = {
   Home: undefined;
-  Play: undefined;
+  Play: { gameMode: GameMode };
   Difficulty: undefined;
   Stats: undefined;
   Personalize: undefined;

@@ -9,7 +9,7 @@ export enum IconName {
   settings = 'cogs',
   about = 'info-circle',
   play = 'play-circle',
-  stats = 'share-alt-square',
+  stats = 'history',
 }
 type IconProps = {
   name: keyof typeof IconName;

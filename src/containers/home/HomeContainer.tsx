@@ -1,18 +1,30 @@
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import upperFirst from 'lodash/upperFirst';
+import lowerCase from 'lodash/lowerCase';
 
-import { ScreenKey } from '@type';
+import { PlayDifficulty } from '@type';
 import { useStyles } from '@core/Theme';
-import { Divider, CardAction, Typewritter } from '@components';
+import { Divider, CardAction, Typewritter, CircleToggle } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 
+export enum HomeOption {
+  PLAY = 'PLAY',
+  PRACTICE = 'PRACTICE',
+  DIFFICULTY = 'DIFFICULTY',
+  STATS = 'STATS',
+  PERSONALIZE = 'PERSONALIZE',
+  SETTINGS = 'SETTINGS',
+  ABOUT = 'ABOUT',
+}
 type HomeContainerProps = {
-  onNavigateToScreen: (screenKey: ScreenKey) => void;
+  onCardPress: (option: HomeOption) => void;
+  difficulty: PlayDifficulty;
 };
 const HomeContainer = (props: HomeContainerProps) => {
-  const { onNavigateToScreen } = props;
+  const { onCardPress, difficulty } = props;
   const { styles, theme } = useStyles(styleSheet);
 
   const renderTopActions = () => {
@@ -20,13 +32,13 @@ const HomeContainer = (props: HomeContainerProps) => {
       <View style={{ flexDirection: 'row' }}>
         <CardAction
           title="PLAY"
-          subtitle="Difficulty: Novice"
+          subtitle={`Difficulty: ${upperFirst(lowerCase(difficulty))}`}
           icon={{
             name: 'play',
             color: theme.components.icon.play.color,
           }}
           variant="large"
-          onPress={() => onNavigateToScreen('Play')}
+          onPress={() => onCardPress(HomeOption.PLAY)}
         />
         <Divider spacing="xs" isVertical />
         <CardAction
@@ -37,7 +49,7 @@ const HomeContainer = (props: HomeContainerProps) => {
             color: theme.components.icon.practice.color,
           }}
           variant="large"
-          onPress={() => onNavigateToScreen('Play')}
+          onPress={() => onCardPress(HomeOption.PRACTICE)}
         />
       </View>
     );
@@ -54,19 +66,19 @@ const HomeContainer = (props: HomeContainerProps) => {
             color: theme.components.icon.difficulty.color,
           }}
           variant="large"
-          onPress={() => onNavigateToScreen('Difficulty')}
+          onPress={() => onCardPress(HomeOption.DIFFICULTY)}
         />
         <Divider spacing="xs" isVertical />
         <View style={{ flexDirection: 'column' }}>
           <CardAction
             title="STATS"
-            subtitle="See your stats and share with friends"
+            subtitle="See your stats"
             icon={{
               name: 'stats',
               color: theme.components.icon.stats.color,
             }}
             variant="medium"
-            onPress={() => onNavigateToScreen('Stats')}
+            onPress={() => onCardPress(HomeOption.STATS)}
           />
           <Divider />
           <CardAction
@@ -77,7 +89,7 @@ const HomeContainer = (props: HomeContainerProps) => {
               color: theme.components.icon.personalize.color,
             }}
             variant="small"
-            onPress={() => onNavigateToScreen('Personalize')}
+            onPress={() => onCardPress(HomeOption.PERSONALIZE)}
           />
 
           <Divider />
@@ -92,7 +104,7 @@ const HomeContainer = (props: HomeContainerProps) => {
                 color: theme.components.icon.about.color,
               }}
               variant="xsmall"
-              onPress={() => onNavigateToScreen('About')}
+              onPress={() => onCardPress(HomeOption.ABOUT)}
             />
             <Divider isVertical />
             <CardAction
@@ -103,7 +115,7 @@ const HomeContainer = (props: HomeContainerProps) => {
                 color: theme.components.icon.settings.color,
               }}
               variant="xsmall"
-              onPress={() => onNavigateToScreen('Settings')}
+              onPress={() => onCardPress(HomeOption.SETTINGS)}
             />
           </View>
         </View>
@@ -113,16 +125,6 @@ const HomeContainer = (props: HomeContainerProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Text type="title" weight="bold">
-       
-      </Text> */}
-      {/* <Typewritter
-        text="The Lock."
-        duration={100}
-        loop
-        style={{ fontSize: 18 }}
-        onComplete={() => console.log('One cycle finished!')}
-      /> */}
       <Typewritter
         textArray={['The Lock.']}
         // loop

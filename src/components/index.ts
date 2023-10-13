@@ -4,6 +4,7 @@ import CircularSliderInput from './CircularSliderInput';
 import FocusText from './FocusText';
 import FocusTextGrid from './FocusTextGrid';
 import Typewritter from './Typewritter';
+import CircleToggle from './CircleToggle';
 
 export {
   Text,
@@ -14,4 +15,5 @@ export {
   FocusText,
   FocusTextGrid,
   Typewritter,
+  CircleToggle,
 };

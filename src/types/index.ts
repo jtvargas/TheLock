@@ -12,6 +12,17 @@ import {
 } from './navigation';
 
 import Typography from './typography';
+import {
+  GameState,
+  GameMode,
+  LockerPickerColors,
+  MetaScene,
+  PlayDifficulty,
+  PlayScene,
+  PlayingState,
+  SceneConfig,
+  TimeBreakdown,
+} from './gameState';
 
 export {
   RootStackParamList,
@@ -25,4 +36,13 @@ export {
   AboutScreenProps,
   ScreenKey,
   Typography,
+  GameState,
+  GameMode,
+  LockerPickerColors,
+  MetaScene,
+  PlayDifficulty,
+  PlayScene,
+  PlayingState,
+  SceneConfig,
+  TimeBreakdown,
 };

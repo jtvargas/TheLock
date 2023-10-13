@@ -6,13 +6,6 @@ import { IconName } from '@components/core/Icon';
 import { useStyles } from '@core/Theme';
 
 import styleSheet from './CardAction.styles';
-// Define your icon mapping here based on your available icons
-// This is a dummy example, replace with your actual icons
-// const ICONS = {
-//   play: require('./path-to-play-icon.png'),
-//   stats: require('./path-to-stats-icon.png'),
-//   // ... other icons
-// };
 
 type IconConfig = {
   name: keyof typeof IconName;
