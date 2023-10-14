@@ -21,9 +21,7 @@ export const getPlayingState = createSelector([getPlayScene], playScene => {
     initialGameState.playScene.playingState,
   );
 });
-export const getDifficulty = createSelector([getPlayScene], playScene => {
-  return get(playScene, ['difficulty'], initialGameState.playScene.difficulty);
-});
+
 export const getWinAttemps = createSelector([getPlayScene], playScene => {
   return get(
     playScene,
@@ -31,10 +29,26 @@ export const getWinAttemps = createSelector([getPlayScene], playScene => {
     initialGameState.playScene.meta.attemps,
   );
 });
+export const getTimeLapsed = createSelector([getPlayScene], playScene => {
+  return get(
+    playScene,
+    ['meta', 'timeLapsed'],
+    initialGameState.playScene.meta.timeLapsed,
+  );
+});
 
 export const getSceneConfig = createSelector([getGameState], gameState => {
   return get(gameState, ['sceneConfig'], initialGameState.sceneConfig);
 });
+
+export const getDifficulty = createSelector([getSceneConfig], sceneConfig => {
+  return get(
+    sceneConfig,
+    ['difficulty'],
+    initialGameState.sceneConfig.difficulty,
+  );
+});
+
 export const getLockerPickerConfig = createSelector(
   [getSceneConfig],
   sceneConfig => {

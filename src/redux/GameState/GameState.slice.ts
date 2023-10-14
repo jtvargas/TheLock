@@ -46,6 +46,7 @@ export const gameSlice = createSlice({
       const newPlayHistoryItem: PlayScene = {
         ...state.playScene,
         playingState: PlayingState.WIN,
+        difficulty: state.sceneConfig.difficulty,
         meta: {
           ...state.playScene.meta,
           ...action.payload.metaScene,
@@ -60,7 +61,7 @@ export const gameSlice = createSlice({
       state,
       action: PayloadAction<{ difficulty: PlayDifficulty }>,
     ) => {
-      state.playScene.difficulty = action.payload.difficulty;
+      state.sceneConfig.difficulty = action.payload.difficulty;
     },
     changeGameMode: (state, action: PayloadAction<{ gameMode: GameMode }>) => {
       state.playScene.gameMode = action.payload.gameMode;

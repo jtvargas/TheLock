@@ -2,7 +2,6 @@ import { GameState, PlayDifficulty, PlayingState } from '@type';
 
 const initialGameState: GameState = {
   playScene: {
-    difficulty: PlayDifficulty.NOVICE,
     playingState: PlayingState.IDLE,
     gameMode: undefined,
     meta: {
@@ -24,7 +23,6 @@ const initialGameState: GameState = {
         circleNumberIndicatorColor: '#636E72',
         circleNumberIndicatorStrokeColor: '#979D9F',
       },
-
       config: {
         HAPTIC_FEEDBACK: true,
         SHAKE_ANIMATION: false,
@@ -32,6 +30,7 @@ const initialGameState: GameState = {
         SHAKE_DRAG: false,
       },
     },
+    difficulty: PlayDifficulty.NOVICE,
     config: {
       HELP_KEY: true,
       TIP_MESSAGE: true,

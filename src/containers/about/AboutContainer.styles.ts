@@ -10,7 +10,7 @@ const styles = createStyleSheet(theme => ({
   },
   title: {
     fontWeight: 'bold',
-    // color: '#fff',
+    color: theme.colors.onMainBackground,
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -22,7 +22,7 @@ const styles = createStyleSheet(theme => ({
   },
   featureText: {
     marginLeft: 10,
-    // color: '#fff',
+    color: theme.colors.onMainBackground,
     flex: 1,
     flexShrink: 1, // ensures text doesn't overflow
   },

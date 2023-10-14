@@ -24,7 +24,7 @@ const AboutContainer = () => {
           cursorStyle={styles.typeWriterCursorText}
           textStyle={styles.title}
         />
-        <Text style={styles.title} type="callout" weight="medium" isOverlay>
+        <Text style={styles.title} type="callout" weight="medium">
           A game to guess numbers with a spinner. Enjoy haptic feedback and
           visuals as hints. Share your average guess time across difficulties.
         </Text>
@@ -35,13 +35,8 @@ const AboutContainer = () => {
             size={24}
             color={theme.colors.onMainBackground}
           />
-          <Text
-            style={styles.featureText}
-            type="body"
-            weight="medium"
-            isOverlay
-          >
-            <Text weight="bold" type="body" isOverlay>
+          <Text style={styles.featureText} type="body" weight="medium">
+            <Text weight="bold" type="body" style={styles.featureText}>
               Tailored Experience:{' '}
             </Text>
             Alter colors and hints for your liking.
@@ -54,8 +49,8 @@ const AboutContainer = () => {
             size={24}
             color={theme.colors.onMainBackground}
           />
-          <Text style={styles.featureText} isOverlay>
-            <Text weight="bold" type="body" isOverlay>
+          <Text style={styles.featureText}>
+            <Text weight="bold" type="body" style={styles.featureText}>
               Haptic Feedback:{' '}
             </Text>
             Feel every hint.
@@ -68,11 +63,11 @@ const AboutContainer = () => {
             size={24}
             color={theme.colors.onMainBackground}
           />
-          <Text style={styles.featureText} isOverlay>
-            <Text weight="bold" type="body" isOverlay>
+          <Text style={styles.featureText}>
+            <Text weight="bold" type="body" style={styles.featureText}>
               Progress Tracking:{' '}
             </Text>
-            Revisit your previous scores and see how you've evolved over time.
+            Revisit your previous scores.
           </Text>
         </View>
         <View style={styles.feature}>
@@ -81,8 +76,8 @@ const AboutContainer = () => {
             size={24}
             color={theme.colors.onMainBackground}
           />
-          <Text style={styles.featureText} isOverlay>
-            <Text weight="bold" type="body" isOverlay>
+          <Text style={styles.featureText}>
+            <Text weight="bold" type="body" style={styles.featureText}>
               Design:{' '}
             </Text>
             Minimalistic and intuitive.
@@ -94,8 +89,8 @@ const AboutContainer = () => {
             size={24}
             color={theme.colors.onMainBackground}
           />
-          <Text style={styles.featureText} isOverlay>
-            <Text weight="bold" type="body" isOverlay>
+          <Text style={styles.featureText}>
+            <Text weight="bold" type="body" style={styles.featureText}>
               Ad-free Experience:{' '}
             </Text>
             Play uninterrupted without any ads.
@@ -115,18 +110,12 @@ const AboutContainer = () => {
             <Text
               weight="bold"
               type="callout"
-              isOverlay
               style={{ marginLeft: 4, color: 'orange' }}
             >
               Buy me a coffe
             </Text>
           </TouchableOpacity>
-          <Text
-            weight="bold"
-            type="callout"
-            isOverlay
-            style={{ marginHorizontal: 4 }}
-          >
+          <Text weight="bold" type="callout" style={{ marginHorizontal: 4 }}>
             |
           </Text>
           <TouchableOpacity
@@ -140,7 +129,6 @@ const AboutContainer = () => {
             <Text
               weight="bold"
               type="callout"
-              isOverlay
               style={{ marginLeft: 4, color: theme.colors.onMainBackground }}
             >
               Acknowledgements

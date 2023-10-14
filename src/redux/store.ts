@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -16,20 +16,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // reducers
 import { gameStateReducer } from './GameState';
 
-const persistConfig = {
-  key: 'root',
+const persistAppRatingConfig = {
+  key: 'gameState',
   storage: AsyncStorage,
-  version: 1,
+  // No need to persist the playScene, just the history and the sceneConfig
+  blacklist: ['playScene'],
 };
-const reducers = combineReducers({
-  gameState: gameStateReducer,
-});
-
-// Middleware: Redux Persist Persisted Reducer
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedGameStateReducer = persistReducer(
+  persistAppRatingConfig,
+  gameStateReducer,
+);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    gameState: persistedGameStateReducer,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
