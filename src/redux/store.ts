@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
-import type { TypedUseSelectorHook } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
@@ -14,7 +12,12 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // reducers
-import { gameStateReducer } from './GameState';
+import {
+  gameStateReducer,
+  GAME_STATE_ACTIONS,
+  GAME_STATE_SELECTORS,
+  useGameState,
+} from './GameState';
 
 const persistAppRatingConfig = {
   key: 'gameState',
@@ -41,10 +44,14 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
+export {
+  GAME_STATE_ACTIONS,
+  GAME_STATE_SELECTORS,
+  useGameState,
+  gameStateReducer,
+};
