@@ -5,7 +5,11 @@ import { PlayScreenProps } from '@type';
 import PlayContainer from '@containers/play';
 import { useAppSelector } from '@redux';
 import { GAME_STATE_SELECTORS, useGameState } from '@redux/GameState';
-import { LockerPickerConfigKey, PlayingState } from '@src/types/gameState';
+import {
+  LockerPickerConfigKey,
+  PlayDifficulty,
+  PlayingState,
+} from '@src/types/gameState';
 import { BOXES_BASED_ON_DIFFICULTY } from './Constants';
 
 type GameState = { stillPlaying: boolean; win: boolean | undefined };
@@ -47,7 +51,7 @@ function generateRandomNumberString(N: number): string {
 }
 
 const PlayScreen: React.FC<PlayScreenProps> = props => {
-  const { route } = props;
+  const { route, navigation } = props;
   const {
     params: { gameMode },
   } = route;
@@ -57,8 +61,8 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const [helpInsight, setHelpInsight] = useState(false);
   const [circleValue, setCircleValue] = useState<number | null>(null);
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
+  const timeLapsed = useAppSelector(GAME_STATE_SELECTORS.getTimeLapsed);
 
-  const playScene = useAppSelector(GAME_STATE_SELECTORS.getPlayScene);
   const winAttemps = useAppSelector(GAME_STATE_SELECTORS.getWinAttemps);
   const playingState = useAppSelector(GAME_STATE_SELECTORS.getPlayingState);
   const lockerPickerColors = useAppSelector(
@@ -68,14 +72,18 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     GAME_STATE_SELECTORS.getLockerPickerConfig,
   );
   const isPlaying = playingState === PlayingState.PLAYING;
+  const isPlayWin = playingState === PlayingState.WIN;
   const isAttemptedToWin = playingState === PlayingState.LOSE;
   const isIdle = playingState === PlayingState.IDLE;
+
+  const generateNewNumberOnFail =
+    isAttemptedToWin && playDifficulty === PlayDifficulty.EXPERT;
 
   const numb = useMemo(() => {
     return generateRandomNumberString(
       BOXES_BASED_ON_DIFFICULTY[playDifficulty],
     );
-  }, []);
+  }, [generateNewNumberOnFail]);
 
   useEffect(() => {
     setGameMode(gameMode);
@@ -90,8 +98,6 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     }
   }, [winAttemps]);
 
-  // useEffect(() => {}, [playScene]);
-
   useEffect(() => {
     const handleAttempWin = () => {
       attempWin();
@@ -99,8 +105,6 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
 
     const handleWin = () => {
       finish(selectedTextValue);
-      alert('CORRECT');
-      // navigation.goBack(); TODO: create modal to indicate win results and share stuff
     };
     if (isPlaying) {
       gameOver(selectedTextValue, numb, handleAttempWin, handleWin);
@@ -162,6 +166,9 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       circleInputColors={{
         ...lockerPickerColors,
       }}
+      isVisibleWinPopup={isPlayWin}
+      timeSpent={timeLapsed || ''}
+      onCloseWinPopup={() => navigation.goBack()}
     />
   );
 };

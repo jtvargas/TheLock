@@ -5,6 +5,7 @@ import FocusText from './FocusText';
 import FocusTextGrid from './FocusTextGrid';
 import Typewritter from './Typewritter';
 import CircleToggle from './CircleToggle';
+import ModalPopup from './ModalPopup';
 
 export {
   Text,
@@ -16,4 +17,5 @@ export {
   FocusTextGrid,
   Typewritter,
   CircleToggle,
+  ModalPopup,
 };

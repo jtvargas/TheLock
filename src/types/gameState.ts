@@ -30,7 +30,7 @@ export interface MetaScene {
 
 // Represents the configuration and state of a play scene.
 export type PlayScene = {
-  difficulty: PlayDifficulty;
+  difficulty?: PlayDifficulty;
   playingState: PlayingState;
   gameMode?: GameMode;
   meta: MetaScene;
@@ -69,6 +69,7 @@ export type SceneConfig = {
     // Toggle to enable or disable specific boolean options.
     config: LockerPickerConfig;
   };
+  difficulty: PlayDifficulty;
   config: SceneConfigCustom; // Toggle for displaying tip messages or Toggle for enabling the help key.
 };
 
