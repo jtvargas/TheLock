@@ -3,8 +3,7 @@ import * as Haptics from 'expo-haptics';
 
 import { GameMode, HomeScreenProps } from '@type';
 import HomeContainer, { HomeOption } from '@containers/home';
-import { useAppSelector } from '@redux';
-import { GAME_STATE_SELECTORS } from '@redux/GameState';
+import { useAppSelector, GAME_STATE_SELECTORS } from '@redux';
 
 const HomeScreen: React.FC<HomeScreenProps> = props => {
   const { navigation } = props;

@@ -1,10 +1,7 @@
-import {
-  useAppDispatch,
-  useAppSelector,
-  GAME_STATE_ACTIONS,
-  GAME_STATE_SELECTORS,
-} from '@redux';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { GameMode, PlayDifficulty, PlayingState } from '@type';
+import * as GAME_STATE_SELECTORS from './GameState.selectors';
+import { GAME_STATE_ACTIONS } from './GameState.slice';
 
 interface GameStateHook {
   start: () => void;
