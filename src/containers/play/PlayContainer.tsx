@@ -148,7 +148,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
           </Text>
           <Divider spacing="sm" dividerColor="green" />
           <Text type="subTitle" weight="bold">
-            in guess:
+            to guess:
           </Text>
         </View>
         <View
@@ -284,7 +284,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         </Text>
       </Animated.View>
       <Typewritter
-        textArray={['Enable haptic feedback']}
+        textArray={['Move the drag circle']}
         isOverlayText
         type="callout"
         weight="bold"

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import get from 'lodash/get';
 import filter from 'lodash/filter';
 
-import { RootState } from '@redux';
+import { RootState } from '@redux/store';
 import { GameMode, PlayScene } from '@type';
 import { initialGameState } from './Constants';
 
