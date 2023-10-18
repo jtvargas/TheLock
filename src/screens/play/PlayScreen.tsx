@@ -89,7 +89,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     return generateRandomNumberString(
       BOXES_BASED_ON_DIFFICULTY[playDifficulty],
     );
-  }, [generateNewNumberOnFail]);
+  }, [generateNewNumberOnFail, isIdle]);
 
   useEffect(() => {
     setGameMode(gameMode);
@@ -177,6 +177,10 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       isVisibleWinPopup={isPlayWin}
       timeSpent={timeLapsed || ''}
       onCloseWinPopup={() => navigation.goBack()}
+      onPlayAgain={() => {
+        setSelectedTextValue('');
+        stop();
+      }}
     />
   );
 };

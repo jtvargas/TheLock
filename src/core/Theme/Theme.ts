@@ -11,12 +11,14 @@ const SIZE_FACTOR = 0.3;
 const theme = {
   colors: {
     mainBackground: palette.darkGray,
+    secondaryBackground: palette.darkGrayDark,
     onMainBackground: palette.grayishWhite,
     cardPrimaryBackground: palette.darkGray,
     text: palette.white,
     textOverlay: ColorsUtils.hexToRGBA(palette.white, 0.3),
     error: palette.brickRed,
     border: palette.grayishWhite,
+    highlight: palette.orange,
   },
   components: {
     circleInput: {

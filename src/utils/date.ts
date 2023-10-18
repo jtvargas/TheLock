@@ -1,12 +1,18 @@
 import dayjs, { Dayjs } from 'dayjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import duration from 'dayjs/plugin/duration';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import isNaN from 'lodash/isNaN';
 
 dayjs.extend(duration);
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(weekOfYear);
 
 const getDateInDayJs = (varDate?: Date | number | string | Dayjs): Dayjs => {
   if (varDate) {
@@ -26,9 +32,37 @@ const getDateInDayJs = (varDate?: Date | number | string | Dayjs): Dayjs => {
 
 const formatDate = (
   varDate: Date | number | string | Dayjs | undefined,
-  format: string,
+  format?: string,
 ): string => {
-  return dayjs(varDate || new Date()).format(format);
+  const dateToFormat = getDateInDayJs(varDate || new Date());
+  const today = dayjs();
+
+  if (dateToFormat.isSame(today, 'day')) {
+    return 'Today';
+  }
+
+  if (dateToFormat.isSame(today.subtract(1, 'day'), 'day')) {
+    return 'Yesterday';
+  }
+
+  if (
+    dateToFormat.isSameOrBefore(today, 'week') &&
+    dateToFormat.isSameOrAfter(today.startOf('week'), 'day')
+  ) {
+    return 'This Week';
+  }
+
+  if (
+    dateToFormat.isSameOrBefore(
+      today.subtract(1, 'week').endOf('week'),
+      'day',
+    ) &&
+    dateToFormat.isSameOrAfter(today.subtract(1, 'week').startOf('week'), 'day')
+  ) {
+    return 'Last Week';
+  }
+
+  return dateToFormat.format(format || 'MM-DD-YYYY');
 };
 
 const getTimeLapsed = (startPlayTime: number, endPlayTime: number): string => {

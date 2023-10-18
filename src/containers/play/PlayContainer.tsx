@@ -20,7 +20,7 @@ type PlayContainerProps = {
   onCircleValueChange: (value: number) => void;
   onSelectValue: (value: number) => void;
   onCloseWinPopup: () => void;
-  onSeeMyStatsPress: () => void;
+  onPlayAgain: () => void;
   circleInputColors: {
     circleColor: string;
     selectCTAColor: string;
@@ -56,7 +56,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     onSelectValue,
     onCircleValueChange,
     onCloseWinPopup,
-    onSeeMyStatsPress,
+    onPlayAgain,
   } = props;
   const { styles, theme } = useStyles(styleSheet);
   const vibrateAnim = useRef(new Animated.Value(0)).current;
@@ -165,7 +165,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
           />
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TouchableOpacity
-              onPress={onSeeMyStatsPress}
+              onPress={onPlayAgain}
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -179,7 +179,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
                 isOverlay
                 style={{ marginLeft: 4, color: 'orange' }}
               >
-                My Stats
+                Play Again
               </Text>
             </TouchableOpacity>
           </View>
