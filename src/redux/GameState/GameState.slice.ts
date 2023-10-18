@@ -91,6 +91,9 @@ export const gameSlice = createSlice({
       state.sceneConfig.config[action.payload.sceneConfig] =
         !state.sceneConfig.config[action.payload.sceneConfig];
     },
+    resetHistory: state => {
+      state.playHistory = initialGameState.playHistory;
+    },
   },
 });
 

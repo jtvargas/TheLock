@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 
 const Typewriter: React.FC<TypewriterProps> = ({
   textArray,
+  withAnimation = true,
   speed = DEFAULT_SPEED,
   loop = false,
   delay = DEFAULT_DELAY,
@@ -69,32 +70,36 @@ const Typewriter: React.FC<TypewriterProps> = ({
   };
 
   const startTyping = () => {
-    intervalRef.current = setInterval(() => {
-      if (charIndex.current < textArray[textArrayIndex.current].length) {
-        setCurrentText(
-          prev => prev + textArray[textArrayIndex.current][charIndex.current],
-        );
-        charIndex.current += 1;
-      } else if (textArrayIndex.current < textArray.length - 1) {
-        clearInterval(intervalRef.current);
-        setTimeout(() => {
-          setCurrentText('');
-          textArrayIndex.current += 1;
-          charIndex.current = 0;
-          startTyping();
-        }, delay);
-      } else if (loop) {
-        clearInterval(intervalRef.current);
-        setTimeout(() => {
-          setCurrentText('');
-          textArrayIndex.current = 0;
-          charIndex.current = 0;
-          startTyping();
-        }, delay);
-      } else {
-        clearInterval(intervalRef.current);
-      }
-    }, speed);
+    if (withAnimation) {
+      intervalRef.current = setInterval(() => {
+        if (charIndex.current < textArray[textArrayIndex.current].length) {
+          setCurrentText(
+            prev => prev + textArray[textArrayIndex.current][charIndex.current],
+          );
+          charIndex.current += 1;
+        } else if (textArrayIndex.current < textArray.length - 1) {
+          clearInterval(intervalRef.current);
+          setTimeout(() => {
+            setCurrentText('');
+            textArrayIndex.current += 1;
+            charIndex.current = 0;
+            startTyping();
+          }, delay);
+        } else if (loop) {
+          clearInterval(intervalRef.current);
+          setTimeout(() => {
+            setCurrentText('');
+            textArrayIndex.current = 0;
+            charIndex.current = 0;
+            startTyping();
+          }, delay);
+        } else {
+          clearInterval(intervalRef.current);
+        }
+      }, speed);
+    } else {
+      setCurrentText(preText + textArray[textArrayIndex.current]);
+    }
   };
 
   useEffect(() => {

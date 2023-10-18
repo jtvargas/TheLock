@@ -27,6 +27,8 @@ const Colors = {
   pastelYellow: '#FFEA7F',
   pastelYellowDark: '#FFDA5E',
 
+  orange: 'orange',
+
   brickRedLight: '#E54B53',
   brickRed: '#D63031',
   brickRedDark: '#B01F23',
@@ -37,7 +39,7 @@ const Colors = {
 
   darkGrayLight: '#4A4E52',
   darkGray: '#2D3436',
-  darkGrayDark: '#1A1D20',
+  darkGrayDark: '#272B2D',
 
   tealLight: '#2ED8B6',
   teal: '#00B894',

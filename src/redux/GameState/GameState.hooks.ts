@@ -11,6 +11,7 @@ interface GameStateHook {
   setGameMode: (gameMode: GameMode) => void;
   changePlayingState: (playingState: PlayingState) => void;
   changeDifficulty: (difficulty: PlayDifficulty) => void;
+  resetHistory: () => void;
   playDifficulty: PlayDifficulty;
 }
 
@@ -42,6 +43,10 @@ export const useGameState = (): GameStateHook => {
     dispatch(GAME_STATE_ACTIONS.changeSceneDifficulty({ difficulty }));
   };
 
+  const resetHistory = () => {
+    dispatch(GAME_STATE_ACTIONS.resetHistory());
+  };
+
   return {
     start,
     stop,
@@ -50,6 +55,7 @@ export const useGameState = (): GameStateHook => {
     attempWin,
     changePlayingState,
     changeDifficulty,
+    resetHistory,
     playDifficulty,
   };
 };

@@ -32,6 +32,12 @@ const gameOver = (
   return { stillPlaying: true, win: undefined };
 };
 
+const vibrateLavel = {
+  [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Heavy,
+  [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Medium,
+  [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Light,
+};
+
 function generateRandomNumberString(N: number): string {
   const generateRandomDigit = () => Math.floor(Math.random() * 10);
 
@@ -83,7 +89,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     return generateRandomNumberString(
       BOXES_BASED_ON_DIFFICULTY[playDifficulty],
     );
-  }, [generateNewNumberOnFail]);
+  }, [generateNewNumberOnFail, isIdle]);
 
   useEffect(() => {
     setGameMode(gameMode);
@@ -124,9 +130,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
 
       if (`${degreeValue / 36}` === numb[selectedTextValue.length]) {
         setHelpInsight(true);
-        await Haptics.notificationAsync(
-          Haptics.NotificationFeedbackType.Success,
-        );
+        await Haptics.impactAsync(vibrateLavel[playDifficulty]);
       }
       setHelpInsight(false);
       setCircleValue(degreeValue);
@@ -156,7 +160,11 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       }
       shakeDrag={lockerPickerConfig[LockerPickerConfigKey.SHAKE_DRAG]}
       helpVibrate={
-        helpInsight && lockerPickerConfig[LockerPickerConfigKey.HAPTIC_FEEDBACK]
+        helpInsight &&
+        lockerPickerConfig[LockerPickerConfigKey.HAPTIC_FEEDBACK] &&
+        [PlayDifficulty.NOVICE, PlayDifficulty.ADVANCED].includes(
+          playDifficulty,
+        )
       }
       onCircleValueChange={handleCircleValueChange}
       onSelectValue={handleSelectValue}
@@ -169,6 +177,10 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       isVisibleWinPopup={isPlayWin}
       timeSpent={timeLapsed || ''}
       onCloseWinPopup={() => navigation.goBack()}
+      onPlayAgain={() => {
+        setSelectedTextValue('');
+        stop();
+      }}
     />
   );
 };
