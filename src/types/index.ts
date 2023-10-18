@@ -21,7 +21,8 @@ import {
   PlayScene,
   PlayingState,
   SceneConfig,
-  TimeBreakdown,
+  LockerPickerConfig,
+  SceneConfigCustom,
 } from './gameState';
 
 export {
@@ -44,5 +45,6 @@ export {
   PlayScene,
   PlayingState,
   SceneConfig,
-  TimeBreakdown,
+  SceneConfigCustom,
+  LockerPickerConfig,
 };

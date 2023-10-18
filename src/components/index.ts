@@ -1,4 +1,4 @@
-import { Text, Icon, Divider, Button } from './core';
+import { Text, Icon, Divider, Button, ToggleButton } from './core';
 import CardAction from './CardAction';
 import CircularSliderInput from './CircularSliderInput';
 import FocusText from './FocusText';
@@ -21,4 +21,5 @@ export {
   ModalPopup,
   Button,
   Dropdown,
+  ToggleButton,
 };

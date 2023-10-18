@@ -62,6 +62,11 @@ export const gameSlice = createSlice({
       action: PayloadAction<{ difficulty: PlayDifficulty }>,
     ) => {
       state.sceneConfig.difficulty = action.payload.difficulty;
+      if (action.payload.difficulty === PlayDifficulty.EXPERT) {
+        state.sceneConfig.lockerPicker.config[
+          LockerPickerConfigKey.SHAKE_ANIMATION
+        ] = true;
+      }
     },
     changeGameMode: (state, action: PayloadAction<{ gameMode: GameMode }>) => {
       state.playScene.gameMode = action.payload.gameMode;

@@ -35,6 +35,8 @@ type PlayContainerProps = {
   expectedTextValue: string;
   shakeCircle: boolean;
   shakeDrag: boolean;
+  showTipMessage: boolean;
+  showHelpEmoji: boolean;
   helpVibrate: boolean;
   withNumbersIndicator: boolean;
   isVisibleWinPopup: boolean;
@@ -53,6 +55,8 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     shakeDrag = false,
     withNumbersIndicator = false,
     isVisibleWinPopup = false,
+    showTipMessage = true,
+    showHelpEmoji = true,
     onSelectValue,
     onCircleValueChange,
     onCloseWinPopup,
@@ -184,6 +188,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
             </TouchableOpacity>
           </View>
         </View>
+
         <View
           style={{
             alignSelf: 'center',
@@ -264,35 +269,39 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         </Animated.View>
       </View>
 
-      <Animated.View
-        style={[
-          {
-            transform: [{ translateY: vibrateAnim }],
-          },
-          styles.keyHelp,
-        ]}
-      >
-        <Text
+      {showHelpEmoji ? (
+        <Animated.View
+          style={[
+            {
+              transform: [{ translateY: vibrateAnim }],
+            },
+            styles.keyHelp,
+          ]}
+        >
+          <Text
+            type="callout"
+            weight="bold"
+            isOverlay
+            onLongPress={() =>
+              alert(`The max number is: ${max(expectedTextValue)}`)
+            }
+          >
+            🔑
+          </Text>
+        </Animated.View>
+      ) : null}
+      {showTipMessage ? (
+        <Typewritter
+          textArray={['Move the drag circle']}
+          isOverlayText
           type="callout"
           weight="bold"
-          isOverlay
-          onLongPress={() =>
-            alert(`The max number is: ${max(expectedTextValue)}`)
-          }
-        >
-          🔑
-        </Text>
-      </Animated.View>
-      <Typewritter
-        textArray={['Move the drag circle']}
-        isOverlayText
-        type="callout"
-        weight="bold"
-        speed={150}
-        delay={500}
-        withLeftCursor
-        preText="Tip: "
-      />
+          speed={150}
+          delay={500}
+          withLeftCursor
+          preText="Tip: "
+        />
+      ) : null}
     </SafeAreaView>
   );
 };
