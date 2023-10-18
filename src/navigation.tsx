@@ -62,7 +62,10 @@ function NavigationContainer() {
           <Stack.Screen
             name="Settings"
             component={SettingsScreen}
-            options={{ headerShown: true, presentation: 'modal' }}
+            options={{
+              headerShown: true,
+              presentation: 'modal',
+            }}
           />
           <Stack.Screen
             name="About"

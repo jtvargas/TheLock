@@ -32,7 +32,7 @@ const initialGameState: GameState = {
     },
     difficulty: PlayDifficulty.NOVICE,
     config: {
-      HELP_KEY: true,
+      HELP_KEY: false,
       TIP_MESSAGE: true,
     },
   },

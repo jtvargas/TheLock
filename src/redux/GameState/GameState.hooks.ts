@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { GameMode, PlayDifficulty, PlayingState } from '@type';
+import { LockerPickerConfigKey, SceneConfigKey } from '@src/types/gameState';
 import * as GAME_STATE_SELECTORS from './GameState.selectors';
 import { GAME_STATE_ACTIONS } from './GameState.slice';
 
@@ -8,6 +9,8 @@ interface GameStateHook {
   stop: () => void;
   attempWin: () => void;
   finish: (answer: string) => void;
+  toggleLockerConfig: (lockerConfigKey: LockerPickerConfigKey) => void;
+  toggleSceneConfig: (sceneKey: SceneConfigKey) => void;
   setGameMode: (gameMode: GameMode) => void;
   changePlayingState: (playingState: PlayingState) => void;
   changeDifficulty: (difficulty: PlayDifficulty) => void;
@@ -47,6 +50,17 @@ export const useGameState = (): GameStateHook => {
     dispatch(GAME_STATE_ACTIONS.resetHistory());
   };
 
+  const toggleSceneConfig = (sceneKey: SceneConfigKey) => {
+    dispatch(GAME_STATE_ACTIONS.toggleSceneConfig({ sceneConfig: sceneKey }));
+  };
+  const toggleLockerConfig = (lockerConfigKey: LockerPickerConfigKey) => {
+    dispatch(
+      GAME_STATE_ACTIONS.toggleLockerPickerConfig({
+        lockerPickerConfigKey: lockerConfigKey,
+      }),
+    );
+  };
+
   return {
     start,
     stop,
@@ -56,6 +70,8 @@ export const useGameState = (): GameStateHook => {
     changePlayingState,
     changeDifficulty,
     resetHistory,
+    toggleLockerConfig,
+    toggleSceneConfig,
     playDifficulty,
   };
 };

@@ -9,6 +9,7 @@ import {
   LockerPickerConfigKey,
   PlayDifficulty,
   PlayingState,
+  SceneConfigKey,
 } from '@src/types/gameState';
 import { BOXES_BASED_ON_DIFFICULTY } from './Constants';
 
@@ -77,6 +78,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const lockerPickerConfig = useAppSelector(
     GAME_STATE_SELECTORS.getLockerPickerConfig,
   );
+  const sceneConfig = useAppSelector(GAME_STATE_SELECTORS.getSceneConfigCustom);
   const isPlaying = playingState === PlayingState.PLAYING;
   const isPlayWin = playingState === PlayingState.WIN;
   const isAttemptedToWin = playingState === PlayingState.LOSE;
@@ -166,6 +168,8 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
           playDifficulty,
         )
       }
+      showTipMessage={sceneConfig[SceneConfigKey.TIP_MESSAGE]}
+      showHelpEmoji={sceneConfig[SceneConfigKey.HELP_KEY]}
       onCircleValueChange={handleCircleValueChange}
       onSelectValue={handleSelectValue}
       circleValue={circleValue}

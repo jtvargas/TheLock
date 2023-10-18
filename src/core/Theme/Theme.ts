@@ -19,6 +19,7 @@ const theme = {
     error: palette.brickRed,
     border: palette.grayishWhite,
     highlight: palette.orange,
+    success: palette.tealLight,
   },
   components: {
     circleInput: {
