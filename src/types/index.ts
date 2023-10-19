@@ -9,6 +9,7 @@ import {
   SettingsScreenProps,
   AboutScreenProps,
   ScreenKey,
+  AcknowledgementsScreenProps,
 } from './navigation';
 
 import Typography from './typography';
@@ -49,4 +50,5 @@ export {
   SceneConfigCustom,
   LockerPickerConfig,
   LockerPickerTheme,
+  AcknowledgementsScreenProps,
 };

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -10,7 +10,12 @@ import { Text, Typewritter } from '@components';
 
 import styleSheet from './AboutContainer.styles';
 
-const AboutContainer = () => {
+type AboutContainerProps = {
+  onPressAcknowledgements: () => void;
+  onPressBuyMeACoffe: () => void;
+};
+const AboutContainer: React.FC<AboutContainerProps> = props => {
+  const { onPressBuyMeACoffe, onPressAcknowledgements } = props;
   const { styles, theme } = useStyles(styleSheet);
 
   return (
@@ -99,6 +104,7 @@ const AboutContainer = () => {
 
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity
+            onPress={onPressBuyMeACoffe}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -119,6 +125,7 @@ const AboutContainer = () => {
             |
           </Text>
           <TouchableOpacity
+            onPress={onPressAcknowledgements}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -136,6 +143,10 @@ const AboutContainer = () => {
           </TouchableOpacity>
         </View>
       </View>
+      {/* <Image
+        source={require('../../../assets/image-play.gif')}
+        style={{ width: '100%', height: 100 }}
+      /> */}
       <View
         style={{
           alignSelf: 'center',

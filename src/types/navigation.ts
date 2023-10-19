@@ -9,6 +9,7 @@ type RootStackParamList = {
   Personalize: undefined;
   Settings: undefined;
   About: undefined;
+  Acknowledgements: undefined;
 };
 type ScreenKey = keyof RootStackParamList;
 
@@ -28,6 +29,10 @@ type SettingsScreenProps = NativeStackScreenProps<
   'Settings'
 >;
 type AboutScreenProps = NativeStackScreenProps<RootStackParamList, 'About'>;
+type AcknowledgementsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Acknowledgements'
+>;
 
 export {
   RootStackParamList,
@@ -40,4 +45,5 @@ export {
   SettingsScreenProps,
   AboutScreenProps,
   ScreenKey,
+  AcknowledgementsScreenProps,
 };

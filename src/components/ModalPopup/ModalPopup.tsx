@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useStyles } from '@src/core/Theme';
 import { Colors } from '@utils';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type ModalPopup = {
   isVisible: boolean;
@@ -56,7 +57,7 @@ const ModalPopup: React.FC<ModalPopup> = props => {
       swipeThreshold={100}
       onSwipeComplete={onClose}
       useNativeDriverForBackdrop
-      swipeDirection={['down', 'up']}
+      swipeDirection={['down']}
       style={{
         marginHorizontal: theme.spacing.sm,
         marginTop: top,
