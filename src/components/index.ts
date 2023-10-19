@@ -7,6 +7,7 @@ import Typewritter from './Typewritter';
 import CircleToggle from './CircleToggle';
 import ModalPopup from './ModalPopup';
 import Dropdown from './Dropdown';
+import ThemeCardToggle from './ThemeCardToggle';
 
 export {
   Text,
@@ -22,4 +23,5 @@ export {
   Button,
   Dropdown,
   ToggleButton,
+  ThemeCardToggle,
 };

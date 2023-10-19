@@ -23,6 +23,7 @@ import {
   SceneConfig,
   LockerPickerConfig,
   SceneConfigCustom,
+  LockerPickerTheme,
 } from './gameState';
 
 export {
@@ -47,4 +48,5 @@ export {
   SceneConfig,
   SceneConfigCustom,
   LockerPickerConfig,
+  LockerPickerTheme,
 };

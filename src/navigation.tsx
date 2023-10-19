@@ -41,14 +41,14 @@ function NavigationContainer() {
           options={{ headerBackTitleVisible: false, title: '' }}
         />
 
-        <Stack.Screen name="Personalize" component={PersonalizeScreen} />
-
         <Stack.Group
           screenOptions={{
             headerShown: true,
             presentation: 'modal',
           }}
         >
+          <Stack.Screen name="Personalize" component={PersonalizeScreen} />
+
           <Stack.Screen name="Stats" component={StatsScreen} />
           <Stack.Screen
             name="Difficulty"

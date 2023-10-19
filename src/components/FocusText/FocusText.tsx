@@ -9,10 +9,12 @@ import styleSheet from './FocusText.styles';
 type FocusText = {
   value: string | null;
   isFocus: boolean;
+  backgroundColor: string;
+  borderColor: string;
 };
 
 const FocusText = (props: FocusText) => {
-  const { isFocus = true, value } = props;
+  const { isFocus = true, value, borderColor, backgroundColor } = props;
   const { styles } = useStyles(styleSheet);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -43,7 +45,7 @@ const FocusText = (props: FocusText) => {
   }, [isFocus, value]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor, borderColor }]}>
       {isFocus && isNil(value) ? (
         <Animated.View style={[styles.bar, { opacity: fadeAnim }]} />
       ) : (

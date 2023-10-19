@@ -30,6 +30,10 @@ type PlayContainerProps = {
     circleNumberIndicatorColor: string;
     circleNumberIndicatorStrokeColor: string;
   };
+  squareInputColors: {
+    backgroundColor: string;
+    borderColor: string;
+  };
   circleValue: number | null;
   selectedTextValue: string;
   expectedTextValue: string;
@@ -57,6 +61,10 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     isVisibleWinPopup = false,
     showTipMessage = true,
     showHelpEmoji = true,
+    squareInputColors = {
+      backgroundColor: '#636E72',
+      borderColor: '#979D9F',
+    },
     onSelectValue,
     onCircleValueChange,
     onCloseWinPopup,
@@ -235,6 +243,8 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         textValue={expectedTextValue}
         currentIndexFocus={selectedTextValue.length || 0}
         currentFocusValue={selectedTextValue}
+        backgroundSquareColor={squareInputColors.backgroundColor}
+        borderSquareColor={squareInputColors.borderColor}
       />
       <View
         style={{

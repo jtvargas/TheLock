@@ -1,4 +1,9 @@
-import { GameState, PlayDifficulty, PlayingState } from '@type';
+import {
+  GameState,
+  PlayDifficulty,
+  PlayingState,
+  LockerPickerTheme,
+} from '@type';
 
 const initialGameState: GameState = {
   playScene: {
@@ -14,6 +19,7 @@ const initialGameState: GameState = {
   },
   sceneConfig: {
     lockerPicker: {
+      themeName: LockerPickerTheme.DEFAULT,
       colors: {
         circleColor: '#636E72',
         selectCTAColor: '#636E72',

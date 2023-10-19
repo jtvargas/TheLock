@@ -47,13 +47,13 @@ const ModalPopup: React.FC<ModalPopup> = props => {
       case 'medium':
         return '65%';
       default:
-        return '45%';
+        return '100%';
     }
   };
 
   return (
     <Modal
-      swipeThreshold={200}
+      swipeThreshold={100}
       onSwipeComplete={onClose}
       useNativeDriverForBackdrop
       swipeDirection={['down', 'up']}
