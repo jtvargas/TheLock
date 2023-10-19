@@ -1,20 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import {
-  GameMode,
-  LockerPickerColors,
-  MetaScene,
-  PlayDifficulty,
-  PlayingState,
-} from '@type';
+import { GameMode, MetaScene, PlayDifficulty, PlayingState } from '@type';
 
 import {
   LockerPickerConfigKey,
+  LockerPickerTheme,
   PlayScene,
   SceneConfigKey,
 } from '@src/types/gameState';
 import { DateUtils } from '@utils';
+import { LOCKER_PICKER_THEME } from '@src/core/Theme';
 import { initialGameState } from './Constants';
 
 export const gameSlice = createSlice({
@@ -74,9 +70,14 @@ export const gameSlice = createSlice({
     // SceneConfig Reducers
     changeLockerPickerThemeColors: (
       state,
-      action: PayloadAction<{ lockerPickerColors: LockerPickerColors }>,
+      action: PayloadAction<{
+        lockerPickerTheme: keyof typeof LockerPickerTheme;
+      }>,
     ) => {
-      state.sceneConfig.lockerPicker.colors = action.payload.lockerPickerColors;
+      state.sceneConfig.lockerPicker.themeName =
+        action.payload.lockerPickerTheme;
+      state.sceneConfig.lockerPicker.colors =
+        LOCKER_PICKER_THEME[action.payload.lockerPickerTheme];
     },
     toggleLockerPickerConfig: (
       state,

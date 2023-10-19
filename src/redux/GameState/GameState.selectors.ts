@@ -3,7 +3,11 @@ import get from 'lodash/get';
 import filter from 'lodash/filter';
 
 import { RootState } from '@redux/store';
-import { GameMode, PlayScene } from '@type';
+import { GameMode, PlayDifficulty, PlayScene } from '@type';
+import {
+  LOCKER_PICKER_THEME,
+  REQUIRED_PLAYS_TO_UNLOCK,
+} from '@src/core/Theme/LockerPickerThemes';
 import { initialGameState } from './Constants';
 
 export const getGameState = (state: RootState) => {
@@ -59,6 +63,16 @@ export const getLockerPickerConfig = createSelector(
     );
   },
 );
+export const getLockerPickerThemeName = createSelector(
+  [getSceneConfig],
+  sceneConfig => {
+    return get(
+      sceneConfig,
+      ['lockerPicker', 'themeName'],
+      initialGameState.sceneConfig.lockerPicker.themeName,
+    );
+  },
+);
 export const getSceneLockerPickerColors = createSelector(
   [getSceneConfig],
   sceneConfig => {
@@ -87,5 +101,62 @@ export const getPlayHistoryByGameMode = createSelector(
       playHistory,
       (playScene: PlayScene) => playScene.gameMode === gameMode,
     );
+  },
+);
+
+export const getAvailableThemes = createSelector(
+  [getPlayHistory],
+  playHistory => {
+    const currentCompetitivePlays = filter(
+      playHistory,
+      (playScene: PlayScene) => playScene.gameMode === GameMode.COMPETITIVE,
+    );
+    const currentCompetitivePlaysNoviceCount = filter(
+      currentCompetitivePlays,
+      (playScene: PlayScene) => playScene.difficulty === PlayDifficulty.NOVICE,
+    ).length;
+    const currentCompetitivePlaysExpertCount = filter(
+      currentCompetitivePlays,
+      (playScene: PlayScene) => playScene.difficulty === PlayDifficulty.EXPERT,
+    ).length;
+    const currentCompetitivePlaysAdvancedCount = filter(
+      currentCompetitivePlays,
+      (playScene: PlayScene) =>
+        playScene.difficulty === PlayDifficulty.ADVANCED,
+    ).length;
+
+    const currentSandboxPlays = filter(
+      playHistory,
+      (playScene: PlayScene) => playScene.gameMode === GameMode.SANDBOX,
+    );
+
+    const themesAvailable = filter(
+      Object.keys(LOCKER_PICKER_THEME),
+      themeKey => {
+        const requiredCompetitiveCountByDifficulty =
+          REQUIRED_PLAYS_TO_UNLOCK[themeKey][GameMode.COMPETITIVE];
+        const requiredSandboxCount =
+          REQUIRED_PLAYS_TO_UNLOCK[themeKey][GameMode.SANDBOX];
+
+        const hasMeetNovicePlays =
+          requiredCompetitiveCountByDifficulty[PlayDifficulty.NOVICE] <=
+          currentCompetitivePlaysNoviceCount;
+        const hasMeetAdvancedPlays =
+          requiredCompetitiveCountByDifficulty[PlayDifficulty.ADVANCED] <=
+          currentCompetitivePlaysAdvancedCount;
+        const hasMeetExpertPlays =
+          requiredCompetitiveCountByDifficulty[PlayDifficulty.EXPERT] <=
+          currentCompetitivePlaysExpertCount;
+
+        return (
+          hasMeetExpertPlays &&
+          hasMeetAdvancedPlays &&
+          hasMeetNovicePlays &&
+          currentSandboxPlays >= requiredSandboxCount
+        );
+      },
+    );
+
+    return themesAvailable;
   },
 );

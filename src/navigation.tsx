@@ -11,6 +11,7 @@ import {
   StatsScreen,
   DifficultyScreen,
   AboutScreen,
+  AcknowledgementsScreen,
 } from '@screens';
 import { useStyles } from '@core/Theme';
 
@@ -41,14 +42,14 @@ function NavigationContainer() {
           options={{ headerBackTitleVisible: false, title: '' }}
         />
 
-        <Stack.Screen name="Personalize" component={PersonalizeScreen} />
-
         <Stack.Group
           screenOptions={{
             headerShown: true,
             presentation: 'modal',
           }}
         >
+          <Stack.Screen name="Personalize" component={PersonalizeScreen} />
+
           <Stack.Screen name="Stats" component={StatsScreen} />
           <Stack.Screen
             name="Difficulty"
@@ -70,6 +71,11 @@ function NavigationContainer() {
           <Stack.Screen
             name="About"
             component={AboutScreen}
+            options={{ headerShown: true, presentation: 'modal' }}
+          />
+          <Stack.Screen
+            name="Acknowledgements"
+            component={AcknowledgementsScreen}
             options={{ headerShown: true, presentation: 'modal' }}
           />
         </Stack.Group>

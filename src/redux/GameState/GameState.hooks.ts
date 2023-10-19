@@ -1,6 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { GameMode, PlayDifficulty, PlayingState } from '@type';
-import { LockerPickerConfigKey, SceneConfigKey } from '@src/types/gameState';
+import {
+  LockerPickerConfigKey,
+  LockerPickerTheme,
+  SceneConfigKey,
+} from '@src/types/gameState';
 import * as GAME_STATE_SELECTORS from './GameState.selectors';
 import { GAME_STATE_ACTIONS } from './GameState.slice';
 
@@ -14,6 +18,7 @@ interface GameStateHook {
   setGameMode: (gameMode: GameMode) => void;
   changePlayingState: (playingState: PlayingState) => void;
   changeDifficulty: (difficulty: PlayDifficulty) => void;
+  changeLockerPickerTheme: (themeKey: LockerPickerTheme) => void;
   resetHistory: () => void;
   playDifficulty: PlayDifficulty;
 }
@@ -61,6 +66,14 @@ export const useGameState = (): GameStateHook => {
     );
   };
 
+  const changeLockerPickerTheme = (themeKey: LockerPickerTheme) => {
+    dispatch(
+      GAME_STATE_ACTIONS.changeLockerPickerThemeColors({
+        lockerPickerTheme: themeKey,
+      }),
+    );
+  };
+
   return {
     start,
     stop,
@@ -69,6 +82,7 @@ export const useGameState = (): GameStateHook => {
     attempWin,
     changePlayingState,
     changeDifficulty,
+    changeLockerPickerTheme,
     resetHistory,
     toggleLockerConfig,
     toggleSceneConfig,

@@ -13,6 +13,22 @@ export enum PlayingState {
   LOSE = 'LOSE',
 }
 
+// Represents the available themes.
+export enum LockerPickerTheme {
+  DEFAULT = 'DEFAULT',
+  SUNSET = 'SUNSET',
+  OCEAN = 'OCEAN',
+  FOREST = 'FOREST',
+  WINE = 'WINE',
+  PLATINIUM = 'PLATINIUM',
+  GOLD = 'GOLD',
+  SILVER = 'SILVER',
+  BRAVERY = 'BRAVERY',
+  LOYAL = 'LOYAL',
+  WISDOM = 'WISDOM',
+  AMBI = 'AMBI',
+}
+
 // Specifies the game mode.
 export enum GameMode {
   SANDBOX = 'SANDBOX',
@@ -65,6 +81,7 @@ export type SceneConfigCustom = Record<SceneConfigKey, boolean>;
 // Defines the configuration settings for the game scene.
 export type SceneConfig = {
   lockerPicker: {
+    themeName: keyof typeof LockerPickerTheme;
     colors: LockerPickerColors;
     // Toggle to enable or disable specific boolean options.
     config: LockerPickerConfig;

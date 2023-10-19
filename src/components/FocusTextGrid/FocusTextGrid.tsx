@@ -9,10 +9,18 @@ type FocusTextGridProps = {
   textValue: string;
   currentFocusValue: string | null;
   currentIndexFocus: number;
+  backgroundSquareColor: string;
+  borderSquareColor: string;
 };
 
 const FocusTextGrid = (props: FocusTextGridProps) => {
-  const { textValue, currentFocusValue, currentIndexFocus } = props;
+  const {
+    textValue,
+    currentFocusValue,
+    currentIndexFocus,
+    backgroundSquareColor,
+    borderSquareColor,
+  } = props;
 
   const renderFocusTextItem = (text: string, index: number) => {
     return (
@@ -20,6 +28,8 @@ const FocusTextGrid = (props: FocusTextGridProps) => {
         <FocusText
           value={get(currentFocusValue, index, null)}
           isFocus={index === currentIndexFocus}
+          backgroundColor={backgroundSquareColor}
+          borderColor={borderSquareColor}
         />
       </View>
     );

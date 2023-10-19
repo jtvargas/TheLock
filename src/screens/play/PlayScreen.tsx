@@ -178,6 +178,10 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       circleInputColors={{
         ...lockerPickerColors,
       }}
+      squareInputColors={{
+        backgroundColor: lockerPickerColors.circleNumberIndicatorColor,
+        borderColor: lockerPickerColors.dragCTAColor,
+      }}
       isVisibleWinPopup={isPlayWin}
       timeSpent={timeLapsed || ''}
       onCloseWinPopup={() => navigation.goBack()}
