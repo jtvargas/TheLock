@@ -153,6 +153,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
 
   return (
     <PlayContainer
+      difficulty={playDifficulty}
       withNumbersIndicator={
         lockerPickerConfig[LockerPickerConfigKey.NUMBER_INDICATOR]
       }
@@ -169,7 +170,11 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
         )
       }
       showTipMessage={sceneConfig[SceneConfigKey.TIP_MESSAGE]}
-      showHelpEmoji={sceneConfig[SceneConfigKey.HELP_KEY]}
+      showHelpEmoji={
+        playDifficulty === PlayDifficulty.EXPERT
+          ? false
+          : sceneConfig[SceneConfigKey.HELP_KEY]
+      }
       onCircleValueChange={handleCircleValueChange}
       onSelectValue={handleSelectValue}
       circleValue={circleValue}
