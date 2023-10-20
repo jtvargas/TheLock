@@ -19,6 +19,7 @@
     "@sucho/react-native-typewriter": "^1.0.0",
     "dayjs": "^1.11.10",
     "expo": "~49.0.13",
+    "expo-av": "~13.4.1",
     "expo-blur": "~12.4.1",
     "expo-file-system": "~15.4.4",
     "expo-font": "~11.4.0",
