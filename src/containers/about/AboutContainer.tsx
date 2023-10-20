@@ -23,7 +23,6 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
       <View style={styles.container}>
         <Typewritter
           textArray={['The Lock.']}
-          // loop
           speed={200}
           delay={500}
           cursorStyle={styles.typeWriterCursorText}

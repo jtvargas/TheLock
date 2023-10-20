@@ -1,15 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, Image, View, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as FileSystem from 'expo-file-system';
+import { Audio, AVPlaybackStatus } from 'expo-av';
 
 import { useStyles } from '@core/Theme';
 import { Text, Typewritter } from '@components';
 
 import Markdown from 'react-native-markdown-display';
+import { scale } from 'react-native-size-matters';
+import theme from '@src/core/Theme/Theme';
 import styleSheet from './Acknowledgements.styles';
 
 type AboutContainerProps = {
@@ -19,27 +25,32 @@ type AboutContainerProps = {
 
 const AboutContainer: React.FC<AboutContainerProps> = props => {
   const { styles } = useStyles(styleSheet);
+  const { bottom } = useSafeAreaInsets();
+  const [sound, setSound] = useState<Audio.Sound>();
 
-  const [credits, setCredits] = useState('');
+  async function playSound() {
+    const { sound, status } = await Audio.Sound.createAsync(
+      require('../../../assets/audio-credits.mp3'),
+    );
 
-  // useEffect(() => {
-  //   const readCredits = async () => {
-  //     const creditsDir = await FileSystem.readAsStringAsync(
-  //       'file://../../../credits.txt',
-  //     );
+    setSound(sound);
+    await sound.playAsync();
+  }
 
-  //     console.log({ creditsDir });
-  //     // setCredits(creditsDir);
-  //   };
-
-  //   readCredits();
-  // }, []);
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={{ height: '100%' }}
+        style={{ height: '100%', backgroundColor: 'transparent' }}
       >
         {/* <Text>{creditsTest}</Text> */}
         <Markdown style={{ body: { color: 'white' } }}>
@@ -72,13 +83,53 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
             react-redux@8.1.3
             redux@4.2.1
             redux-persist@6.0.0
+            **Discord GIF Asset:**
+            The animated GIF used in this section is courtesy of **Discord**. To learn more about Discord and explore their platform, please visit their official website.
+            **Discord Soundtrack:**
+            The soundtrack used in this section is courtesy of **Discord**. To learn more about Discord and explore their platform, please visit their official website.
+            **Disclaimer:**
+            Please note that our app is independent and is not affiliated with, endorsed by, or associated with Discord in any official capacity.
+
           `}
         </Markdown>
+        <Image
+          source={require('../../../assets/image-play.gif')}
+          style={{
+            width: '100%',
+            height: 120,
+            backgroundColor: 'transparent',
+          }}
+        />
       </ScrollView>
-      <Image
-        source={require('../../../assets/image-play.gif')}
-        style={{ width: '100%', height: 100 }}
-      />
+
+      <TouchableOpacity
+        style={{ alignSelf: 'flex-end', paddingRight: theme.spacing.md }}
+        onPress={playSound}
+      >
+        <FontAwesome name="volume-up" size={24} color="white" />
+      </TouchableOpacity>
+      <View
+        style={{
+          alignSelf: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <MaterialCommunityIcons
+          name="gesture-swipe-down"
+          size={24}
+          color={theme.colors.onMainBackground}
+        />
+        <Typewritter
+          textArray={['Swipe down to close']}
+          isOverlayText
+          type="callout"
+          weight="bold"
+          speed={100}
+          delay={500}
+          withLeftCursor
+          preText="Tip: "
+        />
+      </View>
     </SafeAreaView>
   );
 };
