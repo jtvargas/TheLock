@@ -14,6 +14,7 @@ import {
 } from '@components';
 
 import { useStyles } from '@core/Theme';
+import { PlayDifficulty } from '@src/types';
 import styleSheet from './PlayContainer.styles';
 
 type PlayContainerProps = {
@@ -45,6 +46,7 @@ type PlayContainerProps = {
   withNumbersIndicator: boolean;
   isVisibleWinPopup: boolean;
   timeSpent: string;
+  difficulty: PlayDifficulty;
 };
 
 const PlayContainer: React.FC<PlayContainerProps> = props => {
@@ -65,6 +67,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
       backgroundColor: '#636E72',
       borderColor: '#979D9F',
     },
+    difficulty,
     onSelectValue,
     onCircleValueChange,
     onCloseWinPopup,
@@ -174,7 +177,12 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
             textValue={expectedTextValue}
             currentIndexFocus={0}
             currentFocusValue={expectedTextValue}
+            backgroundSquareColor={squareInputColors.backgroundColor}
+            borderSquareColor={squareInputColors.borderColor}
           />
+          <Text type="subTitle" weight="bold">
+            ({difficulty})
+          </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TouchableOpacity
               onPress={onPlayAgain}

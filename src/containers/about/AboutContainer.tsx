@@ -1,21 +1,22 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 import { useStyles } from '@core/Theme';
-import { Text, Typewritter } from '@components';
+import { Text, Typewritter, Divider } from '@components';
 
 import styleSheet from './AboutContainer.styles';
 
 type AboutContainerProps = {
   onPressAcknowledgements: () => void;
   onPressBuyMeACoffe: () => void;
+  onRateAppPress: () => void;
 };
 const AboutContainer: React.FC<AboutContainerProps> = props => {
-  const { onPressBuyMeACoffe, onPressAcknowledgements } = props;
+  const { onPressBuyMeACoffe, onRateAppPress, onPressAcknowledgements } = props;
   const { styles, theme } = useStyles(styleSheet);
 
   return (
@@ -25,7 +26,6 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
           textArray={['The Lock.']}
           speed={200}
           delay={500}
-          cursorStyle={styles.typeWriterCursorText}
           textStyle={styles.title}
         />
         <Text style={styles.title} type="callout" weight="medium">
@@ -141,11 +141,26 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
             </Text>
           </TouchableOpacity>
         </View>
+        <Divider spacing="md" />
+        <TouchableOpacity
+          onPress={onRateAppPress}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderBottomWidth: 2,
+            borderColor: 'yellow',
+          }}
+        >
+          <FontAwesome5 name="star-half-alt" size={21} color="yellow" />
+          <Text
+            weight="bold"
+            type="caption"
+            style={{ marginLeft: 4, color: 'yellow' }}
+          >
+            Do Not Rate This App, Just Play
+          </Text>
+        </TouchableOpacity>
       </View>
-      {/* <Image
-        source={require('../../../assets/image-play.gif')}
-        style={{ width: '100%', height: 100 }}
-      /> */}
       <View
         style={{
           alignSelf: 'center',
