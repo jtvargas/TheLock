@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -142,10 +142,6 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Image
-        source={require('../../../assets/image-play.gif')}
-        style={{ width: '100%', height: 100 }}
-      /> */}
       <View
         style={{
           alignSelf: 'center',
