@@ -30,7 +30,7 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
         />
         <Text style={styles.title} type="callout" weight="medium">
           A game to guess numbers with a spinner. Enjoy haptic feedback and
-          visuals as hints. Share your average guess time across difficulties.
+          visuals as hints and collect different themes. Share your average guess time across difficulties.
         </Text>
 
         <View style={styles.feature}>

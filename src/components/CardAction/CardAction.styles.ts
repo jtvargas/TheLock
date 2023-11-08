@@ -22,7 +22,7 @@ const styles = createStyleSheet(theme => ({
   },
   large: {
     width: scale(BASE_WIDTH),
-    height: scale(BASE_HEIGHT),
+    minHeight: '40%',
     justifyContent: 'center',
   },
   medium: {

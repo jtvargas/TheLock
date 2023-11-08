@@ -6,7 +6,7 @@ import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
 import { useStyles } from '@core/Theme';
-import { Divider, CardAction, Typewritter } from '@components';
+import { Divider, CardAction, Typewritter, Icon } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 
@@ -22,9 +22,10 @@ export enum HomeOption {
 type HomeContainerProps = {
   onCardPress: (option: HomeOption) => void;
   difficulty: PlayDifficulty;
+  themeCollected: number;
 };
 const HomeContainer = (props: HomeContainerProps) => {
-  const { onCardPress, difficulty } = props;
+  const { onCardPress, difficulty, themeCollected = 0 } = props;
   const { styles, theme } = useStyles(styleSheet);
 
   const renderTopActions = () => {
@@ -82,7 +83,7 @@ const HomeContainer = (props: HomeContainerProps) => {
           />
           <Divider />
           <CardAction
-            title="THEME"
+            title={`THEME (${themeCollected}/12)`}
             subtitle="Personalize colors"
             icon={{
               name: 'personalize',
