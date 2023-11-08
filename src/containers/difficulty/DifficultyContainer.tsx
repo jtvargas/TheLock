@@ -68,9 +68,7 @@ const DifficultyContainer = (props: DifficultyContainerProps) => {
 
   return (
     <SafeAreaView style={[styles.container, { flex: 1, alignItems: 'center' }]}>
-      <Text isOverlay type="callout" weight="bold">
-        Selected: {difficulty}
-      </Text>
+    
       <Animated.View
         style={{
           position: 'absolute',

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import isEmpty from 'lodash/isEmpty';
 
 import { Button, Text, Divider, Dropdown, Typewritter } from '@src/components';
@@ -48,6 +51,8 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
   const { styles, theme } = useStyles(styleSheet);
   const [isPickerVisible, setIsOpen] = useState(false);
 
+  const { top } = useSafeAreaInsets();
+
   const renderEmptyStats = () => {
     return (
       <View
@@ -57,10 +62,10 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
           alignItems: 'center',
         }}
       >
-        <Text type="title">
+        <Text type="subTitle">
           Play more on{' '}
           <Text
-            type="title"
+            type="subTitle"
             weight="bold"
             style={{
               color: theme.colors.highlight,
@@ -71,7 +76,7 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
             {difficultySelected}
           </Text>
         </Text>
-        <Text type="subTitle">Play in the difficulty desired</Text>
+        <Text type="callout">Start playing to track your progress</Text>
         <Divider spacing="md" />
 
         <Button label="PLAY" onPress={onPlayPress} />
@@ -84,24 +89,6 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
       <View style={{ flex: 1 }}>
         <View
           style={{
-            backgroundColor: theme.colors.secondaryBackground,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typewritter
-            textArray={[`SANDBOX mode doesn't impact average stats.`]}
-            isOverlayText
-            type="callout"
-            weight="bold"
-            speed={150}
-            delay={500}
-            withLeftCursor
-          />
-        </View>
-
-        <View
-          style={{
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -110,7 +97,7 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
           <View style={{ alignSelf: 'flex-end' }}>
             <Text>Total Locks Unlocked:</Text>
             <Text weight="bold">
-              {NumbersUtils.formatNumberWithCommas(totalLocksUnlocked || '')}
+              {NumbersUtils.formatNumberWithCommas(totalLocksUnlocked || 0)}
             </Text>
             <Divider />
             <View style={{ width: scale(160) }}>
@@ -222,15 +209,26 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      <Divider spacing="sm" />
       <View
         style={{
           flex: 10,
-          // marginTop: top / 1.5,
+          // marginTop: top,
           paddingHorizontal: theme.spacing.sm,
         }}
       >
         {isEmpty(playHistory) ? renderEmptyStats() : renderStatsList()}
+        <Typewritter
+          textArray={[`SANDBOX mode doesn't impact average stats.`]}
+          isOverlayText
+          type="callout"
+          weight="bold"
+          speed={150}
+          delay={500}
+          withLeftCursor
+        />
       </View>
+
       <View
         style={{
           shadowColor: '#000',
@@ -243,7 +241,7 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
           elevation: 6,
           backgroundColor: theme.colors.secondaryBackground,
           flex: 3,
-          padding: theme.spacing.sm,
+          paddingHorizontal: theme.spacing.sm,
           paddingBottom: theme.spacing.md,
         }}
       >

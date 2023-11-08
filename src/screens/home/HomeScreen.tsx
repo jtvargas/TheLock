@@ -9,7 +9,9 @@ const HomeScreen: React.FC<HomeScreenProps> = props => {
   const { navigation } = props;
 
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
-
+  const availableThemes = useAppSelector(
+    GAME_STATE_SELECTORS.getAvailableThemes,
+  );
   const handleCardPress = async (option: HomeOption) => {
     await Haptics.selectionAsync();
     switch (option) {
@@ -39,7 +41,11 @@ const HomeScreen: React.FC<HomeScreenProps> = props => {
   };
 
   return (
-    <HomeContainer onCardPress={handleCardPress} difficulty={playDifficulty} />
+    <HomeContainer
+      onCardPress={handleCardPress}
+      difficulty={playDifficulty}
+      themeCollected={availableThemes.length}
+    />
   );
 };
 
