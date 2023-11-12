@@ -5,7 +5,7 @@ import { AboutScreenProps } from '@type';
 import About from '@containers/about';
 
 // TODO: Change this when we get a itunes ID
-const itunesItemId = 982107779;
+const itunesItemId = 6471700369;
 
 const AboutScreen: React.FC<AboutScreenProps> = props => {
   const { navigation } = props;

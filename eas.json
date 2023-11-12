@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 5.2.0"
+  },
+  "build": {
+    "development": {
+      "node": "18.0.0",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "node": "18.0.0",
+      "distribution": "internal"
+    },
+    "production": {
+      "node": "18.0.0"
+    }
+  },
+  "submit": {
+    "production": {},
+    "ios": {
+      "ascAppId": "6471700369"
+    }
+  }
+}

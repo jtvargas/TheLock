@@ -16,44 +16,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "infoPlist": {
-        "NSCalendarsUsageDescription": "The app needs to access your calendar.",
-        "NSRemindersUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
-        "LSApplicationQueriesSchemes": [
-          "mailto",
-          "message",
-          "readdle-spark",
-          "airmail",
-          "ms-outlook",
-          "googlegmail",
-          "inbox-gmail",
-          "ymail",
-          "superhuman",
-          "yandexmail",
-          "fastmail",
-          "protonmail",
-          "comgooglemaps",
-          "citymapper",
-          "uber",
-          "lyft",
-          "transit",
-          "truckmap",
-          "waze",
-          "yandexnavi",
-          "moovit",
-          "yandextaxi",
-          "yandexmaps",
-          "kakaomap",
-          "szn-mapy",
-          "mapsme",
-          "osmandmaps",
-          "gett",
-          "nmap",
-          "dgis",
-          "lftgpas"
-        ]
-      },
-      "bundleIdentifier": "com.corolabs.coro"
+      "bundleIdentifier": "com.thelock"
     },
     "android": {
       "adaptiveIcon": {
