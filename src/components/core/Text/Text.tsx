@@ -17,6 +17,7 @@ const Text = (props: TextProps) => {
   return (
     <TextRN
       {...props}
+      allowFontScaling={false}
       style={[
         {
           ...theme.textVariants[type],

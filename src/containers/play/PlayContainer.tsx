@@ -159,7 +159,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
           </Text>
           <Divider spacing="sm" dividerColor="green" />
           <Text type="title" weight="bold">
-            You take: {timeSpent}
+            You took: {timeSpent}
           </Text>
           <Divider spacing="sm" dividerColor="green" />
           <Text type="subTitle" weight="bold">

@@ -1,44 +1,37 @@
 import React from 'react';
-import { Linking, Alert } from 'react-native';
+import { Linking } from 'react-native';
 
 import { AboutScreenProps } from '@type';
 import About from '@containers/about';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { GAME_STATE_ACTIONS, GAME_STATE_SELECTORS } from '@redux/GameState';
 
-// TODO: Change this when we get a itunes ID
 const itunesItemId = 6471700369;
 
 const AboutScreen: React.FC<AboutScreenProps> = props => {
   const { navigation } = props;
-
-  const handleBuyMeACoffeePress = () => {
-    Alert.alert(
-      'Support Our Work',
-      `You're about to leave the app and visit our 'Buy Me a Coffee' page, where you can support our efforts. Parental attention is advised.`,
-      [
-        {
-          text: 'Support Now',
-          style: 'default',
-          onPress: () =>
-            Linking.openURL('https://www.buymeacoffee.com/dev0x07'),
-        },
-        {
-          text: 'Maybe Later',
-          style: 'destructive',
-          onPress: () => null,
-        },
-      ],
-    );
-  };
+  const dispatch = useAppDispatch();
+  const hasUnlockedAllThemes = useAppSelector(
+    GAME_STATE_SELECTORS.getHasUnlockedAllThemes,
+  );
 
   return (
     <About
+      onLongPressSecretText={() => {
+        dispatch(GAME_STATE_ACTIONS.toggleUnlockAllThemes());
+        alert(
+          hasUnlockedAllThemes ? 'All themes locked' : 'All themes unlocked',
+        );
+      }}
       onRateAppPress={() =>
         Linking.openURL(
           `https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`,
         )
       }
       onPressAcknowledgements={() => navigation.push('Acknowledgements')}
-      onPressBuyMeACoffe={handleBuyMeACoffeePress}
+      onPressBuyMeACoffe={() =>
+        Linking.openURL('https://jtvargas.github.io/TheLockWeb/')
+      }
     />
   );
 };

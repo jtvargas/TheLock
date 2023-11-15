@@ -18,6 +18,7 @@ const initialGameState: GameState = {
     },
   },
   sceneConfig: {
+    hasUnlockedAllThemes: false,
     lockerPicker: {
       themeName: LockerPickerTheme.DEFAULT,
       colors: {

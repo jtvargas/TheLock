@@ -14,9 +14,15 @@ type AboutContainerProps = {
   onPressAcknowledgements: () => void;
   onPressBuyMeACoffe: () => void;
   onRateAppPress: () => void;
+  onLongPressSecretText: () => void;
 };
 const AboutContainer: React.FC<AboutContainerProps> = props => {
-  const { onPressBuyMeACoffe, onRateAppPress, onPressAcknowledgements } = props;
+  const {
+    onPressBuyMeACoffe,
+    onRateAppPress,
+    onPressAcknowledgements,
+    onLongPressSecretText,
+  } = props;
   const { styles, theme } = useStyles(styleSheet);
 
   return (
@@ -30,7 +36,8 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
         />
         <Text style={styles.title} type="callout" weight="medium">
           A game to guess numbers with a spinner. Enjoy haptic feedback and
-          visuals as hints and collect different themes. Share your average guess time across difficulties.
+          visuals as hints and collect different themes. Share your average
+          guess time across difficulties.
         </Text>
 
         <View style={styles.feature}>
@@ -81,7 +88,12 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
             color={theme.colors.onMainBackground}
           />
           <Text style={styles.featureText}>
-            <Text weight="bold" type="body" style={styles.featureText}>
+            <Text
+              weight="bold"
+              type="body"
+              style={styles.featureText}
+              onLongPress={onLongPressSecretText}
+            >
               Design:{' '}
             </Text>
             Minimalistic and intuitive.
@@ -108,19 +120,19 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
               flexDirection: 'row',
               alignItems: 'center',
               borderBottomWidth: 2,
-              borderColor: 'orange',
+              borderColor: theme.colors.onMainBackground,
             }}
           >
-            <FontAwesome5 name="coffee" size={21} color="orange" />
+            {/* <FontAwesome5 name="coffee" size={21} color="orange" /> */}
             <Text
               weight="bold"
               type="callout"
-              style={{ marginLeft: 4, color: 'orange' }}
+              style={{ marginLeft: 4, color: theme.colors.onMainBackground }}
             >
-              Buy me a coffe
+              Privacy Policy
             </Text>
           </TouchableOpacity>
-          <Text weight="bold" type="callout" style={{ marginHorizontal: 4 }}>
+          <Text weight="bold" type="callout" style={{ marginHorizontal: 6 }}>
             |
           </Text>
           <TouchableOpacity

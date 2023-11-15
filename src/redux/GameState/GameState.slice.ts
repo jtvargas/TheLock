@@ -100,6 +100,11 @@ export const gameSlice = createSlice({
     resetHistory: state => {
       state.playHistory = initialGameState.playHistory;
     },
+    // extra reducers
+    toggleUnlockAllThemes: state => {
+      state.sceneConfig.hasUnlockedAllThemes =
+        !state.sceneConfig.hasUnlockedAllThemes;
+    },
   },
 });
 

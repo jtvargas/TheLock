@@ -80,6 +80,7 @@ export type SceneConfigCustom = Record<SceneConfigKey, boolean>;
 
 // Defines the configuration settings for the game scene.
 export type SceneConfig = {
+  hasUnlockedAllThemes: boolean;
   lockerPicker: {
     themeName: keyof typeof LockerPickerTheme;
     colors: LockerPickerColors;

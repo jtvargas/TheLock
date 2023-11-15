@@ -45,6 +45,16 @@ export const getSceneConfig = createSelector([getGameState], gameState => {
   return get(gameState, ['sceneConfig'], initialGameState.sceneConfig);
 });
 
+export const getHasUnlockedAllThemes = createSelector(
+  [getSceneConfig],
+  sceneConfig => {
+    return get(
+      sceneConfig,
+      ['hasUnlockedAllThemes'],
+      initialGameState.sceneConfig.hasUnlockedAllThemes,
+    );
+  },
+);
 export const getDifficulty = createSelector([getSceneConfig], sceneConfig => {
   return get(
     sceneConfig,
@@ -105,8 +115,12 @@ export const getPlayHistoryByGameMode = createSelector(
 );
 
 export const getAvailableThemes = createSelector(
-  [getPlayHistory],
-  playHistory => {
+  [getPlayHistory, getHasUnlockedAllThemes],
+  (playHistory, hasUnlockedAllThemes) => {
+    if (hasUnlockedAllThemes) {
+      return Object.keys(LOCKER_PICKER_THEME);
+    }
+
     const currentCompetitivePlays = filter(
       playHistory,
       (playScene: PlayScene) => playScene.gameMode === GameMode.COMPETITIVE,
