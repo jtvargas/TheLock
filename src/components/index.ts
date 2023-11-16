@@ -8,6 +8,7 @@ import CircleToggle from './CircleToggle';
 import ModalPopup from './ModalPopup';
 import Dropdown from './Dropdown';
 import ThemeCardToggle from './ThemeCardToggle';
+import ZoomBounce from './ZoomBounce';
 
 export {
   Text,
@@ -24,4 +25,5 @@ export {
   Dropdown,
   ToggleButton,
   ThemeCardToggle,
+  ZoomBounce,
 };

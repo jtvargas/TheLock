@@ -1,5 +1,11 @@
-import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  TouchableOpacity,
+  View,
+  Animated,
+  Easing,
+  StyleSheet,
+} from 'react-native';
 
 import { Icon, Text } from '@components/core';
 import { IconName } from '@components/core/Icon';
@@ -19,6 +25,54 @@ interface CardActionProps {
   onPress: () => void;
 }
 
+const TouchableOpacityAnimated =
+  Animated.createAnimatedComponent(TouchableOpacity);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'blue',
+    padding: 20,
+    borderRadius: 10,
+  },
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+const ReusableAnimatedTouchableOpacity = ({ onPress, children, style }) => {
+  const [scaleValue] = useState(new Animated.Value(1));
+
+  const handlePressIn = () => {
+    Animated.spring(scaleValue, {
+      toValue: 0.8, // Scale down to 80% on press
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scaleValue, {
+      toValue: 1, // Restore to the original scale on release
+      useNativeDriver: true,
+    }).start();
+  };
+
+  return (
+    <TouchableOpacityAnimated
+      style={[style, { transform: [{ scale: scaleValue }] }]}
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+    >
+      {children}
+    </TouchableOpacityAnimated>
+  );
+};
+
 const CardAction: React.FC<CardActionProps> = ({
   title,
   subtitle,
@@ -29,7 +83,7 @@ const CardAction: React.FC<CardActionProps> = ({
   const { styles } = useStyles(styleSheet);
 
   return (
-    <TouchableOpacity
+    <ReusableAnimatedTouchableOpacity
       style={[styles[variant], styles.container]}
       onPress={onPress}
     >
@@ -55,7 +109,7 @@ const CardAction: React.FC<CardActionProps> = ({
           size={variant === 'small' ? 28 : 35}
         />
       </View>
-    </TouchableOpacity>
+    </ReusableAnimatedTouchableOpacity>
   );
 };
 

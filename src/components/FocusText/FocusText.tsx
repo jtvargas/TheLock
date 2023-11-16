@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { View, Animated } from 'react-native';
 import isNil from 'lodash/isNil';
 
 import { Text } from '@components/core';
 import { useStyles } from '@core/Theme';
+import ZoomBounce from '../ZoomBounce';
 import styleSheet from './FocusText.styles';
 
 type FocusText = {
@@ -64,4 +65,4 @@ const FocusText = (props: FocusText) => {
   );
 };
 
-export default FocusText;
+export default memo(FocusText);

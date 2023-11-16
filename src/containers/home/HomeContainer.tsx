@@ -6,7 +6,7 @@ import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
 import { useStyles } from '@core/Theme';
-import { Divider, CardAction, Typewritter, Icon } from '@components';
+import { Divider, CardAction, Typewritter } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 

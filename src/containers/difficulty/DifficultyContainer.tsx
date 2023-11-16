@@ -5,7 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import isNil from 'lodash/isNil';
 
 import { useStyles } from '@core/Theme';
-import { CircleToggle, Typewritter, Text } from '@components';
+import { CircleToggle, Typewritter, ZoomBounce } from '@components';
 import { PlayDifficulty } from '@src/types';
 import { scale } from 'react-native-size-matters';
 import styleSheet from './DifficultyContainer.styles';
@@ -68,7 +68,6 @@ const DifficultyContainer = (props: DifficultyContainerProps) => {
 
   return (
     <SafeAreaView style={[styles.container, { flex: 1, alignItems: 'center' }]}>
-    
       <Animated.View
         style={{
           position: 'absolute',
@@ -105,19 +104,21 @@ const DifficultyContainer = (props: DifficultyContainerProps) => {
       >
         {Object.values(PlayDifficulty).map(difficultyValue => {
           return (
-            <View
-              key={difficultyValue}
-              style={[styles.circleContainer]}
-              // eslint-disable-next-line no-return-assign
-              ref={ref => (circleRefs.current[difficultyValue] = ref)}
-            >
-              <CircleToggle
-                isActive={difficulty === difficultyValue}
-                label={difficultyValue}
-                value={difficultyValue}
-                onPress={handleSelectValue}
-              />
-            </View>
+            <ZoomBounce key={difficultyValue} animateOnTouch>
+              <View
+                key={difficultyValue}
+                style={[styles.circleContainer]}
+                // eslint-disable-next-line no-return-assign
+                ref={ref => (circleRefs.current[difficultyValue] = ref)}
+              >
+                <CircleToggle
+                  isActive={difficulty === difficultyValue}
+                  label={difficultyValue}
+                  value={difficultyValue}
+                  onPress={handleSelectValue}
+                />
+              </View>
+            </ZoomBounce>
           );
         })}
       </ScrollView>

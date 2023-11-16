@@ -11,6 +11,7 @@ import {
   Typewritter,
   ModalPopup,
   Divider,
+  ZoomBounce,
 } from '@components';
 
 import { useStyles } from '@core/Theme';
@@ -166,6 +167,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
             to guess:
           </Text>
         </View>
+
         <View
           style={{
             flex: 2,

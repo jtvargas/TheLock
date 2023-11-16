@@ -10,7 +10,13 @@ import {
   useStyles,
   REQUIRED_PLAYS_TO_UNLOCK,
 } from '@core/Theme';
-import { Divider, Text, Typewritter, ThemeCardToggle } from '@components';
+import {
+  Divider,
+  Text,
+  Typewritter,
+  ThemeCardToggle,
+  ZoomBounce,
+} from '@components';
 import { LockerPickerTheme, PlayDifficulty, GameMode } from '@src/types';
 import styleSheet from './PersonalizeContainer.styles';
 
@@ -55,16 +61,18 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
 
   const renderThemeCardItem = ({ item }) => {
     return (
-      <ThemeCardToggle
-        onPress={() => onSelectTheme(item)}
-        isActive={themeActive === item}
-        label={item}
-        colors={{
-          first: LOCKER_PICKER_THEME[item].circleColor,
-          second: LOCKER_PICKER_THEME[item].dragCTAColor,
-          third: LOCKER_PICKER_THEME[item].dragCTAStrokeColor,
-        }}
-      />
+      <ZoomBounce>
+        <ThemeCardToggle
+          onPress={() => onSelectTheme(item)}
+          isActive={themeActive === item}
+          label={item}
+          colors={{
+            first: LOCKER_PICKER_THEME[item].circleColor,
+            second: LOCKER_PICKER_THEME[item].dragCTAColor,
+            third: LOCKER_PICKER_THEME[item].dragCTAStrokeColor,
+          }}
+        />
+      </ZoomBounce>
     );
   };
   return (
