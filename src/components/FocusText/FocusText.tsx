@@ -47,7 +47,12 @@ const FocusText = (props: FocusText) => {
   return (
     <View style={[styles.container, { backgroundColor, borderColor }]}>
       {isFocus && isNil(value) ? (
-        <Animated.View style={[styles.bar, { opacity: fadeAnim }]} />
+        <Animated.View
+          style={[
+            styles.bar,
+            { opacity: fadeAnim, backgroundColor: borderColor },
+          ]}
+        />
       ) : (
         <View style={styles.textContainer}>
           <Text type="largeTitle" weight="bold">

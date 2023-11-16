@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, Alert } from 'react-native';
 
 import { AboutScreenProps } from '@type';
 import About from '@containers/about';
@@ -15,6 +15,48 @@ const AboutScreen: React.FC<AboutScreenProps> = props => {
     GAME_STATE_SELECTORS.getHasUnlockedAllThemes,
   );
 
+  const handleGoToExternalWeb = () => {
+    Alert.alert(
+      `You're going to leave the app`,
+      `You're about to leave the app and visit our webpage, where you can see the privacy policy of the app. Parental attention is advised.`,
+      [
+        {
+          text: 'Visit Now',
+          style: 'default',
+          onPress: () =>
+            Linking.openURL('https://jtvargas.github.io/TheLockWeb/'),
+          // Linking.openURL('https://www.buymeacoffee.com/dev0x07'),
+        },
+        {
+          text: 'Maybe Later',
+          style: 'destructive',
+          onPress: () => null,
+        },
+      ],
+    );
+  };
+  const handleGoToRateApp = () => {
+    Alert.alert(
+      `You're going to leave the app`,
+      `You're about to leave the app and visit the App Store, where you can rate the app. Parental attention is advised.`,
+      [
+        {
+          text: 'Visit Now',
+          style: 'default',
+          onPress: () =>
+            Linking.openURL(
+              `https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`,
+            ),
+        },
+        {
+          text: 'Maybe Later',
+          style: 'destructive',
+          onPress: () => null,
+        },
+      ],
+    );
+  };
+
   return (
     <About
       onLongPressSecretText={() => {
@@ -23,15 +65,9 @@ const AboutScreen: React.FC<AboutScreenProps> = props => {
           hasUnlockedAllThemes ? 'All themes locked' : 'All themes unlocked',
         );
       }}
-      onRateAppPress={() =>
-        Linking.openURL(
-          `https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`,
-        )
-      }
+      onRateAppPress={handleGoToRateApp}
       onPressAcknowledgements={() => navigation.push('Acknowledgements')}
-      onPressBuyMeACoffe={() =>
-        Linking.openURL('https://jtvargas.github.io/TheLockWeb/')
-      }
+      onPressBuyMeACoffe={handleGoToExternalWeb}
     />
   );
 };

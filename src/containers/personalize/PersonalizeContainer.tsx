@@ -50,6 +50,8 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
   const { onSelectTheme, themeActive, availableThemes = [] } = props;
   const { styles, theme } = useStyles(styleSheet);
   const randomHint = getRandomHint();
+  const hasCollectedAllThemes =
+    availableThemes.length === Object.keys(LOCKER_PICKER_THEME).length;
 
   const renderThemeCardItem = ({ item }) => {
     return (
@@ -102,16 +104,20 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
         ItemSeparatorComponent={<Divider />}
       />
       <Divider />
+
       <Typewritter
-        textArray={[randomHint]}
+        textArray={[
+          hasCollectedAllThemes ? 'All themes collected' : randomHint,
+        ]}
         isOverlayText
         type="callout"
         weight="bold"
         speed={150}
         delay={500}
         withLeftCursor
-        preText="Hint: Theme "
+        preText={hasCollectedAllThemes ? '' : 'Hint: Theme '}
       />
+
       <Divider />
       <View
         style={{
