@@ -114,7 +114,7 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={onPressBuyMeACoffe}
             style={{
               flexDirection: 'row',
@@ -123,7 +123,6 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
               borderColor: theme.colors.onMainBackground,
             }}
           >
-            {/* <FontAwesome5 name="coffee" size={21} color="orange" /> */}
             <Text
               weight="bold"
               type="callout"
@@ -131,10 +130,10 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
             >
               Privacy Policy
             </Text>
-          </TouchableOpacity>
-          <Text weight="bold" type="callout" style={{ marginHorizontal: 6 }}>
+          </TouchableOpacity> */}
+          {/* <Text weight="bold" type="callout" style={{ marginHorizontal: 6 }}>
             |
-          </Text>
+          </Text> */}
           <TouchableOpacity
             onPress={onPressAcknowledgements}
             style={{
@@ -154,7 +153,7 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
           </TouchableOpacity>
         </View>
         <Divider spacing="md" />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={onRateAppPress}
           style={{
             flexDirection: 'row',
@@ -171,7 +170,7 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
           >
             Do Not Rate This App, Just Play
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={{
