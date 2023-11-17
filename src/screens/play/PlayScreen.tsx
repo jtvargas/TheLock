@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import * as Haptics from 'expo-haptics';
+import * as StoreReview from 'expo-store-review';
 
 import { PlayScreenProps } from '@type';
 import PlayContainer from '@containers/play';
-import { useAppSelector } from '@redux';
-import { GAME_STATE_SELECTORS, useGameState } from '@redux/GameState';
+import { useAppSelector, useAppDispatch } from '@redux';
+import {
+  GAME_STATE_ACTIONS,
+  GAME_STATE_SELECTORS,
+  useGameState,
+} from '@redux/GameState';
 import {
   LockerPickerConfigKey,
   PlayDifficulty,
@@ -69,6 +74,9 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const [circleValue, setCircleValue] = useState<number | null>(null);
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
   const timeLapsed = useAppSelector(GAME_STATE_SELECTORS.getTimeLapsed);
+  const showReviewPopup = useAppSelector(
+    GAME_STATE_SELECTORS.getShowReviewPopup,
+  );
 
   const winAttemps = useAppSelector(GAME_STATE_SELECTORS.getWinAttemps);
   const playingState = useAppSelector(GAME_STATE_SELECTORS.getPlayingState);
@@ -79,6 +87,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     GAME_STATE_SELECTORS.getLockerPickerConfig,
   );
   const sceneConfig = useAppSelector(GAME_STATE_SELECTORS.getSceneConfigCustom);
+  const dispatch = useAppDispatch();
   const isPlaying = playingState === PlayingState.PLAYING;
   const isPlayWin = playingState === PlayingState.WIN;
   const isAttemptedToWin = playingState === PlayingState.LOSE;
@@ -87,11 +96,21 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const generateNewNumberOnFail =
     isAttemptedToWin && playDifficulty === PlayDifficulty.EXPERT;
 
-  const numb = useMemo(() => {
+  const numberToGuess = useMemo(() => {
     return generateRandomNumberString(
       BOXES_BASED_ON_DIFFICULTY[playDifficulty],
     );
   }, [generateNewNumberOnFail, isIdle]);
+
+  useEffect(() => {
+    const requestStoreReview = async () => {
+      dispatch(GAME_STATE_ACTIONS.toggleAskedToReview());
+      await StoreReview.requestReview();
+    };
+    if (showReviewPopup) {
+      requestStoreReview();
+    }
+  }, [showReviewPopup]);
 
   useEffect(() => {
     setGameMode(gameMode);
@@ -115,9 +134,9 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       finish(selectedTextValue);
     };
     if (isPlaying) {
-      gameOver(selectedTextValue, numb, handleAttempWin, handleWin);
+      gameOver(selectedTextValue, numberToGuess, handleAttempWin, handleWin);
     }
-  }, [selectedTextValue, numb, isPlaying]);
+  }, [selectedTextValue, numberToGuess, isPlaying]);
 
   // Handler for when circle value changes
   const handleCircleValueChange = useCallback(
@@ -130,7 +149,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
         changePlayingState(PlayingState.PLAYING);
       }
 
-      if (`${degreeValue / 36}` === numb[selectedTextValue.length]) {
+      if (`${degreeValue / 36}` === numberToGuess[selectedTextValue.length]) {
         setHelpInsight(true);
         await Haptics.impactAsync(vibrateLavel[playDifficulty]);
       }
@@ -179,7 +198,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       onSelectValue={handleSelectValue}
       circleValue={circleValue}
       selectedTextValue={selectedTextValue}
-      expectedTextValue={numb}
+      expectedTextValue={numberToGuess}
       circleInputColors={{
         ...lockerPickerColors,
       }}

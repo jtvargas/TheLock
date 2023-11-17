@@ -8,7 +8,7 @@ import {
   LOCKER_PICKER_THEME,
   REQUIRED_PLAYS_TO_UNLOCK,
 } from '@src/core/Theme/LockerPickerThemes';
-import { initialGameState } from './Constants';
+import { initialGameState, REVIEW_PLAYS_TRESHOLD } from './Constants';
 
 export const getGameState = (state: RootState) => {
   return state.gameState;
@@ -103,6 +103,25 @@ export const getSceneConfigCustom = createSelector(
 export const getPlayHistory = createSelector([getGameState], gameState => {
   return get(gameState, ['playHistory'], initialGameState.playHistory);
 });
+
+export const getIsReviewAsked = createSelector([getGameState], gameState => {
+  return get(
+    gameState,
+    ['reviewState', 'isAskedToReview'],
+    initialGameState.reviewState.isAskedToReview,
+  );
+});
+
+export const getShowReviewPopup = createSelector(
+  [getPlayHistory, getIsReviewAsked],
+  (playHistory, isReviewAsked) => {
+    if (isReviewAsked) {
+      return false;
+    }
+
+    return playHistory.length === REVIEW_PLAYS_TRESHOLD;
+  },
+);
 
 export const getPlayHistoryByGameMode = createSelector(
   [getPlayHistory, (_, gameMode: GameMode) => gameMode],

@@ -105,6 +105,9 @@ export const gameSlice = createSlice({
       state.sceneConfig.hasUnlockedAllThemes =
         !state.sceneConfig.hasUnlockedAllThemes;
     },
+    toggleAskedToReview: state => {
+      state.reviewState.isAskedToReview = !state.reviewState.isAskedToReview;
+    },
   },
 });
 

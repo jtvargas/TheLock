@@ -15,10 +15,12 @@ type AboutContainerProps = {
   onPressBuyMeACoffe: () => void;
   onRateAppPress: () => void;
   onLongPressSecretText: () => void;
+  isVisibleRatingButton: boolean;
 };
 const AboutContainer: React.FC<AboutContainerProps> = props => {
   const {
     onPressBuyMeACoffe,
+    isVisibleRatingButton,
     onRateAppPress,
     onPressAcknowledgements,
     onLongPressSecretText,
@@ -153,24 +155,26 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
           </TouchableOpacity>
         </View>
         <Divider spacing="md" />
-        {/* <TouchableOpacity
-          onPress={onRateAppPress}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 2,
-            borderColor: 'yellow',
-          }}
-        >
-          <FontAwesome5 name="star-half-alt" size={21} color="yellow" />
-          <Text
-            weight="bold"
-            type="caption"
-            style={{ marginLeft: 4, color: 'yellow' }}
+        {isVisibleRatingButton ? (
+          <TouchableOpacity
+            onPress={onRateAppPress}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderBottomWidth: 2,
+              borderColor: 'yellow',
+            }}
           >
-            Do Not Rate This App, Just Play
-          </Text>
-        </TouchableOpacity> */}
+            <FontAwesome5 name="star-half-alt" size={21} color="yellow" />
+            <Text
+              weight="bold"
+              type="caption"
+              style={{ marginLeft: 4, color: 'yellow' }}
+            >
+              Do Not Rate This App, Just Play
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
       <View
         style={{

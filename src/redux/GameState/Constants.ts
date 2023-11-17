@@ -44,6 +44,11 @@ const initialGameState: GameState = {
     },
   },
   playHistory: [],
+  reviewState: {
+    isAskedToReview: false,
+  },
 };
 
-export { initialGameState };
+const REVIEW_PLAYS_TRESHOLD = 3;
+
+export { initialGameState, REVIEW_PLAYS_TRESHOLD };

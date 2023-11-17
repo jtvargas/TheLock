@@ -14,6 +14,7 @@ const AboutScreen: React.FC<AboutScreenProps> = props => {
   const hasUnlockedAllThemes = useAppSelector(
     GAME_STATE_SELECTORS.getHasUnlockedAllThemes,
   );
+  const isReviewAsked = useAppSelector(GAME_STATE_SELECTORS.getIsReviewAsked);
 
   const handleGoToExternalWeb = () => {
     Alert.alert(
@@ -45,7 +46,7 @@ const AboutScreen: React.FC<AboutScreenProps> = props => {
           style: 'default',
           onPress: () =>
             Linking.openURL(
-              `https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`,
+              `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`,
             ),
         },
         {
@@ -59,6 +60,7 @@ const AboutScreen: React.FC<AboutScreenProps> = props => {
 
   return (
     <About
+      isVisibleRatingButton={isReviewAsked}
       onLongPressSecretText={() => {
         dispatch(GAME_STATE_ACTIONS.toggleUnlockAllThemes());
         alert(

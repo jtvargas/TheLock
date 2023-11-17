@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StatusBar } from 'react-native';
+import { ActivityIndicator, StatusBar, Text } from 'react-native';
 import { UnistylesTheme } from 'react-native-unistyles';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
@@ -11,6 +11,12 @@ import { store, persistor } from '@redux';
 // Navigation
 import useCachedResources from '@hooks/useCachedResources';
 import NavigationContainer from './navigation';
+
+// disable font scaling for all text
+(Text as any).defaultProps = {
+  ...(Text as any).defaultProps,
+  allowFontScaling: false,
+};
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

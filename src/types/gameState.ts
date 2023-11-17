@@ -78,6 +78,9 @@ export enum SceneConfigKey {
 }
 export type SceneConfigCustom = Record<SceneConfigKey, boolean>;
 
+export type ReviewAppState = {
+  isAskedToReview: boolean;
+};
 // Defines the configuration settings for the game scene.
 export type SceneConfig = {
   hasUnlockedAllThemes: boolean;
@@ -107,4 +110,8 @@ export type GameState = {
    * A history or log of previous play scenes.
    */
   playHistory: PlayScene[];
+  /**
+   * App Review State.
+   */
+  reviewState: ReviewAppState;
 };
