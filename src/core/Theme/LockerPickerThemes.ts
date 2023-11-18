@@ -97,6 +97,54 @@ const REQUIRED_PLAYS_TO_UNLOCK = {
     },
     [GameMode.SANDBOX]: 0,
   },
+  [LockerPickerTheme.NEBULA]: {
+    [GameMode.COMPETITIVE]: {
+      [PlayDifficulty.NOVICE]: 25,
+      [PlayDifficulty.ADVANCED]: 25,
+      [PlayDifficulty.EXPERT]: 35,
+    },
+    [GameMode.SANDBOX]: 0,
+  },
+  [LockerPickerTheme.AURORA]: {
+    [GameMode.COMPETITIVE]: {
+      [PlayDifficulty.NOVICE]: 25,
+      [PlayDifficulty.ADVANCED]: 25,
+      [PlayDifficulty.EXPERT]: 35,
+    },
+    [GameMode.SANDBOX]: 0,
+  },
+  [LockerPickerTheme.ZENITH]: {
+    [GameMode.COMPETITIVE]: {
+      [PlayDifficulty.NOVICE]: 25,
+      [PlayDifficulty.ADVANCED]: 25,
+      [PlayDifficulty.EXPERT]: 35,
+    },
+    [GameMode.SANDBOX]: 0,
+  },
+  [LockerPickerTheme.ECLIPSE]: {
+    [GameMode.COMPETITIVE]: {
+      [PlayDifficulty.NOVICE]: 25,
+      [PlayDifficulty.ADVANCED]: 25,
+      [PlayDifficulty.EXPERT]: 35,
+    },
+    [GameMode.SANDBOX]: 0,
+  },
+  [LockerPickerTheme.SAPPHIRE]: {
+    [GameMode.COMPETITIVE]: {
+      [PlayDifficulty.NOVICE]: 25,
+      [PlayDifficulty.ADVANCED]: 25,
+      [PlayDifficulty.EXPERT]: 35,
+    },
+    [GameMode.SANDBOX]: 0,
+  },
+  [LockerPickerTheme.VOLCANO]: {
+    [GameMode.COMPETITIVE]: {
+      [PlayDifficulty.NOVICE]: 25,
+      [PlayDifficulty.ADVANCED]: 25,
+      [PlayDifficulty.EXPERT]: 35,
+    },
+    [GameMode.SANDBOX]: 0,
+  },
 };
 
 const LOCKER_PICKER_THEME = {
@@ -207,6 +255,60 @@ const LOCKER_PICKER_THEME = {
     dragCTAStrokeColor: '#1A472A',
     circleNumberIndicatorColor: '#1A472A',
     circleNumberIndicatorStrokeColor: '#AAAAAA',
+  },
+  [LockerPickerTheme.AURORA]: {
+    circleColor: '#88C0D0',
+    selectCTAColor: '#81A1C1',
+    selectCTAStrokeColor: '#5E81AC',
+    dragCTAColor: '#5E81AC',
+    dragCTAStrokeColor: '#4C566A',
+    circleNumberIndicatorColor: '#88C0D0',
+    circleNumberIndicatorStrokeColor: '#5E81AC',
+  },
+  [LockerPickerTheme.NEBULA]: {
+    circleColor: '#B48EAD',
+    selectCTAColor: '#A3BE8C',
+    selectCTAStrokeColor: '#BF616A',
+    dragCTAColor: '#D08770',
+    dragCTAStrokeColor: '#EBCB8B',
+    circleNumberIndicatorColor: '#B48EAD',
+    circleNumberIndicatorStrokeColor: '#BF616A',
+  },
+  [LockerPickerTheme.ZENITH]: {
+    circleColor: '#009688',
+    selectCTAColor: '#4DB6AC',
+    selectCTAStrokeColor: '#80CBC4',
+    dragCTAColor: '#80CBC4',
+    dragCTAStrokeColor: '#B2DFDB',
+    circleNumberIndicatorColor: '#009688',
+    circleNumberIndicatorStrokeColor: '#80CBC4',
+  },
+  [LockerPickerTheme.ECLIPSE]: {
+    circleColor: '#616161',
+    selectCTAColor: '#757575',
+    selectCTAStrokeColor: '#9E9E9E',
+    dragCTAColor: '#BDBDBD',
+    dragCTAStrokeColor: '#E0E0E0',
+    circleNumberIndicatorColor: '#616161',
+    circleNumberIndicatorStrokeColor: '#9E9E9E',
+  },
+  [LockerPickerTheme.SAPPHIRE]: {
+    circleColor: '#0D47A1',
+    selectCTAColor: '#1976D2',
+    selectCTAStrokeColor: '#2196F3',
+    dragCTAColor: '#64B5F6',
+    dragCTAStrokeColor: '#90CAF9',
+    circleNumberIndicatorColor: '#0D47A1',
+    circleNumberIndicatorStrokeColor: '#2196F3',
+  },
+  [LockerPickerTheme.VOLCANO]: {
+    circleColor: '#DD2C00',
+    selectCTAColor: '#FF3D00',
+    selectCTAStrokeColor: '#FF6E40',
+    dragCTAColor: '#FF9E80',
+    dragCTAStrokeColor: '#FFCCBC',
+    circleNumberIndicatorColor: '#DD2C00',
+    circleNumberIndicatorStrokeColor: '#FF6E40',
   },
 };
 

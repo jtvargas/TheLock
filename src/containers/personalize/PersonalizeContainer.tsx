@@ -1,6 +1,6 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -18,6 +18,7 @@ import {
   ZoomBounce,
 } from '@components';
 import { LockerPickerTheme, PlayDifficulty, GameMode } from '@src/types';
+import { scale } from 'react-native-size-matters';
 import styleSheet from './PersonalizeContainer.styles';
 
 type PersonalizeContainerProps = {
@@ -53,11 +54,27 @@ const getRandomHint = () => {
 };
 
 const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
+  const flatListRef = useRef(null);
   const { onSelectTheme, themeActive, availableThemes = [] } = props;
   const { styles, theme } = useStyles(styleSheet);
   const randomHint = getRandomHint();
   const hasCollectedAllThemes =
     availableThemes.length === Object.keys(LOCKER_PICKER_THEME).length;
+
+  useEffect(() => {
+    const index = availableThemes.findIndex(
+      themeKey => themeKey === themeActive,
+    );
+
+    if (index !== -1) {
+      // Delay the scroll a bit to ensure the FlatList is loaded
+      const timer = setTimeout(() => {
+        flatListRef.current?.scrollToIndex({ animated: true, index });
+      }, 500); // Adjust delay as needed
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const renderThemeCardItem = ({ item }) => {
     return (
@@ -90,6 +107,7 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
 
       <Divider />
       <FlatList
+        ref={flatListRef}
         ListFooterComponent={
           <>
             <Divider />
@@ -106,6 +124,12 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
             </Text>
           </>
         }
+        getItemLayout={(data, index) => ({
+          length: scale(100),
+          offset: scale(100) * index,
+          index,
+        })}
+        keyExtractor={item => item}
         contentContainerStyle={styles.contentContainerList}
         data={availableThemes}
         renderItem={renderThemeCardItem}

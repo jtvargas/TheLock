@@ -4,7 +4,9 @@ import { LockerPickerTheme, PersonalizeScreenProps } from '@type';
 import PersonalizeContainer from '@containers/personalize';
 import { useGameState, useAppSelector, GAME_STATE_SELECTORS } from '@src/redux';
 
-const PersonalizeScreen: React.FC<PersonalizeScreenProps> = () => {
+const PersonalizeScreen: React.FC<PersonalizeScreenProps> = ({
+  navigation,
+}) => {
   const { changeLockerPickerTheme } = useGameState();
   const selectedTheme = useAppSelector(
     GAME_STATE_SELECTORS.getLockerPickerThemeName,
@@ -15,6 +17,7 @@ const PersonalizeScreen: React.FC<PersonalizeScreenProps> = () => {
 
   const handleOnSelectTheme = (themeKey: LockerPickerTheme) => {
     changeLockerPickerTheme(themeKey);
+    navigation.goBack();
   };
   return (
     <PersonalizeContainer

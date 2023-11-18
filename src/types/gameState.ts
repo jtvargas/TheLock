@@ -27,6 +27,12 @@ export enum LockerPickerTheme {
   LOYAL = 'LOYAL',
   WISDOM = 'WISDOM',
   AMBI = 'AMBI',
+  AURORA = 'AURORA',
+  NEBULA = 'NEBULA',
+  ZENITH = 'ZENITH',
+  ECLIPSE = 'ECLIPSE',
+  SAPPHIRE = 'SAPPHIRE',
+  VOLCANO = 'VOLCANO',
 }
 
 // Specifies the game mode.

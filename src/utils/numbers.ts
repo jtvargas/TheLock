@@ -1,15 +1,18 @@
-import { PlayScene } from '@src/types/gameState';
+import { PlayDifficulty, PlayScene } from '@src/types/gameState';
 
 function formatNumberWithCommas(num: string | number) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-const getAverageTimeSpent = (scenes: PlayScene[]): string => {
+const getAverageTimeSpent = (
+  scenes: PlayScene[],
+  difficulty: PlayDifficulty,
+): string => {
   let totalSeconds = 0;
   let competitiveCount = 0;
 
   scenes.forEach(scene => {
-    if (scene.gameMode === 'COMPETITIVE') {
+    if (scene.gameMode === 'COMPETITIVE' && difficulty === scene.difficulty) {
       const { timeLapsed } = scene.meta;
       const [hours, minutes, seconds] = timeLapsed.split(':').map(Number);
       totalSeconds += hours * 3600 + minutes * 60 + seconds;

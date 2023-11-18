@@ -5,7 +5,7 @@ import upperFirst from 'lodash/upperFirst';
 import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
-import { useStyles } from '@core/Theme';
+import { LOCKER_PICKER_THEME, useStyles } from '@core/Theme';
 import { Divider, CardAction, Typewritter } from '@components';
 
 import styleSheet from './HomeContainer.styles';
@@ -83,7 +83,9 @@ const HomeContainer = (props: HomeContainerProps) => {
           />
           <Divider />
           <CardAction
-            title={`THEME (${themeCollected}/12)`}
+            title={`THEME (${themeCollected}/${
+              Object.keys(LOCKER_PICKER_THEME).length
+            })`}
             subtitle="Personalize colors"
             icon={{
               name: 'personalize',

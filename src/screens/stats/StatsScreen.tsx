@@ -28,7 +28,10 @@ const StatsScreen: React.FC<StatsScreenProps> = props => {
   return (
     <StatsContainer
       playHistory={playHistoryFiltered}
-      totalAverageTime={NumbersUtils.getAverageTimeSpent(playHistory)}
+      totalAverageTime={NumbersUtils.getAverageTimeSpent(
+        playHistory,
+        difficultyToDisplay,
+      )}
       totalLocksUnlocked={playHistory.length}
       difficultySelected={difficultyToDisplay}
       onSelectDifficultyToDisplay={handleOnSelectDifficultyToDisplay}
