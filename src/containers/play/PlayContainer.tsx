@@ -11,7 +11,6 @@ import {
   Typewritter,
   ModalPopup,
   Divider,
-  ZoomBounce,
 } from '@components';
 
 import { useStyles } from '@core/Theme';

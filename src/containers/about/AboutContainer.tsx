@@ -12,14 +12,12 @@ import styleSheet from './AboutContainer.styles';
 
 type AboutContainerProps = {
   onPressAcknowledgements: () => void;
-  onPressBuyMeACoffe: () => void;
   onRateAppPress: () => void;
   onLongPressSecretText: () => void;
   isVisibleRatingButton: boolean;
 };
 const AboutContainer: React.FC<AboutContainerProps> = props => {
   const {
-    onPressBuyMeACoffe,
     isVisibleRatingButton,
     onRateAppPress,
     onPressAcknowledgements,
@@ -116,26 +114,6 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          {/* <TouchableOpacity
-            onPress={onPressBuyMeACoffe}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              borderBottomWidth: 2,
-              borderColor: theme.colors.onMainBackground,
-            }}
-          >
-            <Text
-              weight="bold"
-              type="callout"
-              style={{ marginLeft: 4, color: theme.colors.onMainBackground }}
-            >
-              Privacy Policy
-            </Text>
-          </TouchableOpacity> */}
-          {/* <Text weight="bold" type="callout" style={{ marginHorizontal: 6 }}>
-            |
-          </Text> */}
           <TouchableOpacity
             onPress={onPressAcknowledgements}
             style={{

@@ -1,7 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, ViewStyle } from 'react-native';
 
-const ZoomBounceComponent = props => {
+type ZoomBounceProps = {
+  animateOnTouch?: boolean;
+  style?: ViewStyle;
+  children: React.ReactNode;
+};
+const ZoomBounceComponent = (props: ZoomBounceProps) => {
+  const { animateOnTouch, children, style } = props;
   const scaleValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -12,12 +18,12 @@ const ZoomBounceComponent = props => {
       easing: Easing.out(Easing.back(1.5)),
     });
 
-    const zoomOut = Animated.spring(scaleValue, {
-      toValue: 0,
-      tension: 20,
-      friction: 3,
-      useNativeDriver: true,
-    });
+    // const zoomOut = Animated.spring(scaleValue, {
+    //   toValue: 0,
+    //   tension: 20,
+    //   friction: 3,
+    //   useNativeDriver: true,
+    // });
 
     Animated.sequence([zoomIn]).start();
 
@@ -45,17 +51,16 @@ const ZoomBounceComponent = props => {
 
   return (
     <Animated.View
-      onTouchStart={props.animateOnTouch ? handleStart : () => null}
+      onTouchStart={animateOnTouch ? handleStart : () => null}
       style={[
-        props.style,
+        style,
         {
-          // flex: 1,
           transform: [{ scale: scaleValue }],
           // Add other styles as needed
         },
       ]}
     >
-      {props.children}
+      {children}
     </Animated.View>
   );
 };

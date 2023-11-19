@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import isEmpty from 'lodash/isEmpty';
 
 import { Button, Text, Divider, Dropdown, Typewritter } from '@src/components';
@@ -50,8 +47,6 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
   } = props;
   const { styles, theme } = useStyles(styleSheet);
   const [isPickerVisible, setIsOpen] = useState(false);
-
-  const { top } = useSafeAreaInsets();
 
   const renderEmptyStats = () => {
     return (

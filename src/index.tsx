@@ -13,7 +13,9 @@ import useCachedResources from '@hooks/useCachedResources';
 import NavigationContainer from './navigation';
 
 // disable font scaling for all text
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (Text as any).defaultProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...(Text as any).defaultProps,
   allowFontScaling: false,
 };

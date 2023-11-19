@@ -1,11 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  TouchableOpacity,
-  View,
-  Animated,
-  Easing,
-  StyleSheet,
-} from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, View, Animated } from 'react-native';
 
 import { Icon, Text } from '@components/core';
 import { IconName } from '@components/core/Icon';
@@ -28,22 +22,6 @@ interface CardActionProps {
 const TouchableOpacityAnimated =
   Animated.createAnimatedComponent(TouchableOpacity);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 20,
-    borderRadius: 10,
-  },
-  text: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
 const ReusableAnimatedTouchableOpacity = ({ onPress, children, style }) => {
   const [scaleValue] = useState(new Animated.Value(1));
 

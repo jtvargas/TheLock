@@ -4,7 +4,6 @@ import isNil from 'lodash/isNil';
 
 import { Text } from '@components/core';
 import { useStyles } from '@core/Theme';
-import ZoomBounce from '../ZoomBounce';
 import styleSheet from './FocusText.styles';
 
 type FocusText = {

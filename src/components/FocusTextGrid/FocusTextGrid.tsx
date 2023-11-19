@@ -4,7 +4,6 @@ import map from 'lodash/map';
 import get from 'lodash/get';
 
 import FocusText from '@components/FocusText';
-import ZoomBounce from '@components/ZoomBounce';
 
 type FocusTextGridProps = {
   textValue: string;

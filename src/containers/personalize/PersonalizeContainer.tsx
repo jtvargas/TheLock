@@ -74,6 +74,7 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
 
       return () => clearTimeout(timer);
     }
+    return () => null;
   }, []);
 
   const renderThemeCardItem = ({ item }) => {
