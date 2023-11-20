@@ -107,10 +107,30 @@ export const getPlayHistory = createSelector([getGameState], gameState => {
 export const getIsReviewAsked = createSelector([getGameState], gameState => {
   return get(
     gameState,
-    ['reviewState', 'isAskedToReview'],
-    initialGameState.reviewState.isAskedToReview,
+    ['deviceState', 'isAskedToReview'],
+    initialGameState.deviceState.isAskedToReview,
   );
 });
+export const getIsNotificationEnabled = createSelector(
+  [getGameState],
+  gameState => {
+    return get(
+      gameState,
+      ['deviceState', 'isNotificationEnable'],
+      initialGameState.deviceState.isNotificationEnable,
+    );
+  },
+);
+export const getLocalNotificationId = createSelector(
+  [getGameState],
+  gameState => {
+    return get(
+      gameState,
+      ['deviceState', 'localNotificationId'],
+      initialGameState.deviceState.localNotificationId,
+    );
+  },
+);
 
 export const getShowReviewPopup = createSelector(
   [getPlayHistory, getIsReviewAsked],

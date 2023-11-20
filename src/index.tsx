@@ -4,9 +4,12 @@ import { UnistylesTheme } from 'react-native-unistyles';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import * as Notifications from 'expo-notifications';
 
 import { Theme } from '@core';
 import { store, persistor } from '@redux';
+// Notifications
+import { Notifications as NotificationsHandler } from '@components';
 
 // Navigation
 import useCachedResources from '@hooks/useCachedResources';
@@ -20,6 +23,14 @@ import NavigationContainer from './navigation';
   allowFontScaling: false,
 };
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
 
@@ -32,6 +43,7 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <UnistylesTheme theme={Theme}>
+            <NotificationsHandler />
             <NavigationContainer />
             <StatusBar barStyle="light-content" />
           </UnistylesTheme>

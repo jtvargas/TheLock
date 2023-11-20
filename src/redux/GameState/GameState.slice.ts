@@ -106,7 +106,18 @@ export const gameSlice = createSlice({
         !state.sceneConfig.hasUnlockedAllThemes;
     },
     toggleAskedToReview: state => {
-      state.reviewState.isAskedToReview = !state.reviewState.isAskedToReview;
+      state.deviceState.isAskedToReview = !state.deviceState.isAskedToReview;
+    },
+    toggleNotificationOFF: state => {
+      state.deviceState.isNotificationEnable = false;
+      state.deviceState.localNotificationId = null;
+    },
+    toggleNotificationON: (
+      state,
+      action: PayloadAction<{ notificationId: string }>,
+    ) => {
+      state.deviceState.isNotificationEnable = true;
+      state.deviceState.localNotificationId = action.payload.notificationId;
     },
   },
 });

@@ -9,6 +9,7 @@ import ModalPopup from './ModalPopup';
 import Dropdown from './Dropdown';
 import ThemeCardToggle from './ThemeCardToggle';
 import ZoomBounce from './ZoomBounce';
+import Notifications from './Notifications';
 
 export {
   Text,
@@ -26,4 +27,5 @@ export {
   ToggleButton,
   ThemeCardToggle,
   ZoomBounce,
+  Notifications,
 };

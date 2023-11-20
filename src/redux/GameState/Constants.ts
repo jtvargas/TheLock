@@ -44,8 +44,10 @@ const initialGameState: GameState = {
     },
   },
   playHistory: [],
-  reviewState: {
+  deviceState: {
     isAskedToReview: false,
+    isNotificationEnable: true,
+    localNotificationId: null,
   },
 };
 

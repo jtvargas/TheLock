@@ -5,18 +5,25 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { useStyles } from '@core/Theme';
 import { Button, Divider, Text, ToggleButton, Typewritter } from '@components';
-import { LockerPickerConfigKey, SceneConfigKey } from '@src/types/gameState';
+import {
+  LockerPickerConfigKey,
+  SceneConfigKey,
+  DeviceConfigKey,
+} from '@src/types/gameState';
 import styleSheet from './SettingsContainer.styles';
 
 type SettingsContainerProps = {
   onPressCleanHistory: () => void;
-  onToggleSetting: (value: LockerPickerConfigKey | SceneConfigKey) => void;
+  onToggleSetting: (
+    value: LockerPickerConfigKey | SceneConfigKey | DeviceConfigKey,
+  ) => void;
   isShakeAnimationEnable: boolean;
   isShakeDragEnable: boolean;
   isNumberWheelIndicatorEnable: boolean;
   isTipsMessagesEnable: boolean;
   isHelpKeyEnable: boolean;
   isDisabledShakeAnimationOption: boolean;
+  isNotificationEnable: boolean;
 };
 const SettingsContainer: React.FC<SettingsContainerProps> = props => {
   const {
@@ -28,6 +35,7 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
     isShakeDragEnable,
     isTipsMessagesEnable,
     isDisabledShakeAnimationOption,
+    isNotificationEnable,
   } = props;
   const { styles, theme } = useStyles(styleSheet);
   return (
@@ -70,7 +78,14 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
           isActive={isHelpKeyEnable}
           subLabel="Display emoji for assistance"
         />
+        <ToggleButton
+          label="Notification"
+          onPress={() => onToggleSetting(DeviceConfigKey.NOTIFICATION)}
+          isActive={isNotificationEnable}
+          subLabel="Remind you to unlock the lock casually"
+        />
       </View>
+
       <View style={{ justifyContent: 'flex-end' }}>
         <Text type="body" weight="medium">
           Danger Zone

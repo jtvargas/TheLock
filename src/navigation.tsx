@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer as NavigationContainerRNN } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 // Screens
 import {
   HomeScreen,
@@ -21,7 +20,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function NavigationContainer() {
   const { theme } = useStyles();
-
   return (
     <NavigationContainerRNN>
       <Stack.Navigator

@@ -37,6 +37,16 @@
     },
     "updates": {
       "url": "https://u.expo.dev/4f173dd1-ef42-4e63-a117-5db87a7c352c"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "sounds": [
+            "./assets/sounds/notification-sound.wav"
+          ]
+        }
+      ]
+    ]
   }
 }

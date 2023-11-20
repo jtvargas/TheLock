@@ -181,10 +181,8 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
             backgroundSquareColor={squareInputColors.backgroundColor}
             borderSquareColor={squareInputColors.borderColor}
           />
-          <Text type="subTitle" weight="bold">
-            ({difficulty})
-          </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <TouchableOpacity
               onPress={onPlayAgain}
               style={{
@@ -196,13 +194,17 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
             >
               <Text
                 weight="bold"
-                type="callout"
+                type="subTitle"
                 isOverlay
                 style={{ marginLeft: 4, color: 'orange' }}
               >
                 Play Again
               </Text>
             </TouchableOpacity>
+            <Divider spacing="sm" />
+            <Text type="body" weight="bold">
+              Difficulty: {difficulty}
+            </Text>
           </View>
         </View>
 

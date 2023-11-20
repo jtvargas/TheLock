@@ -82,10 +82,15 @@ export enum SceneConfigKey {
   HELP_KEY = 'HELP_KEY',
   TIP_MESSAGE = 'TIP_MESSAGE',
 }
+export enum DeviceConfigKey {
+  NOTIFICATION = 'NOTIFICATION',
+}
 export type SceneConfigCustom = Record<SceneConfigKey, boolean>;
 
-export type ReviewAppState = {
+export type DeviceConfig = {
   isAskedToReview: boolean;
+  isNotificationEnable: boolean;
+  localNotificationId: string | null;
 };
 // Defines the configuration settings for the game scene.
 export type SceneConfig = {
@@ -119,5 +124,5 @@ export type GameState = {
   /**
    * App Review State.
    */
-  reviewState: ReviewAppState;
+  deviceState: DeviceConfig;
 };
