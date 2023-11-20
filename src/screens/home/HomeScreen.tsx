@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Haptics from 'expo-haptics';
+import { Linking } from 'react-native';
 
 import { GameMode, HomeScreenProps } from '@type';
 import HomeContainer, { HomeOption } from '@containers/home';
 import { useAppSelector, GAME_STATE_SELECTORS } from '@redux';
+import useVersionCheck from '@hooks/useVersionCheck';
 
 const HomeScreen: React.FC<HomeScreenProps> = props => {
   const { navigation } = props;
+  const { getNeedUpdate } = useVersionCheck();
+  const [needUpdateState, setAppNeedUpdateState] = useState({});
 
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
   const availableThemes = useAppSelector(
@@ -40,9 +44,23 @@ const HomeScreen: React.FC<HomeScreenProps> = props => {
     }
   };
 
+  useEffect(() => {
+    const handleCheckNeedUpdate = async () => {
+      const needUpdate = await getNeedUpdate();
+      setAppNeedUpdateState(needUpdate);
+    };
+    handleCheckNeedUpdate();
+  }, []);
+
+  const handleNewVersionPress = () => {
+    Linking.openURL(needUpdateState.storeUrl);
+  };
+
   return (
     <HomeContainer
       onCardPress={handleCardPress}
+      onPressNewVersion={handleNewVersionPress}
+      isNewVersionAvailable={needUpdateState?.isNeeded}
       difficulty={playDifficulty}
       themeCollected={availableThemes.length}
     />

@@ -10,6 +10,7 @@ import Dropdown from './Dropdown';
 import ThemeCardToggle from './ThemeCardToggle';
 import ZoomBounce from './ZoomBounce';
 import Notifications from './Notifications';
+import BouncingText from './BouncingText';
 
 export {
   Text,
@@ -28,4 +29,5 @@ export {
   ThemeCardToggle,
   ZoomBounce,
   Notifications,
+  BouncingText,
 };

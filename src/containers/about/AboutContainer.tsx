@@ -4,6 +4,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Constants from 'expo-constants';
 
 import { useStyles } from '@core/Theme';
 import { Text, Typewritter, Divider } from '@components';
@@ -154,6 +155,9 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
           </TouchableOpacity>
         ) : null}
       </View>
+      <Text style={styles.versionText} type="caption" weight="medium">
+        {Constants.manifest2?.runtimeVersion}
+      </Text>
       <View
         style={{
           alignSelf: 'center',

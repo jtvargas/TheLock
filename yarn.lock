@@ -4123,7 +4123,7 @@ expo-blur@~12.4.1:
   resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-12.4.1.tgz#b391de84914ef9ece0702378e51e09461ad565ab"
   integrity sha512-lGN8FS9LuGUlEriULTC62cCWyg5V7zSVQeJ6Duh1wSq8aAETinZ2/7wrT6o+Uhd/XVVxFNON2T25AGCOtMG6ew==
 
-expo-constants@~14.4.2:
+expo-constants@^14.0.2, expo-constants@~14.4.2:
   version "14.4.2"
   resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-14.4.2.tgz"
   integrity sha512-nOB122DOAjk+KrJT69lFQAoYVQGQjFHSigCPVBzVdko9S1xGsfiOH9+X5dygTsZTIlVLpQJDdmZ7ONiv3i+26w==
@@ -4182,6 +4182,13 @@ expo-linking@~5.0.2:
     invariant "^2.2.4"
     qs "^6.11.0"
     url-parse "^1.5.9"
+
+expo-localization@^14.0.0:
+  version "14.5.0"
+  resolved "https://registry.yarnpkg.com/expo-localization/-/expo-localization-14.5.0.tgz#8a7e52d5c079a86b20ccadbb0d90cff0df8d3e34"
+  integrity sha512-hax+Gs5akRCKeMhDRugTW+n7ORYkKoLFWPUXviupsAioR9MXSoghRqE9nOJio8mFwhhMiUA8BflppdpUxxOiSA==
+  dependencies:
+    rtl-detect "^1.0.2"
 
 expo-manifests@~0.7.0:
   version "0.7.2"
@@ -5742,10 +5749,30 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
+lodash.isfunction@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+  integrity sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==
+
+lodash.isnil@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isnil/-/lodash.isnil-4.0.0.tgz#49e28cd559013458c814c5479d3c663a21bfaa6c"
+  integrity sha512-up2Mzq3545mwVnMhTDMdfoG1OurpA/s5t88JmQX809eH3C8491iu2sfKhTfhQtKY78oPNhiaHJUpT/dUDAAtng==
+
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.pick@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
+  integrity sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==
+
+lodash.result@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.result/-/lodash.result-4.5.2.tgz#cb45b27fb914eaa8d8ee6f0ce7b2870b87cb70aa"
+  integrity sha512-dlgJvozORK2oE4jXzTGIsJz9Vk6huNAINxYYvWc/R44x3/ah/F7OkNwr9c0wO2poh2cbdjS0jF3j8VgyCEOVfw==
 
 lodash.throttle@^4.1.1:
   version "4.1.1"
@@ -7079,6 +7106,13 @@ react-native-animatable@1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-appstore-version-checker@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-appstore-version-checker/-/react-native-appstore-version-checker-3.0.0.tgz#0c471402a09cb3fee4b0e2d031ffece5135d2009"
+  integrity sha512-qC8y4t82XqqbacDbL5O/Stsw5J8dbXAr+79IKewHWUkGZ+b7p8R3YFDw/LJId+PLoVIWnStp/zYhX+be4t9UyQ==
+  dependencies:
+    lodash.result "^4.5.2"
+
 react-native-dropdown-picker@^5.4.6:
   version "5.4.6"
   resolved "https://registry.yarnpkg.com/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.6.tgz#3736fc468de4a295e4df8d1f65ed2eadaf9b445f"
@@ -7150,6 +7184,25 @@ react-native-unistyles@1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-1.1.5.tgz#23707dfda3a3d6f65557645debdb84ccbcaa22a4"
   integrity sha512-6KVLgtW+vgkaSqQyO/BVZVhpW3a77M/TdbW6Dl13VmtGXeGF49EQyEK2yFH74SbXdFd8M2izQNyhCRzkYxIwYg==
+
+react-native-version-check-expo@^3.4.7:
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/react-native-version-check-expo/-/react-native-version-check-expo-3.4.7.tgz#17964865248957abcdaf620b0e11e1ff4bce11dd"
+  integrity sha512-JK2NmEVTrXz3mg9gBDrw51C1hfZCH1d1d1gUM3zs04gy6PY0WtFh9/mqYChUhxuwbR1i+a5bB783hmBQsoqCww==
+  dependencies:
+    expo-constants "^14.0.2"
+    expo-localization "^14.0.0"
+    react-native-version-check "^3.4.7"
+
+react-native-version-check@^3.4.7:
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/react-native-version-check/-/react-native-version-check-3.4.7.tgz#199d819b95050e874c24f044df79ee2b6bfd83ae"
+  integrity sha512-fkUFaKTiT9DcQSigyTTFcRpClehQlo7MBF1odmX617oFr7zOceUGx6A3bm2GjnfECBsQZoX3WyEBbtdRQlqi2Q==
+  dependencies:
+    lodash.isfunction "^3.0.9"
+    lodash.isnil "^4.0.0"
+    lodash.pick "^4.4.0"
+    semver "^6.1.1"
 
 react-native@0.72.5:
   version "0.72.5"
@@ -7489,6 +7542,11 @@ rimraf@~2.6.2:
   dependencies:
     glob "^7.1.3"
 
+rtl-detect@^1.0.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/rtl-detect/-/rtl-detect-1.1.2.tgz#ca7f0330af5c6bb626c15675c642ba85ad6273c6"
+  integrity sha512-PGMBq03+TTG/p/cRB7HCLKJ1MgDIi07+QU1faSjiYRfmY5UsAttV9Hs08jDAHVwcOwmVLcSJkpwyfXszVjWfIQ==
+
 run-applescript@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/run-applescript/-/run-applescript-5.0.0.tgz"
@@ -7571,7 +7629,7 @@ semver@^5.5.0, semver@^5.6.0:
   resolved "https://registry.npmjs.org/semver/-/semver-5.7.2.tgz"
   integrity sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==
 
-semver@^6.3.0, semver@^6.3.1:
+semver@^6.1.1, semver@^6.3.0, semver@^6.3.1:
   version "6.3.1"
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==

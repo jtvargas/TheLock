@@ -14,6 +14,11 @@ const styles = createStyleSheet(theme => ({
     marginBottom: 20,
     textAlign: 'center',
   },
+  versionText: {
+    color: theme.colors.textOverlay,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
   feature: {
     flexDirection: 'row',
     alignItems: 'center',

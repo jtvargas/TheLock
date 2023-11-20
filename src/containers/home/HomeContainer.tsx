@@ -1,12 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import upperFirst from 'lodash/upperFirst';
 import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
 import { LOCKER_PICKER_THEME, useStyles } from '@core/Theme';
-import { Divider, CardAction, Typewritter } from '@components';
+import { Divider, CardAction, Typewritter, BouncingText } from '@components';
 
 import styleSheet from './HomeContainer.styles';
 
@@ -21,11 +21,19 @@ export enum HomeOption {
 }
 type HomeContainerProps = {
   onCardPress: (option: HomeOption) => void;
+  onPressNewVersion: () => void;
+  isNewVersionAvailable: boolean;
   difficulty: PlayDifficulty;
   themeCollected: number;
 };
 const HomeContainer = (props: HomeContainerProps) => {
-  const { onCardPress, difficulty, themeCollected = 0 } = props;
+  const {
+    onCardPress,
+    difficulty,
+    themeCollected = 0,
+    isNewVersionAvailable = false,
+    onPressNewVersion,
+  } = props;
   const { styles, theme } = useStyles(styleSheet);
 
   const renderTopActions = () => {
@@ -140,6 +148,15 @@ const HomeContainer = (props: HomeContainerProps) => {
       {renderTopActions()}
       <Divider spacing="xs" />
       {renderBottomActions()}
+
+      {isNewVersionAvailable ? (
+        <>
+          <Divider spacing="sm" />
+          <TouchableOpacity onPress={onPressNewVersion}>
+            <BouncingText text="New version available, press here " />
+          </TouchableOpacity>
+        </>
+      ) : null}
     </SafeAreaView>
   );
 };
