@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import * as Haptics from 'expo-haptics';
 import * as StoreReview from 'expo-store-review';
+import sampleSize from 'lodash/sampleSize';
+import range from 'lodash/range';
+import toNumber from 'lodash/toNumber';
+import some from 'lodash/some';
+import includes from 'lodash/includes';
 
 import { PlayScreenProps } from '@type';
 import PlayContainer from '@containers/play';
@@ -11,6 +16,7 @@ import {
   useGameState,
 } from '@redux/GameState';
 import {
+  GameMode,
   LockerPickerConfigKey,
   PlayDifficulty,
   PlayingState,
@@ -38,11 +44,19 @@ const gameOver = (
   return { stillPlaying: true, win: undefined };
 };
 
-const vibrateLavel = {
+const vibrateLevel = {
   [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Heavy,
   [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Medium,
   [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Light,
 };
+const vibrateWrongNumberLevel = {
+  [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Medium,
+  [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Heavy,
+  [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Medium,
+};
+
+const isAnyCharInArray = (str: string, arr: number[]): boolean =>
+  some(str, char => includes(arr, toNumber(char)));
 
 function generateRandomNumberString(N: number): string {
   const generateRandomDigit = () => Math.floor(Math.random() * 10);
@@ -62,6 +76,7 @@ function generateRandomNumberString(N: number): string {
   return str;
 }
 
+// TODO: explosive animation
 const PlayScreen: React.FC<PlayScreenProps> = props => {
   const { route, navigation } = props;
   const {
@@ -71,6 +86,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     useGameState();
   const [selectedTextValue, setSelectedTextValue] = useState('');
   const [helpInsight, setHelpInsight] = useState(false);
+  const [invalidNumbers, setInvalidNumbers] = useState([]);
   const [circleValue, setCircleValue] = useState<number | null>(null);
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
   const timeLapsed = useAppSelector(GAME_STATE_SELECTORS.getTimeLapsed);
@@ -79,6 +95,9 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   );
 
   const winAttemps = useAppSelector(GAME_STATE_SELECTORS.getWinAttemps);
+  const difficultyConfig = useAppSelector(
+    GAME_STATE_SELECTORS.getDifficultyConfig,
+  );
   const playingState = useAppSelector(GAME_STATE_SELECTORS.getPlayingState);
   const lockerPickerColors = useAppSelector(
     GAME_STATE_SELECTORS.getSceneLockerPickerColors,
@@ -102,6 +121,11 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     );
   }, [generateNewNumberOnFail, isIdle]);
 
+  const getRandomGameOverNumbers = () => {
+    const numbers = range(10).filter(number => !numberToGuess.includes(number));
+    setInvalidNumbers(sampleSize(numbers, difficultyConfig.invalidNumbers));
+  };
+
   useEffect(() => {
     const requestStoreReview = async () => {
       dispatch(GAME_STATE_ACTIONS.toggleAskedToReview());
@@ -114,6 +138,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
 
   useEffect(() => {
     setGameMode(gameMode);
+    getRandomGameOverNumbers();
     return () => {
       stop();
     };
@@ -122,6 +147,15 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   useEffect(() => {
     if (winAttemps > 0) {
       setSelectedTextValue('');
+      getRandomGameOverNumbers();
+    }
+
+    if (
+      difficultyConfig.tryAttemps === winAttemps &&
+      gameMode === GameMode.COMPETITIVE
+    ) {
+      console.log('GAME OVER!');
+      getRandomGameOverNumbers();
     }
   }, [winAttemps]);
 
@@ -151,7 +185,11 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
 
       if (`${degreeValue / 36}` === numberToGuess[selectedTextValue.length]) {
         setHelpInsight(true);
-        await Haptics.impactAsync(vibrateLavel[playDifficulty]);
+        await Haptics.impactAsync(vibrateLevel[playDifficulty]);
+      }
+
+      if (invalidNumbers.includes(toNumber(`${degreeValue / 36}`))) {
+        await Haptics.impactAsync(vibrateWrongNumberLevel[playDifficulty]);
       }
       setHelpInsight(false);
       setCircleValue(degreeValue);
@@ -173,6 +211,16 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   return (
     <PlayContainer
       difficulty={playDifficulty}
+      isVisibleGameOverPopUp={
+        difficultyConfig.tryAttemps - winAttemps === 0 ||
+        (isAnyCharInArray(selectedTextValue, invalidNumbers) &&
+          selectedTextValue.length !== numberToGuess.length)
+      }
+      isGameOverByInvalidNumber={isAnyCharInArray(
+        selectedTextValue,
+        invalidNumbers,
+      )}
+      tryAttemps={difficultyConfig.tryAttemps - winAttemps}
       withNumbersIndicator={
         lockerPickerConfig[LockerPickerConfigKey.NUMBER_INDICATOR]
       }
@@ -190,7 +238,8 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       }
       showTipMessage={sceneConfig[SceneConfigKey.TIP_MESSAGE]}
       showHelpEmoji={
-        playDifficulty === PlayDifficulty.EXPERT
+        playDifficulty === PlayDifficulty.EXPERT &&
+        gameMode !== GameMode.SANDBOX
           ? false
           : sceneConfig[SceneConfigKey.HELP_KEY]
       }
@@ -211,6 +260,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       onCloseWinPopup={() => navigation.goBack()}
       onPlayAgain={() => {
         setSelectedTextValue('');
+        getRandomGameOverNumbers();
         stop();
       }}
     />

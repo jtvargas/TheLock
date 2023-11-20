@@ -47,6 +47,8 @@ type PlayContainerProps = {
   isVisibleWinPopup: boolean;
   timeSpent: string;
   difficulty: PlayDifficulty;
+  tryAttemps: number;
+  isVisibleGameOverPopUp: boolean;
 };
 
 const PlayContainer: React.FC<PlayContainerProps> = props => {
@@ -61,12 +63,15 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     shakeDrag = false,
     withNumbersIndicator = false,
     isVisibleWinPopup = false,
+    isVisibleGameOverPopUp = false,
+    tryAttemps,
     showTipMessage = true,
     showHelpEmoji = true,
     squareInputColors = {
       backgroundColor: '#636E72',
       borderColor: '#979D9F',
     },
+    isGameOverByInvalidNumber = false,
     difficulty,
     onSelectValue,
     onCircleValueChange,
@@ -234,10 +239,97 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
       </ModalPopup>
     );
   };
+  const renderModalGameOverPopUp = () => {
+    return (
+      <ModalPopup
+        isVisible={isVisibleGameOverPopUp}
+        position="bottom"
+        size="small"
+        onClose={onCloseWinPopup}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Divider spacing="xs" dividerColor="green" />
+          <Text type="title" weight="bold">
+            Game Over!
+          </Text>
+          <Divider spacing="xs" dividerColor="green" />
+          <Text type="subTitle" weight="bold" style={{ textAlign: 'center' }}>
+            {isGameOverByInvalidNumber
+              ? `You introduce a killer number`
+              : `You've used all your attempts 😔`}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+          }}
+        >
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <TouchableOpacity
+              onPress={onPlayAgain}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                borderBottomWidth: 2,
+                borderColor: 'orange',
+              }}
+            >
+              <Text
+                weight="bold"
+                type="subTitle"
+                isOverlay
+                style={{ marginLeft: 4, color: 'orange' }}
+              >
+                Try Again
+              </Text>
+            </TouchableOpacity>
+            <Divider spacing="sm" />
+            <Text type="body" weight="bold">
+              Difficulty: {difficulty}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            alignSelf: 'center',
+            alignItems: 'center',
+            paddingBottom: 8,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="gesture-swipe-down"
+            size={28}
+            color={theme.colors.onMainBackground}
+          />
+          <Typewritter
+            textArray={['Swipe down to close']}
+            isOverlayText
+            type="callout"
+            weight="bold"
+            speed={0}
+            delay={0}
+            withLeftCursor
+            preText="Tip: "
+          />
+        </View>
+      </ModalPopup>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       {renderModalWinPopUp()}
+      {renderModalGameOverPopUp()}
 
       <View
         style={{
@@ -289,12 +381,20 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
           />
         </Animated.View>
       </View>
-
       {showHelpEmoji ? (
         <Animated.View
           style={[
             {
-              transform: [{ translateY: vibrateAnim }],
+              transform: [
+                {
+                  translateY: [
+                    PlayDifficulty.ADVANCED,
+                    PlayDifficulty.EXPERT,
+                  ].includes(difficulty)
+                    ? 0
+                    : vibrateAnim,
+                },
+              ],
             },
             styles.keyHelp,
           ]}
@@ -307,10 +407,11 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
               alert(`The max number is: ${max(expectedTextValue)}`)
             }
           >
-            🔑
+            {tryAttemps} 🔑
           </Text>
         </Animated.View>
       ) : null}
+
       {showTipMessage ? (
         <Typewritter
           textArray={['Move the drag circle']}

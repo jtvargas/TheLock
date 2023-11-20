@@ -5,6 +5,21 @@ import {
   LockerPickerTheme,
 } from '@type';
 
+const DIFFICULTY_CONFIG = {
+  [PlayDifficulty.NOVICE]: {
+    tryAttemps: 6,
+    invalidNumbers: 1,
+  },
+  [PlayDifficulty.ADVANCED]: {
+    tryAttemps: 4,
+    invalidNumbers: 3,
+  },
+  [PlayDifficulty.EXPERT]: {
+    tryAttemps: 2,
+    invalidNumbers: 6,
+  },
+};
+
 const initialGameState: GameState = {
   playScene: {
     playingState: PlayingState.IDLE,
@@ -38,6 +53,7 @@ const initialGameState: GameState = {
       },
     },
     difficulty: PlayDifficulty.NOVICE,
+    difficultyConfig: DIFFICULTY_CONFIG[PlayDifficulty.NOVICE],
     config: {
       HELP_KEY: true,
       TIP_MESSAGE: true,
@@ -53,4 +69,4 @@ const initialGameState: GameState = {
 
 const REVIEW_PLAYS_TRESHOLD = 3;
 
-export { initialGameState, REVIEW_PLAYS_TRESHOLD };
+export { initialGameState, REVIEW_PLAYS_TRESHOLD, DIFFICULTY_CONFIG };

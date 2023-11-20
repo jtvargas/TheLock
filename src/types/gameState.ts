@@ -92,6 +92,11 @@ export type DeviceConfig = {
   isNotificationEnable: boolean;
   localNotificationId: string | null;
 };
+
+export type DifficultyConfig = {
+  tryAttemps: number;
+  invalidNumbers: number;
+};
 // Defines the configuration settings for the game scene.
 export type SceneConfig = {
   hasUnlockedAllThemes: boolean;
@@ -102,6 +107,7 @@ export type SceneConfig = {
     config: LockerPickerConfig;
   };
   difficulty: PlayDifficulty;
+  difficultyConfig: DifficultyConfig;
   config: SceneConfigCustom; // Toggle for displaying tip messages or Toggle for enabling the help key.
 };
 

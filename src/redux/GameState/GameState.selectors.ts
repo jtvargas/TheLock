@@ -8,7 +8,11 @@ import {
   LOCKER_PICKER_THEME,
   REQUIRED_PLAYS_TO_UNLOCK,
 } from '@src/core/Theme/LockerPickerThemes';
-import { initialGameState, REVIEW_PLAYS_TRESHOLD } from './Constants';
+import {
+  DIFFICULTY_CONFIG,
+  initialGameState,
+  REVIEW_PLAYS_TRESHOLD,
+} from './Constants';
 
 export const getGameState = (state: RootState) => {
   return state.gameState;
@@ -62,6 +66,16 @@ export const getDifficulty = createSelector([getSceneConfig], sceneConfig => {
     initialGameState.sceneConfig.difficulty,
   );
 });
+export const getDifficultyConfig = createSelector(
+  [getDifficulty],
+  difficultySelected => {
+    return get(
+      DIFFICULTY_CONFIG,
+      [difficultySelected],
+      initialGameState.sceneConfig.difficultyConfig,
+    );
+  },
+);
 
 export const getLockerPickerConfig = createSelector(
   [getSceneConfig],
