@@ -16,7 +16,7 @@ const DIFFICULTY_CONFIG = {
   },
   [PlayDifficulty.EXPERT]: {
     tryAttemps: 2,
-    invalidNumbers: 6,
+    invalidNumbers: 5,
   },
 };
 
