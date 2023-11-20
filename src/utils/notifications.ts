@@ -25,16 +25,17 @@ async function schedulePushNotification({ title, body }) {
       body,
       sound: 'notification-sound.wav', // the values are 'default' (sound) or null (silent)
     },
-    trigger: {
-      seconds: 60, // Repeat every 60 seconds (1 minute)
-      repeats: true,
-    },
+    // For testing purpose
     // trigger: {
-    //   weekday: 5, // Friday
-    //   hour: 12,
-    //   minute: 45,
+    //   seconds: 60, // Repeat every 60 seconds (1 minute)
     //   repeats: true,
     // },
+    trigger: {
+      weekday: 5, // Friday
+      hour: 12,
+      minute: 45,
+      repeats: true,
+    },
   });
   return id;
 }
