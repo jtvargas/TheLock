@@ -256,12 +256,12 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         >
           <Divider spacing="xs" dividerColor="green" />
           <Text type="title" weight="bold">
-            Game Over!
+            {isGameOverByInvalidNumber ? ` Oops! Game Over!` : ` Game Over!`}
           </Text>
           <Divider spacing="xs" dividerColor="green" />
           <Text type="subTitle" weight="bold" style={{ textAlign: 'center' }}>
             {isGameOverByInvalidNumber
-              ? `You introduce a killer number`
+              ? `You've hit the danger digit!💣`
               : `You've used all your attempts 😔`}
           </Text>
         </View>
