@@ -2,7 +2,7 @@
   "expo": {
     "name": "TheLock",
     "slug": "TheLock",
-    "version": "4.0",
+    "version": "4.5",
     "orientation": "portrait",
     "icon": "./assets/v2.png",
     "userInterfaceStyle": "light",
