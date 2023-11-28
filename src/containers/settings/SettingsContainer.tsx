@@ -19,6 +19,7 @@ type SettingsContainerProps = {
   ) => void;
   isShakeAnimationEnable: boolean;
   isShakeDragEnable: boolean;
+  isSoundEnable: boolean;
   isNumberWheelIndicatorEnable: boolean;
   isTipsMessagesEnable: boolean;
   isHelpKeyEnable: boolean;
@@ -33,11 +34,13 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
     isNumberWheelIndicatorEnable,
     isShakeAnimationEnable,
     isShakeDragEnable,
+    isSoundEnable,
     isTipsMessagesEnable,
     isDisabledShakeAnimationOption,
     isNotificationEnable,
   } = props;
   const { styles, theme } = useStyles(styleSheet);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
@@ -51,12 +54,6 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
           onPress={() => onToggleSetting(LockerPickerConfigKey.SHAKE_ANIMATION)}
           isActive={isShakeAnimationEnable}
           subLabel="Shake the locker picker while dragging"
-        />
-        <ToggleButton
-          label="Shake to Drag"
-          onPress={() => onToggleSetting(LockerPickerConfigKey.SHAKE_DRAG)}
-          isActive={isShakeDragEnable}
-          subLabel="Shake the drag circle while dragging"
         />
         <ToggleButton
           label="Number Wheel"
@@ -77,6 +74,12 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
           onPress={() => onToggleSetting(SceneConfigKey.HELP_KEY)}
           isActive={isHelpKeyEnable}
           subLabel="Display emoji for assistance"
+        />
+        <ToggleButton
+          label="Sound"
+          onPress={() => onToggleSetting(SceneConfigKey.SOUND_EFFECT)}
+          isActive={isSoundEnable}
+          subLabel="Enable sound effects"
         />
         <ToggleButton
           label="Notification"

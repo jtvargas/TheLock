@@ -57,6 +57,7 @@ const initialGameState: GameState = {
     config: {
       HELP_KEY: true,
       TIP_MESSAGE: true,
+      SOUND_EFFECT: true,
     },
   },
   playHistory: [],

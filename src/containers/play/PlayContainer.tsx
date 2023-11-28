@@ -48,11 +48,13 @@ type PlayContainerProps = {
   timeSpent: string;
   difficulty: PlayDifficulty;
   tryAttemps: number;
+  timePassing?: string | null;
   isVisibleGameOverPopUp: boolean;
 };
 
 const PlayContainer: React.FC<PlayContainerProps> = props => {
   const {
+    timePassing = null,
     circleInputColors,
     selectedTextValue = '',
     timeSpent = '',
@@ -341,6 +343,11 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         <Text type="title" weight="bold">
           The Lock.
         </Text>
+        {timePassing ? (
+          <Text type="subTitle" weight="medium" isOverlay>
+            {timePassing}
+          </Text>
+        ) : null}
       </View>
       <FocusTextGrid
         textValue={expectedTextValue}

@@ -108,6 +108,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
       }
       isTipsMessagesEnable={sceneConfig[SceneConfigKey.TIP_MESSAGE]}
       isHelpKeyEnable={sceneConfig[SceneConfigKey.HELP_KEY]}
+      isSoundEnable={sceneConfig[SceneConfigKey.SOUND_EFFECT]}
     />
   );
 };

@@ -81,6 +81,7 @@ export type LockerPickerConfig = Record<LockerPickerConfigKey, boolean>;
 export enum SceneConfigKey {
   HELP_KEY = 'HELP_KEY',
   TIP_MESSAGE = 'TIP_MESSAGE',
+  SOUND_EFFECT = 'SOUND_EFFECT',
 }
 export enum DeviceConfigKey {
   NOTIFICATION = 'NOTIFICATION',

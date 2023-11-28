@@ -6,6 +6,7 @@ import range from 'lodash/range';
 import toNumber from 'lodash/toNumber';
 import some from 'lodash/some';
 import includes from 'lodash/includes';
+import { Audio } from 'expo-av';
 
 import { PlayScreenProps } from '@type';
 import PlayContainer from '@containers/play';
@@ -22,6 +23,7 @@ import {
   PlayingState,
   SceneConfigKey,
 } from '@src/types/gameState';
+import { DateUtils } from '@src/utils';
 import { BOXES_BASED_ON_DIFFICULTY } from './Constants';
 
 type GameState = { stillPlaying: boolean; win: boolean | undefined };
@@ -76,7 +78,6 @@ function generateRandomNumberString(N: number): string {
   return str;
 }
 
-// TODO: explosive animation
 const PlayScreen: React.FC<PlayScreenProps> = props => {
   const { route, navigation } = props;
   const {
@@ -84,10 +85,14 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   } = route;
   const { start, stop, finish, setGameMode, attempWin, changePlayingState } =
     useGameState();
+  const [soundClick, setSoundClick] = useState<Audio.Sound>();
+  const [soundClickIncorrect, setIncorrectSound] = useState<Audio.Sound>();
   const [selectedTextValue, setSelectedTextValue] = useState('');
   const [helpInsight, setHelpInsight] = useState(false);
+  const [timePassing, setTimePassing] = useState(null);
   const [circleValue, setCircleValue] = useState<number | null>(null);
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
+  const playScene = useAppSelector(GAME_STATE_SELECTORS.getPlayScene);
   const timeLapsed = useAppSelector(GAME_STATE_SELECTORS.getTimeLapsed);
   const showReviewPopup = useAppSelector(
     GAME_STATE_SELECTORS.getShowReviewPopup,
@@ -136,9 +141,45 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   }, [showReviewPopup]);
 
   useEffect(() => {
+    let interval = null;
+    if (isPlaying) {
+      interval = setInterval(() => getTimePassing(), 1000);
+    }
+    if (!isPlaying) {
+      setTimePassing('00:00:00');
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isPlaying]);
+
+  useEffect(() => {
     setGameMode(gameMode);
+
+    const setSoundEffects = async () => {
+      if (sceneConfig.SOUND_EFFECT) {
+        const { sound: soundClickEffect } = await Audio.Sound.createAsync(
+          require('../../../assets/sounds/click-change.mp3'),
+        );
+        const { sound: soundIncorrect } = await Audio.Sound.createAsync(
+          require('../../../assets/sounds/click-incorrect.mp3'),
+        );
+        setIncorrectSound(soundIncorrect);
+        setSoundClick(soundClickEffect);
+      }
+    };
+    setSoundEffects();
     return () => {
       stop();
+      if (soundClick) {
+        soundClick.unloadAsync();
+      }
+      if (soundClickIncorrect) {
+        soundClickIncorrect.unloadAsync();
+      }
     };
   }, []);
 
@@ -156,8 +197,17 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   }, [winAttemps]);
 
   useEffect(() => {
-    const handleAttempWin = () => {
+    const playSoundEffectOnChange = async () => {
+      await soundClick?.replayAsync();
+    };
+    playSoundEffectOnChange();
+  }, [circleValue]);
+
+  useEffect(() => {
+    const handleAttempWin = async () => {
       attempWin();
+      await soundClickIncorrect?.playFromPositionAsync(0);
+      await Haptics.impactAsync(vibrateWrongNumberLevel[playDifficulty]);
     };
 
     const handleWin = () => {
@@ -204,8 +254,22 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     [isPlaying],
   );
 
+  const getTimePassing = () => {
+    const startTime = playScene.meta.startPlayTime;
+    setTimePassing(
+      DateUtils.getTimeLapsed(startTime, DateUtils.getDateInDayJs().unix()),
+    );
+    // return DateUtils.getTimeLapsed(
+    //   startTime,
+    //   DateUtils.getDateInDayJs().unix(),
+    // );
+  };
+
+  // console.log(JSON.stringify({ timePassing: getTimePassing() }, null, 2));
+
   return (
     <PlayContainer
+      timePassing={timePassing}
       difficulty={playDifficulty}
       isVisibleGameOverPopUp={
         difficultyConfig.tryAttemps - winAttemps === 0 ||
