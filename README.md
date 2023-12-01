@@ -3,6 +3,7 @@
 
 Mobile application game developed with **React Native** and **Expo**. A game to guess numbers with a spinner. With haptic feedback and visuals as hints and collect different themes.
 
+<img src="./assets/preview/logoexpo.png"  width="100" height="25">&nbsp;&nbsp;&nbsp;&nbsp;<img src="./assets/preview/reactnativelogo.png"  width="140" height="25">
 
 ## Table of Contents
 - [Screenshots](#screenshots)
