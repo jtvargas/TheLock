@@ -2,13 +2,7 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { SettingsScreenProps } from '@type';
 import SettingsContainer from '@containers/settings';
-import {
-  useGameState,
-  useAppSelector,
-  useAppDispatch,
-  GAME_STATE_SELECTORS,
-  GAME_STATE_ACTIONS,
-} from '@src/redux';
+import { useGameState, useAppSelector, GAME_STATE_SELECTORS } from '@src/redux';
 import {
   DeviceConfigKey,
   LockerPickerConfigKey,
@@ -16,21 +10,12 @@ import {
   SceneConfigKey,
 } from '@src/types/gameState';
 
-import { NotificationsUtils } from '@utils';
-
 const SettingsScreen: React.FC<SettingsScreenProps> = () => {
   const { resetHistory, toggleLockerConfig, toggleSceneConfig } =
     useGameState();
-  const dispatch = useAppDispatch();
 
   const sceneConfig = useAppSelector(GAME_STATE_SELECTORS.getSceneConfigCustom);
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
-  const isNotificationEnabled = useAppSelector(
-    GAME_STATE_SELECTORS.getIsNotificationEnabled,
-  );
-  const localNotificationId = useAppSelector(
-    GAME_STATE_SELECTORS.getLocalNotificationId,
-  );
   const lockerConfig = useAppSelector(
     GAME_STATE_SELECTORS.getLockerPickerConfig,
   );
@@ -54,27 +39,6 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
     );
   };
 
-  const handleNotificationToggle = async () => {
-    try {
-      if (isNotificationEnabled && localNotificationId) {
-        await NotificationsUtils.cancelScheduledNotification(
-          localNotificationId,
-        );
-        return dispatch(GAME_STATE_ACTIONS.toggleNotificationOFF());
-      }
-      const notificationId = await NotificationsUtils.schedulePushNotification({
-        title: 'Can you solve The Lock?',
-        body: 'Spin, Sense, and Solve!',
-      });
-
-      return dispatch(
-        GAME_STATE_ACTIONS.toggleNotificationON({ notificationId }),
-      );
-    } catch (e) {
-      return e;
-    }
-  };
-
   const handleOnToggleSetting = (
     settingKey: LockerPickerConfigKey | SceneConfigKey | DeviceConfigKey,
   ) => {
@@ -84,18 +48,11 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
     if (Object.keys(SceneConfigKey).includes(settingKey)) {
       return toggleSceneConfig(settingKey as SceneConfigKey);
     }
-
-    switch (settingKey) {
-      case DeviceConfigKey.NOTIFICATION:
-        return handleNotificationToggle();
-      default:
-        return null;
-    }
+    return null;
   };
 
   return (
     <SettingsContainer
-      isNotificationEnable={isNotificationEnabled}
       isDisabledShakeAnimationOption={playDifficulty === PlayDifficulty.EXPERT}
       onPressCleanHistory={handleOnCleanHistory}
       onToggleSetting={handleOnToggleSetting}

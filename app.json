@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/v2.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.thelock"
     },
     "web": {
       "favicon": "./assets/favicon.png"

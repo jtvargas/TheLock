@@ -8,8 +8,6 @@ import * as Notifications from 'expo-notifications';
 
 import { Theme } from '@core';
 import { store, persistor } from '@redux';
-// Notifications
-import { Notifications as NotificationsHandler } from '@components';
 
 // Navigation
 import useCachedResources from '@hooks/useCachedResources';
@@ -43,7 +41,6 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <UnistylesTheme theme={Theme}>
-            <NotificationsHandler />
             <NavigationContainer />
             <StatusBar barStyle="light-content" />
           </UnistylesTheme>

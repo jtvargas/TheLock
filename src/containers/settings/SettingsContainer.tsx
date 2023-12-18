@@ -18,13 +18,11 @@ type SettingsContainerProps = {
     value: LockerPickerConfigKey | SceneConfigKey | DeviceConfigKey,
   ) => void;
   isShakeAnimationEnable: boolean;
-  isShakeDragEnable: boolean;
   isSoundEnable: boolean;
   isNumberWheelIndicatorEnable: boolean;
   isTipsMessagesEnable: boolean;
   isHelpKeyEnable: boolean;
   isDisabledShakeAnimationOption: boolean;
-  isNotificationEnable: boolean;
 };
 const SettingsContainer: React.FC<SettingsContainerProps> = props => {
   const {
@@ -33,11 +31,9 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
     isHelpKeyEnable,
     isNumberWheelIndicatorEnable,
     isShakeAnimationEnable,
-    isShakeDragEnable,
     isSoundEnable,
     isTipsMessagesEnable,
     isDisabledShakeAnimationOption,
-    isNotificationEnable,
   } = props;
   const { styles, theme } = useStyles(styleSheet);
 
@@ -80,12 +76,6 @@ const SettingsContainer: React.FC<SettingsContainerProps> = props => {
           onPress={() => onToggleSetting(SceneConfigKey.SOUND_EFFECT)}
           isActive={isSoundEnable}
           subLabel="Enable sound effects"
-        />
-        <ToggleButton
-          label="Notification"
-          onPress={() => onToggleSetting(DeviceConfigKey.NOTIFICATION)}
-          isActive={isNotificationEnable}
-          subLabel="Remind you to unlock the lock casually"
         />
       </View>
 
