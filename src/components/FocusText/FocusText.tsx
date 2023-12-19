@@ -3,7 +3,7 @@ import { View, Animated } from 'react-native';
 import isNil from 'lodash/isNil';
 
 import { Text } from '@components/core';
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import styleSheet from './FocusText.styles';
 
 type FocusText = {

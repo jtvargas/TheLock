@@ -1,5 +1,5 @@
 import { scale } from 'react-native-size-matters';
-import { createStyleSheet } from '@core/Theme';
+import { useStyles, createStyleSheet } from 'react-native-unistyles';
 
 const styles = createStyleSheet(theme => ({
   container: {
@@ -23,6 +23,7 @@ const styles = createStyleSheet(theme => ({
     elevation: 6,
   },
   selected: {
+    backgroundColor: theme.colors.cardPrimaryBackground,
     borderWidth: 2,
     borderColor: theme.colors.border,
     shadowOffset: {

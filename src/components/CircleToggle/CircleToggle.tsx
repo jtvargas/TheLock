@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { Text } from '@components/core';
-import { useStyles } from '@src/core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import stylesheet from './CircleToggle.styles';
 
 import RippleEffect from '../RippleEffect';

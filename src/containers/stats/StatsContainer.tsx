@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import isEmpty from 'lodash/isEmpty';
 
 import { Button, Text, Divider, Dropdown, Typewritter } from '@src/components';
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { scale } from 'react-native-size-matters';
 import { PlayDifficulty, PlayScene } from '@src/types';
 import { NumbersUtils, DateUtils } from '@utils';
@@ -129,15 +129,15 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
       <View
         style={{
           flexDirection: 'row',
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.27,
-          shadowRadius: 4.65,
+          // shadowColor: '#000',
+          // shadowOffset: {
+          //   width: 0,
+          //   height: 3,
+          // },
+          // shadowOpacity: 0.27,
+          // shadowRadius: 4.65,
 
-          elevation: 6,
+          // elevation: 6,
         }}
       >
         <View style={{ flex: 1 }}>
@@ -152,7 +152,7 @@ const StatsContainer: React.FC<StatsContainerProps> = props => {
           <Divider spacing="sm" />
           <View style={{ flex: 1 }}>
             <Text type="body" weight="medium">
-              Code
+              Lock Code
             </Text>
             <Text type="body" weight="bold">
               {item.meta.answer}

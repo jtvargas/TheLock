@@ -7,6 +7,7 @@ import toNumber from 'lodash/toNumber';
 import some from 'lodash/some';
 import includes from 'lodash/includes';
 import { Audio } from 'expo-av';
+import { useStyles } from 'react-native-unistyles';
 
 import { PlayScreenProps } from '@type';
 import PlayContainer from '@containers/play';
@@ -49,12 +50,12 @@ const gameOver = (
 const vibrateLevel = {
   [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Heavy,
   [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Medium,
-  [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Light,
+  [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Medium,
 };
 const vibrateWrongNumberLevel = {
-  [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Medium,
+  [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Light,
   [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Heavy,
-  [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Medium,
+  [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Light,
 };
 
 const isAnyCharInArray = (str: string, arr: number[]): boolean =>
@@ -91,8 +92,12 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const [helpInsight, setHelpInsight] = useState(false);
   const [timePassing, setTimePassing] = useState(null);
   const [circleValue, setCircleValue] = useState<number | null>(null);
+  const { theme } = useStyles();
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
   const playScene = useAppSelector(GAME_STATE_SELECTORS.getPlayScene);
+  const themeActiveName = useAppSelector(
+    GAME_STATE_SELECTORS.getLockerPickerThemeName,
+  );
   const timeLapsed = useAppSelector(GAME_STATE_SELECTORS.getTimeLapsed);
   const showReviewPopup = useAppSelector(
     GAME_STATE_SELECTORS.getShowReviewPopup,
@@ -286,7 +291,8 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       }
       shakeCircle={
         isAttemptedToWin ||
-        lockerPickerConfig[LockerPickerConfigKey.SHAKE_ANIMATION]
+        lockerPickerConfig[LockerPickerConfigKey.SHAKE_ANIMATION] ||
+        [PlayDifficulty.EXPERT].includes(playDifficulty)
       }
       shakeDrag={lockerPickerConfig[LockerPickerConfigKey.SHAKE_DRAG]}
       helpVibrate={
@@ -298,8 +304,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       }
       showTipMessage={sceneConfig[SceneConfigKey.TIP_MESSAGE]}
       showHelpEmoji={
-        playDifficulty === PlayDifficulty.EXPERT &&
-        gameMode !== GameMode.SANDBOX
+        gameMode === GameMode.SANDBOX
           ? false
           : sceneConfig[SceneConfigKey.HELP_KEY]
       }
@@ -308,9 +313,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       circleValue={circleValue}
       selectedTextValue={selectedTextValue}
       expectedTextValue={numberToGuess}
-      circleInputColors={{
-        ...lockerPickerColors,
-      }}
+      circleInputColors={theme.components.lockThemes[themeActiveName]}
       squareInputColors={{
         backgroundColor: lockerPickerColors.circleNumberIndicatorColor,
         borderColor: lockerPickerColors.dragCTAColor,

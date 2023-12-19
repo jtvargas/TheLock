@@ -1,14 +1,14 @@
 import { scale, moderateScale } from 'react-native-size-matters';
-import { createUnistyles } from 'react-native-unistyles';
 
 import { Colors as ColorsUtils } from '@utils';
 import { Colors, ColorsType } from './Colors';
+import { LOCKER_PICKER_THEME } from './LockerPickerThemes';
 
 const palette: ColorsType = Colors;
 
 const SIZE_FACTOR = 0.3;
 
-const theme = {
+const darkTheme = {
   colors: {
     mainBackground: palette.darkGray,
     secondaryBackground: palette.darkGrayDark,
@@ -48,6 +48,7 @@ const theme = {
         color: palette.white,
       },
     },
+    lockThemes: { ...LOCKER_PICKER_THEME },
   },
   spacing: {
     xs: scale(4),
@@ -93,7 +94,7 @@ const theme = {
     },
   },
 };
-// breakpoints.ts
+
 export const breakpoints = {
   xs: 0,
   sm: 576,
@@ -104,10 +105,17 @@ export const breakpoints = {
   tvLike: 4000,
 };
 
-export const { createStyleSheet, useStyles } = createUnistyles<
-  typeof breakpoints,
-  typeof theme
->(breakpoints);
+type AppBreakpoints = typeof breakpoints;
+type AppThemes = {
+  dark: typeof darkTheme;
+};
 
-export type Theme = typeof theme;
-export default theme;
+declare module 'react-native-unistyles' {
+  export interface UnistylesBreakpoints extends AppBreakpoints {}
+  export interface UnistylesThemes extends AppThemes {}
+}
+
+export type Theme = typeof darkTheme;
+export default {
+  darkTheme,
+};

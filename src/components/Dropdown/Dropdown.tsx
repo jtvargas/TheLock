@@ -6,7 +6,7 @@ import MaterialIcon from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import filter from 'lodash/filter';
 
-import { useStyles, createStyleSheet } from '@core/Theme';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 export type DropDownListItem = {
   disabled?: boolean;
@@ -24,6 +24,7 @@ export type DropDownInputProps = {
 
 const stylesheet = createStyleSheet(theme => ({
   shadow: {
+    backgroundColor: theme.colors.secondaryBackground,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

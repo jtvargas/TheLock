@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { Button, Divider, Text, ToggleButton, Typewritter } from '@components';
 import {
   LockerPickerConfigKey,

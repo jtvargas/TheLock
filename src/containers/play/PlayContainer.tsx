@@ -13,7 +13,7 @@ import {
   Divider,
 } from '@components';
 
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { PlayDifficulty } from '@src/types';
 import styleSheet from './PlayContainer.styles';
 

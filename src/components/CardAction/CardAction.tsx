@@ -3,8 +3,7 @@ import { TouchableOpacity, View, Animated } from 'react-native';
 
 import { Icon, Text } from '@components/core';
 import { IconName } from '@components/core/Icon';
-import { useStyles } from '@core/Theme';
-
+import { useStyles } from 'react-native-unistyles';
 import styleSheet from './CardAction.styles';
 
 type IconConfig = {
@@ -15,7 +14,7 @@ interface CardActionProps {
   title: string;
   subtitle: string;
   icon: IconConfig;
-  variant: 'large' | 'medium' | 'small' | 'xsmall';
+  size: 'large' | 'medium' | 'small';
   onPress: () => void;
 }
 
@@ -27,7 +26,7 @@ const ReusableAnimatedTouchableOpacity = ({ onPress, children, style }) => {
 
   const handlePressIn = () => {
     Animated.spring(scaleValue, {
-      toValue: 0.8, // Scale down to 80% on press
+      toValue: 1.2, // Scale down to 80% on press
       useNativeDriver: true,
     }).start();
   };
@@ -55,17 +54,19 @@ const CardAction: React.FC<CardActionProps> = ({
   title,
   subtitle,
   icon,
-  variant,
+  size,
   onPress,
 }) => {
-  const { styles } = useStyles(styleSheet);
+  const { styles } = useStyles(styleSheet, {
+    size,
+  });
 
   return (
     <ReusableAnimatedTouchableOpacity
-      style={[styles[variant], styles.container]}
+      style={[styles.container]}
       onPress={onPress}
     >
-      {variant !== 'xsmall' ? (
+      {size !== 'small' ? (
         <View style={{ flex: 1 }}>
           <Text type="caption" weight="bold">
             {title}
@@ -78,13 +79,13 @@ const CardAction: React.FC<CardActionProps> = ({
 
       <View
         style={{
-          alignItems: variant !== 'xsmall' ? 'flex-end' : 'center',
+          alignItems: size !== 'small' ? 'flex-end' : 'center',
         }}
       >
         <Icon
           name={icon.name}
           color={icon.color}
-          size={variant === 'small' ? 28 : 35}
+          size={size === 'small' ? 28 : 35}
         />
       </View>
     </ReusableAnimatedTouchableOpacity>

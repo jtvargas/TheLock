@@ -11,16 +11,16 @@ const REQUIRED_PLAYS_TO_UNLOCK = {
   },
   [LockerPickerTheme.SUNSET]: {
     [GameMode.COMPETITIVE]: {
-      [PlayDifficulty.NOVICE]: 2,
-      [PlayDifficulty.ADVANCED]: 1,
+      [PlayDifficulty.NOVICE]: 0,
+      [PlayDifficulty.ADVANCED]: 0,
       [PlayDifficulty.EXPERT]: 0,
     },
     [GameMode.SANDBOX]: 0,
   },
   [LockerPickerTheme.OCEAN]: {
     [GameMode.COMPETITIVE]: {
-      [PlayDifficulty.NOVICE]: 2,
-      [PlayDifficulty.ADVANCED]: 5,
+      [PlayDifficulty.NOVICE]: 0,
+      [PlayDifficulty.ADVANCED]: 0,
       [PlayDifficulty.EXPERT]: 0,
     },
     [GameMode.SANDBOX]: 0,

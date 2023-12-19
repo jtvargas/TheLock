@@ -1,17 +1,18 @@
 import React from 'react';
 import { ActivityIndicator, StatusBar, Text } from 'react-native';
-import { UnistylesTheme } from 'react-native-unistyles';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import * as Notifications from 'expo-notifications';
 
-import { Theme } from '@core';
 import { store, persistor } from '@redux';
 
 // Navigation
 import useCachedResources from '@hooks/useCachedResources';
 import NavigationContainer from './navigation';
+
+// Unistyles
+import './unistyles';
 
 // disable font scaling for all text
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,10 +41,8 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <UnistylesTheme theme={Theme}>
-            <NavigationContainer />
-            <StatusBar barStyle="light-content" />
-          </UnistylesTheme>
+          <NavigationContainer />
+          <StatusBar barStyle="light-content" />
         </GestureHandlerRootView>
       </PersistGate>
     </Provider>

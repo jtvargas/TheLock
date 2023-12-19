@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import isNil from 'lodash/isNil';
 
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { CircleToggle, Typewritter, ZoomBounce } from '@components';
 import { PlayDifficulty } from '@src/types';
 import { scale } from 'react-native-size-matters';

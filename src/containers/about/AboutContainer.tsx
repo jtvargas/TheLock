@@ -6,7 +6,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Constants from 'expo-constants';
 
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { Text, Typewritter, Divider } from '@components';
 
 import styleSheet from './AboutContainer.styles';

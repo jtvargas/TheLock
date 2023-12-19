@@ -1,6 +1,6 @@
 import { scale } from 'react-native-size-matters';
 
-import { createStyleSheet } from '@core/Theme';
+import { createStyleSheet } from 'react-native-unistyles';
 
 const BASE_WIDTH = 165;
 const BASE_HEIGHT = 284;
@@ -17,43 +17,61 @@ const styles = createStyleSheet(theme => ({
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-
     elevation: 6,
-  },
-  large: {
-    width: scale(BASE_WIDTH),
-    minHeight: '40%',
-    justifyContent: 'center',
-  },
-  medium: {
-    width: scale(BASE_WIDTH),
-    height: scale(BASE_HEIGHT / 2),
-    flex: 1,
-    justifyContent: 'center',
-  },
-  small: {
-    width: scale(BASE_WIDTH),
-    height: scale(BASE_HEIGHT / 4),
-    flex: 1,
-    justifyContent: 'center',
-  },
-  xsmall: {
-    width: scale(BASE_WIDTH / 2),
-    height: scale(BASE_HEIGHT / 4),
-    flex: 1,
-    justifyContent: 'center',
+    variants: {
+      size: {
+        small: {
+          width: scale(BASE_WIDTH / 2),
+          height: scale(BASE_HEIGHT / 4),
+          flex: 1,
+          justifyContent: 'center',
+        },
+        medium: {
+          width: scale(BASE_WIDTH),
+          height: scale(BASE_HEIGHT / 2),
+          flex: 1,
+          justifyContent: 'center',
+        },
+        large: {
+          width: scale(BASE_WIDTH),
+          minHeight: '40%',
+          justifyContent: 'center',
+        },
+      },
+    },
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
+    variants: {
+      variant: {
+        small: {},
+        medium: {},
+        large: {},
+      },
+    },
   },
   subtitle: {
     fontSize: 12,
+    variants: {
+      variant: {
+        small: {},
+        medium: {},
+        large: {},
+      },
+    },
   },
   icon: {
     width: 30,
     height: 30,
     marginBottom: 10,
+    variants: {
+      variant: {
+        small: {},
+        medium: {},
+        large: {},
+      },
+    },
   },
 }));
 

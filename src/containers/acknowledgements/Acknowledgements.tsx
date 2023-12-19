@@ -6,10 +6,9 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Markdown from 'react-native-markdown-display';
 
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { Typewritter } from '@components';
 
-import theme from '@src/core/Theme/Theme';
 import styleSheet from './Acknowledgements.styles';
 
 type AboutContainerProps = {
@@ -19,7 +18,7 @@ type AboutContainerProps = {
 
 const AboutContainer: React.FC<AboutContainerProps> = props => {
   const { onPlaySoundPress, acknowledgements } = props;
-  const { styles } = useStyles(styleSheet);
+  const { styles, theme } = useStyles(styleSheet);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,10 +40,7 @@ const AboutContainer: React.FC<AboutContainerProps> = props => {
         />
       </ScrollView>
 
-      <TouchableOpacity
-        style={{ alignSelf: 'flex-end', paddingRight: theme.spacing.md }}
-        onPress={onPlaySoundPress}
-      >
+      <TouchableOpacity style={styles.playIcon} onPress={onPlaySoundPress}>
         <FontAwesome name="volume-up" size={24} color="white" />
       </TouchableOpacity>
       <View

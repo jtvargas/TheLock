@@ -5,7 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Text from '@components/core/Text';
 import Divider from '@components/core/Divider';
-import { useStyles } from '@src/core/Theme';
+import { useStyles } from 'react-native-unistyles';
 
 type ThemeCardToggleProps = {
   onPress: () => void;
@@ -37,8 +37,8 @@ const ThemeCardToggle: React.FC<ThemeCardToggleProps> = props => {
             width: 0,
             height: 3,
           },
-          shadowOpacity: 0.27,
-          shadowRadius: 4.65,
+          shadowOpacity: 0.2,
+          shadowRadius: 4,
           elevation: 6,
           padding: theme.spacing.sm,
         }}

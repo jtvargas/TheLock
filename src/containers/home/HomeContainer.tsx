@@ -5,7 +5,8 @@ import upperFirst from 'lodash/upperFirst';
 import lowerCase from 'lodash/lowerCase';
 
 import { PlayDifficulty } from '@type';
-import { LOCKER_PICKER_THEME, useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
+import { LOCKER_PICKER_THEME } from '@core/Theme';
 import { Divider, CardAction, Typewritter, BouncingText } from '@components';
 
 import styleSheet from './HomeContainer.styles';
@@ -46,7 +47,7 @@ const HomeContainer = (props: HomeContainerProps) => {
             name: 'play',
             color: theme.components.icon.play.color,
           }}
-          variant="large"
+          size="large"
           onPress={() => onCardPress(HomeOption.PLAY)}
         />
         <Divider spacing="xs" isVertical />
@@ -57,7 +58,7 @@ const HomeContainer = (props: HomeContainerProps) => {
             name: 'practice',
             color: theme.components.icon.practice.color,
           }}
-          variant="large"
+          size="large"
           onPress={() => onCardPress(HomeOption.PRACTICE)}
         />
       </View>
@@ -74,7 +75,7 @@ const HomeContainer = (props: HomeContainerProps) => {
             name: 'difficulty',
             color: theme.components.icon.difficulty.color,
           }}
-          variant="large"
+          size="large"
           onPress={() => onCardPress(HomeOption.DIFFICULTY)}
         />
         <Divider spacing="xs" isVertical />
@@ -86,7 +87,7 @@ const HomeContainer = (props: HomeContainerProps) => {
               name: 'stats',
               color: theme.components.icon.stats.color,
             }}
-            variant="medium"
+            size="medium"
             onPress={() => onCardPress(HomeOption.STATS)}
           />
           <Divider />
@@ -99,7 +100,7 @@ const HomeContainer = (props: HomeContainerProps) => {
               name: 'personalize',
               color: theme.components.icon.personalize.color,
             }}
-            variant="small"
+            size="medium"
             onPress={() => onCardPress(HomeOption.PERSONALIZE)}
           />
 
@@ -114,7 +115,7 @@ const HomeContainer = (props: HomeContainerProps) => {
                 name: 'about',
                 color: theme.components.icon.about.color,
               }}
-              variant="xsmall"
+              size="small"
               onPress={() => onCardPress(HomeOption.ABOUT)}
             />
             <Divider isVertical />
@@ -125,7 +126,7 @@ const HomeContainer = (props: HomeContainerProps) => {
                 name: 'settings',
                 color: theme.components.icon.settings.color,
               }}
-              variant="xsmall"
+              size="small"
               onPress={() => onCardPress(HomeOption.SETTINGS)}
             />
           </View>
@@ -149,6 +150,36 @@ const HomeContainer = (props: HomeContainerProps) => {
       <Divider spacing="xs" />
       {renderBottomActions()}
 
+      {/* <CardAction
+        title="LARGE"
+        subtitle={`Difficulty: ${upperFirst(lowerCase(difficulty))}`}
+        icon={{
+          name: 'play',
+          color: theme.components.icon.play.color,
+        }}
+        size="large"
+        onPress={() => onCardPress(HomeOption.PLAY)}
+      />
+      <CardAction
+        title="MEDIUM"
+        subtitle={`Difficulty: ${upperFirst(lowerCase(difficulty))}`}
+        icon={{
+          name: 'play',
+          color: theme.components.icon.play.color,
+        }}
+        size="medium"
+        onPress={() => onCardPress(HomeOption.PLAY)}
+      />
+      <CardAction
+        title="SMALL"
+        subtitle={`Difficulty: ${upperFirst(lowerCase(difficulty))}`}
+        icon={{
+          name: 'play',
+          color: theme.components.icon.play.color,
+        }}
+        size="small"
+        onPress={() => onCardPress(HomeOption.PLAY)}
+      /> */}
       {isNewVersionAvailable ? (
         <>
           <Divider spacing="sm" />

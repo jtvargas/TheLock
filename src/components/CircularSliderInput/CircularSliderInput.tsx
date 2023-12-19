@@ -10,7 +10,7 @@ import isNil from 'lodash/isNil';
 
 import { Colors } from '@utils';
 import TextC from '@components/core/Text';
-import { useStyles } from '@src/core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { DIMENSION_WIDTH, DIMENSION_HEIGHT } from './Constants';
 
 const STARTING_ANGLE_POINT = 90;

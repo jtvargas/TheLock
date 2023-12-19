@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer as NavigationContainerRNN } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Screens
@@ -12,9 +13,10 @@ import {
   AboutScreen,
   AcknowledgementsScreen,
 } from '@screens';
-import { useStyles } from '@core/Theme';
-
+import { useStyles } from 'react-native-unistyles';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { RootStackParamList } from '@type';
+import { Colors } from '@core/Theme/Colors';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

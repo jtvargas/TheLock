@@ -5,11 +5,8 @@ import { FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-import {
-  LOCKER_PICKER_THEME,
-  useStyles,
-  REQUIRED_PLAYS_TO_UNLOCK,
-} from '@core/Theme';
+import { LOCKER_PICKER_THEME, REQUIRED_PLAYS_TO_UNLOCK } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import {
   Divider,
   Text,
@@ -85,9 +82,9 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
           isActive={themeActive === item}
           label={item}
           colors={{
-            first: LOCKER_PICKER_THEME[item].circleColor,
-            second: LOCKER_PICKER_THEME[item].dragCTAColor,
-            third: LOCKER_PICKER_THEME[item].dragCTAStrokeColor,
+            first: theme.components.lockThemes[item].circleColor,
+            second: theme.components.lockThemes[item].dragCTAColor,
+            third: theme.components.lockThemes[item].dragCTAStrokeColor,
           }}
         />
       </ZoomBounce>

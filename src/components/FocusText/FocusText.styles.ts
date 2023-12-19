@@ -1,6 +1,6 @@
 import { scale } from 'react-native-size-matters';
 
-import { createStyleSheet } from '@core/Theme';
+import { useStyles, createStyleSheet } from 'react-native-unistyles';
 
 const styles = createStyleSheet(theme => ({
   container: {
@@ -17,8 +17,8 @@ const styles = createStyleSheet(theme => ({
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
 
     elevation: 6,
   },

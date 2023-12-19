@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useStyles } from '@core/Theme';
+import { useStyles } from 'react-native-unistyles';
 
 enum Spacing {
   xs = 'xs',

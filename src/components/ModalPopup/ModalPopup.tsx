@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useStyles } from '@src/core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import { Colors } from '@utils';
 
 type ModalPopup = {

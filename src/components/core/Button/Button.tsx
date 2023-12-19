@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { useStyles } from '@src/core/Theme';
+import { useStyles } from 'react-native-unistyles';
 import Text from '@components/core/Text';
 import { scale } from 'react-native-size-matters';
 

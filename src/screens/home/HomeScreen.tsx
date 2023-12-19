@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import * as Haptics from 'expo-haptics';
-import { Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 
 import { GameMode, HomeScreenProps } from '@type';
 import HomeContainer, { HomeOption } from '@containers/home';
 import { useAppSelector, GAME_STATE_SELECTORS } from '@redux';
 import useVersionCheck from '@hooks/useVersionCheck';
+
+import DynamicIsland from '@src/components/DynamicIsland/DynamicIsland';
 
 const HomeScreen: React.FC<HomeScreenProps> = props => {
   const { navigation } = props;

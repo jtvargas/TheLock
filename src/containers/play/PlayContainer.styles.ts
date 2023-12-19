@@ -1,5 +1,5 @@
 import { scale } from 'react-native-size-matters';
-import { createStyleSheet } from '@core/Theme';
+import { useStyles, createStyleSheet } from 'react-native-unistyles';
 
 const styles = createStyleSheet(theme => ({
   container: {
