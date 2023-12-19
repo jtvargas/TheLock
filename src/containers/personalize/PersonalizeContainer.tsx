@@ -100,7 +100,7 @@ const PersonalizeContainer: React.FC<PersonalizeContainerProps> = props => {
           textAlign: 'center',
         }}
       >
-        Select a lock picker theme. Play more to unlock others.
+        Choose Your Lock Picker Theme. Keep playing to unlock more themes.
       </Text>
 
       <Divider />
