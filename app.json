@@ -16,7 +16,8 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.thelock"
+      "bundleIdentifier": "com.thelock",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
