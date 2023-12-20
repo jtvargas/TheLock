@@ -81,10 +81,11 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     onPlayAgain,
   } = props;
   const { styles, theme } = useStyles(styleSheet);
-  const vibrateAnim = useRef(new Animated.Value(0)).current;
+  const shakeAnim = useRef(new Animated.Value(0)).current;
+  const shakeBoxAnim = useRef(new Animated.Value(0)).current;
   const vibrateCircleAnim = useRef(new Animated.Value(0)).current;
 
-  const startVibratingCircle = () => {
+  const startShakeAnimCircle = () => {
     Animated.sequence([
       Animated.timing(vibrateCircleAnim, {
         toValue: 10,
@@ -108,24 +109,50 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
       }),
     ]).start();
   };
-  const startVibrating = () => {
+
+  const startShakeBoxAnim = () => {
     Animated.sequence([
-      Animated.timing(vibrateAnim, {
+      Animated.timing(shakeBoxAnim, {
+        toValue: -3,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeBoxAnim, {
+        toValue: 3,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeBoxAnim, {
+        toValue: -3,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeBoxAnim, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const startShakeAnim = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnim, {
         toValue: 10,
         duration: 50,
         useNativeDriver: true,
       }),
-      Animated.timing(vibrateAnim, {
+      Animated.timing(shakeAnim, {
         toValue: -10,
         duration: 100,
         useNativeDriver: true,
       }),
-      Animated.timing(vibrateAnim, {
+      Animated.timing(shakeAnim, {
         toValue: 10,
         duration: 100,
         useNativeDriver: true,
       }),
-      Animated.timing(vibrateAnim, {
+      Animated.timing(shakeAnim, {
         toValue: 0,
         duration: 50,
         useNativeDriver: true,
@@ -135,13 +162,14 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
 
   useEffect(() => {
     if (shakeCircle) {
-      startVibratingCircle();
+      startShakeAnimCircle();
     }
   }, [shakeCircle, circleValue]);
 
   useEffect(() => {
     if (helpVibrate) {
-      startVibrating();
+      startShakeAnim();
+      startShakeBoxAnim();
     }
   }, [helpVibrate]);
 
@@ -182,6 +210,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
           }}
         >
           <FocusTextGrid
+            shakeBoxAnimValue={0}
             textValue={expectedTextValue}
             currentIndexFocus={0}
             currentFocusValue={expectedTextValue}
@@ -350,6 +379,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
         ) : null}
       </View>
       <FocusTextGrid
+        shakeBoxAnimValue={shakeBoxAnim}
         textValue={expectedTextValue}
         currentIndexFocus={selectedTextValue.length || 0}
         currentFocusValue={selectedTextValue}
@@ -399,7 +429,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
                     PlayDifficulty.EXPERT,
                   ].includes(difficulty)
                     ? 0
-                    : vibrateAnim,
+                    : shakeAnim,
                 },
               ],
             },

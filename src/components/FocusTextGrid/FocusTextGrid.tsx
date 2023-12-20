@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Animated } from 'react-native';
 import map from 'lodash/map';
 import get from 'lodash/get';
 
@@ -11,6 +11,7 @@ type FocusTextGridProps = {
   currentIndexFocus: number;
   backgroundSquareColor: string;
   borderSquareColor: string;
+  shakeBoxAnimValue: Animated.Value | number;
 };
 
 const FocusTextGrid = (props: FocusTextGridProps) => {
@@ -20,6 +21,7 @@ const FocusTextGrid = (props: FocusTextGridProps) => {
     currentIndexFocus,
     backgroundSquareColor,
     borderSquareColor,
+    shakeBoxAnimValue,
   } = props;
 
   const renderFocusTextItem = (text: string, index: number) => {
@@ -30,6 +32,9 @@ const FocusTextGrid = (props: FocusTextGridProps) => {
           isFocus={index === currentIndexFocus}
           backgroundColor={backgroundSquareColor}
           borderColor={borderSquareColor}
+          shakeBoxAnimValue={
+            index === currentIndexFocus ? shakeBoxAnimValue : 0
+          }
         />
       </View>
     );

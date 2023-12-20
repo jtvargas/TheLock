@@ -49,12 +49,12 @@ const gameOver = (
 
 const vibrateLevel = {
   [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Heavy,
-  [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Medium,
+  [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Heavy,
   [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Medium,
 };
 const vibrateWrongNumberLevel = {
   [PlayDifficulty.NOVICE]: Haptics.ImpactFeedbackStyle.Light,
-  [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Heavy,
+  [PlayDifficulty.ADVANCED]: Haptics.ImpactFeedbackStyle.Light,
   [PlayDifficulty.EXPERT]: Haptics.ImpactFeedbackStyle.Light,
 };
 
@@ -90,7 +90,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
   const [soundClickIncorrect, setIncorrectSound] = useState<Audio.Sound>();
   const [selectedTextValue, setSelectedTextValue] = useState('');
   const [helpInsight, setHelpInsight] = useState(false);
-  const [timePassing, setTimePassing] = useState(null);
+  const [timePassing, setTimePassing] = useState<string | null>(null);
   const [circleValue, setCircleValue] = useState<number | null>(null);
   const { theme } = useStyles();
   const playDifficulty = useAppSelector(GAME_STATE_SELECTORS.getDifficulty);
@@ -264,13 +264,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
     setTimePassing(
       DateUtils.getTimeLapsed(startTime, DateUtils.getDateInDayJs().unix()),
     );
-    // return DateUtils.getTimeLapsed(
-    //   startTime,
-    //   DateUtils.getDateInDayJs().unix(),
-    // );
   };
-
-  // console.log(JSON.stringify({ timePassing: getTimePassing() }, null, 2));
 
   return (
     <PlayContainer
@@ -296,11 +290,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
       }
       shakeDrag={lockerPickerConfig[LockerPickerConfigKey.SHAKE_DRAG]}
       helpVibrate={
-        helpInsight &&
-        lockerPickerConfig[LockerPickerConfigKey.HAPTIC_FEEDBACK] &&
-        [PlayDifficulty.NOVICE, PlayDifficulty.ADVANCED].includes(
-          playDifficulty,
-        )
+        helpInsight && lockerPickerConfig[LockerPickerConfigKey.HAPTIC_FEEDBACK]
       }
       showTipMessage={sceneConfig[SceneConfigKey.TIP_MESSAGE]}
       showHelpEmoji={

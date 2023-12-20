@@ -11,10 +11,17 @@ type FocusText = {
   isFocus: boolean;
   backgroundColor: string;
   borderColor: string;
+  shakeBoxAnimValue: Animated.Value | number;
 };
 
 const FocusText = (props: FocusText) => {
-  const { isFocus = true, value, borderColor, backgroundColor } = props;
+  const {
+    isFocus = true,
+    value,
+    borderColor,
+    backgroundColor,
+    shakeBoxAnimValue,
+  } = props;
   const { styles } = useStyles(styleSheet);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -45,7 +52,21 @@ const FocusText = (props: FocusText) => {
   }, [isFocus, value]);
 
   return (
-    <View style={[styles.container, { backgroundColor, borderColor }]}>
+    <Animated.View
+      style={[
+        styles.container,
+        {
+          backgroundColor,
+          opacity: isFocus || !isNil(value) ? 1 : 0.8,
+          borderColor,
+          transform: [
+            {
+              translateX: shakeBoxAnimValue,
+            },
+          ],
+        },
+      ]}
+    >
       {isFocus && isNil(value) ? (
         <Animated.View
           style={[
@@ -60,7 +81,7 @@ const FocusText = (props: FocusText) => {
           </Text>
         </View>
       )}
-    </View>
+    </Animated.View>
   );
 };
 
