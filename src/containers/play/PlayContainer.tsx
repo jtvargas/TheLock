@@ -1,8 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-import { View, Animated, TouchableOpacity } from 'react-native';
+import React, { useRef, useEffect, useCallback } from 'react';
+import { View, Animated, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import max from 'lodash/max';
+import { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
 
 import {
   Text,
@@ -15,6 +17,7 @@ import {
 
 import { useStyles } from 'react-native-unistyles';
 import { PlayDifficulty } from '@src/types';
+import ResultsContent from './components/ResultsContent';
 import styleSheet from './PlayContainer.styles';
 
 type PlayContainerProps = {
@@ -75,6 +78,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     },
     isGameOverByInvalidNumber = false,
     difficulty,
+    gameMode,
     onSelectValue,
     onCircleValueChange,
     onCloseWinPopup,
@@ -84,6 +88,7 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const shakeBoxAnim = useRef(new Animated.Value(0)).current;
   const vibrateCircleAnim = useRef(new Animated.Value(0)).current;
+  const resultContentRef = useRef(null);
 
   const startShakeAnimCircle = () => {
     Animated.sequence([
@@ -173,101 +178,99 @@ const PlayContainer: React.FC<PlayContainerProps> = props => {
     }
   }, [helpVibrate]);
 
+  const onCaptureResultsSnapshot = () => {
+    captureRef(resultContentRef, {
+      format: 'png',
+      quality: 1.0,
+    }).then(
+      uri => {
+        Sharing.shareAsync(uri);
+      },
+      error => console.error('Oops, snapshot failed', error),
+    );
+  };
+
   const renderModalWinPopUp = () => {
     return (
-      <ModalPopup
-        isVisible={isVisibleWinPopup}
-        position="bottom"
-        size="medium"
-        onClose={onCloseWinPopup}
-      >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+      <>
+        <ModalPopup
+          isVisible={isVisibleWinPopup}
+          position="bottom"
+          size="medium"
+          onClose={onCloseWinPopup}
+          style={{ zIndex: 0 }}
+          customBackgroundColor={squareInputColors.backgroundColor}
+          containerStyle={{ borderRadius: 35 }}
         >
-          <Divider spacing="md" dividerColor="green" />
-          <Text type="subTitle" weight="bold">
-            Correct!
-          </Text>
-          <Divider spacing="sm" dividerColor="green" />
-          <Text type="title" weight="bold">
-            You took: {timeSpent}
-          </Text>
-          <Divider spacing="sm" dividerColor="green" />
-          <Text type="subTitle" weight="bold">
-            to guess:
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flex: 2,
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}
-        >
-          <FocusTextGrid
-            shakeBoxAnimValue={0}
-            textValue={expectedTextValue}
-            currentIndexFocus={0}
-            currentFocusValue={expectedTextValue}
-            backgroundSquareColor={squareInputColors.backgroundColor}
-            borderSquareColor={squareInputColors.borderColor}
+          <ResultsContent
+            focusTextProps={{
+              backgroundSquareColor: squareInputColors.backgroundColor,
+              borderSquareColor: squareInputColors.borderColor,
+            }}
+            playAgainAction={{ title: 'Play Again', onPress: onPlayAgain }}
+            shareAction={{
+              title: 'Share Results',
+              onPress: onCaptureResultsSnapshot,
+            }}
+            playResults={{
+              gameMode,
+              timeSpent,
+              difficulty,
+              expectedResultValue: expectedTextValue,
+            }}
           />
-
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <TouchableOpacity
-              onPress={onPlayAgain}
+        </ModalPopup>
+        {/* Snapshot view */}
+        <ModalPopup
+          ref={resultContentRef}
+          isVisible={isVisibleWinPopup}
+          position="bottom"
+          size="medium"
+          onClose={onCloseWinPopup}
+          style={{ zIndex: 999 }}
+          customBackgroundColor={squareInputColors.backgroundColor}
+        >
+          <ResultsContent
+            focusTextProps={{
+              backgroundSquareColor: squareInputColors.backgroundColor,
+              borderSquareColor: squareInputColors.borderColor,
+            }}
+            withTipMessage={false}
+            playResults={{
+              timeSpent,
+              difficulty,
+              expectedResultValue: expectedTextValue,
+              gameMode,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              source={{ uri: 'AppIcon' }}
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                borderBottomWidth: 2,
-                borderColor: 'orange',
+                width: 18,
+                height: 18,
+                marginRight: 4,
+              }}
+            />
+            <Text
+              type="body"
+              style={{
+                textAlign: 'right',
+                marginRight: 10,
               }}
             >
-              <Text
-                weight="bold"
-                type="subTitle"
-                isOverlay
-                style={{ marginLeft: 4, color: 'orange' }}
-              >
-                Play Again
-              </Text>
-            </TouchableOpacity>
-            <Divider spacing="sm" />
-            <Text type="body" weight="bold">
-              Difficulty: {difficulty}
+              The Lock: Game
             </Text>
           </View>
-        </View>
-
-        <View
-          style={{
-            alignSelf: 'center',
-            alignItems: 'center',
-            paddingBottom: 8,
-          }}
-        >
-          <MaterialCommunityIcons
-            name="gesture-swipe-down"
-            size={28}
-            color={theme.colors.onMainBackground}
-          />
-          <Typewritter
-            textArray={['Swipe down to close']}
-            isOverlayText
-            type="callout"
-            weight="bold"
-            speed={0}
-            delay={0}
-            withLeftCursor
-            preText="Tip: "
-          />
-        </View>
-      </ModalPopup>
+          <Divider spacing="sm" />
+        </ModalPopup>
+      </>
     );
   };
   const renderModalGameOverPopUp = () => {

@@ -1,11 +1,12 @@
-import React from 'react';
-import { View, ViewStyle } from 'react-native';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import { Button, View, ViewStyle } from 'react-native';
 import Modal from 'react-native-modal';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useStyles } from 'react-native-unistyles';
 import { Colors } from '@utils';
+import { ViewSnapshot } from '@components';
 
 type ModalPopup = {
   isVisible: boolean;
@@ -14,10 +15,12 @@ type ModalPopup = {
   position: 'bottom' | 'center' | 'top';
   size: 'small' | 'medium' | 'large';
   backgroundColor?: string;
+  customBackgroundColor?: string;
   onClose: () => void;
+  style: ViewStyle;
 };
 
-const ModalPopup: React.FC<ModalPopup> = props => {
+const ModalPopup: React.FC<ModalPopup> = forwardRef((props, ref) => {
   const {
     containerStyle,
     position,
@@ -25,10 +28,15 @@ const ModalPopup: React.FC<ModalPopup> = props => {
     backgroundColor = '#ffff',
     children,
     onClose,
+    style,
     isVisible,
+    customBackgroundColor,
   } = props;
   const { theme } = useStyles();
   const { top, bottom } = useSafeAreaInsets();
+  const modalContentRef = useRef(null);
+
+  useImperativeHandle(ref, () => modalContentRef.current);
 
   const getPosition = () => {
     switch (position) {
@@ -51,18 +59,25 @@ const ModalPopup: React.FC<ModalPopup> = props => {
     }
   };
 
+  // const onCaptureContent = () => {
+  //   snapshotRef.current?.onCaptureView?.();
+  // };
+
   return (
     <Modal
       swipeThreshold={100}
       onSwipeComplete={onClose}
       useNativeDriverForBackdrop
       swipeDirection={['down']}
-      style={{
-        marginHorizontal: theme.spacing.sm,
-        marginTop: top,
-        marginBottom: bottom,
-        justifyContent: getPosition(),
-      }}
+      style={[
+        {
+          marginHorizontal: theme.spacing.sm,
+          marginTop: top,
+          marginBottom: bottom,
+          justifyContent: getPosition(),
+        },
+        style,
+      ]}
       isVisible={isVisible}
       backdropOpacity={1}
       customBackdrop={
@@ -75,16 +90,21 @@ const ModalPopup: React.FC<ModalPopup> = props => {
       }
     >
       <View
-        style={{
-          padding: theme.spacing.md,
-          backgroundColor: Colors.hexToRGBA(theme.colors.onMainBackground, 0.2),
-          height: getSizeScale(),
-          borderRadius: 35,
-        }}
+        ref={modalContentRef}
+        style={[
+          {
+            padding: theme.spacing.md,
+            backgroundColor: Colors.hexToRGBA(
+              customBackgroundColor ?? theme.colors.onMainBackground,
+              0.5,
+            ),
+            height: getSizeScale(),
+          },
+          containerStyle,
+        ]}
       >
         <View
           style={[
-            containerStyle,
             {
               flex: 1,
               backgroundColor:
@@ -98,6 +118,6 @@ const ModalPopup: React.FC<ModalPopup> = props => {
       </View>
     </Modal>
   );
-};
+});
 
 export default ModalPopup;

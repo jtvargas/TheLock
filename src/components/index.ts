@@ -11,6 +11,7 @@ import ThemeCardToggle from './ThemeCardToggle';
 import ZoomBounce from './ZoomBounce';
 import Notifications from './Notifications';
 import BouncingText from './BouncingText';
+import ViewSnapshot from './ViewSnapshot';
 
 export {
   Text,
@@ -30,4 +31,5 @@ export {
   ZoomBounce,
   Notifications,
   BouncingText,
+  ViewSnapshot,
 };

@@ -192,18 +192,11 @@ export const getAvailableThemes = createSelector(
         playScene.difficulty === PlayDifficulty.ADVANCED,
     ).length;
 
-    const currentSandboxPlays = filter(
-      playHistory,
-      (playScene: PlayScene) => playScene.gameMode === GameMode.SANDBOX,
-    );
-
     const themesAvailable = filter(
       Object.keys(LOCKER_PICKER_THEME),
       themeKey => {
         const requiredCompetitiveCountByDifficulty =
           REQUIRED_PLAYS_TO_UNLOCK[themeKey][GameMode.COMPETITIVE];
-        const requiredSandboxCount =
-          REQUIRED_PLAYS_TO_UNLOCK[themeKey][GameMode.SANDBOX];
 
         const hasMeetNovicePlays =
           requiredCompetitiveCountByDifficulty[PlayDifficulty.NOVICE] <=
@@ -215,12 +208,7 @@ export const getAvailableThemes = createSelector(
           requiredCompetitiveCountByDifficulty[PlayDifficulty.EXPERT] <=
           currentCompetitivePlaysExpertCount;
 
-        return (
-          hasMeetExpertPlays &&
-          hasMeetAdvancedPlays &&
-          hasMeetNovicePlays &&
-          currentSandboxPlays >= requiredSandboxCount
-        );
+        return hasMeetExpertPlays && hasMeetAdvancedPlays && hasMeetNovicePlays;
       },
     );
 

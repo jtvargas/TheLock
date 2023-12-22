@@ -7,8 +7,9 @@ import * as Notifications from 'expo-notifications';
 
 import { store, persistor } from '@redux';
 
-// Navigation
 import useCachedResources from '@hooks/useCachedResources';
+
+// Navigation
 import NavigationContainer from './navigation';
 
 // Unistyles

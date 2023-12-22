@@ -298,6 +298,7 @@ const PlayScreen: React.FC<PlayScreenProps> = props => {
           ? false
           : sceneConfig[SceneConfigKey.HELP_KEY]
       }
+      gameMode={gameMode}
       onCircleValueChange={handleCircleValueChange}
       onSelectValue={handleSelectValue}
       circleValue={circleValue}

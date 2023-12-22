@@ -19,6 +19,8 @@ const PersonalizeScreen: React.FC<PersonalizeScreenProps> = ({
     changeLockerPickerTheme(themeKey);
     navigation.goBack();
   };
+
+  console.log({ availableThemes });
   return (
     <PersonalizeContainer
       onSelectTheme={handleOnSelectTheme}
