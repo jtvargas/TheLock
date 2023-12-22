@@ -20,7 +20,6 @@ const PersonalizeScreen: React.FC<PersonalizeScreenProps> = ({
     navigation.goBack();
   };
 
-  console.log({ availableThemes });
   return (
     <PersonalizeContainer
       onSelectTheme={handleOnSelectTheme}

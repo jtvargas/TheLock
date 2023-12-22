@@ -2,7 +2,7 @@
   "expo": {
     "name": "The Lock",
     "slug": "TheLock",
-    "version": "5.0",
+    "version": "5.5",
     "orientation": "portrait",
     "icon": "./assets/v2.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.thelock",
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
       "adaptiveIcon": {
